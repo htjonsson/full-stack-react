@@ -1,0 +1,322 @@
+{
+    "employees": [
+        {
+            "address": "11120 Jasper Ave NW",
+            "birthDate": "1962-02-18 00:00:00",
+            "city": "Edmonton",
+            "country": "Canada",
+            "email": "andrew@chinookcorp.com",
+            "id": 1,
+            "fax": "+1 (780) 428-3457",
+            "firstName": "Andrew",
+            "hireDate": "2002-08-14 00:00:00",
+            "lastName": "Adams",
+            "phone": "+1 (780) 428-9482",
+            "postalCode": "T5K 2N1",
+            "reportsTo": null,
+            "state": "AB",
+            "title": "General Manager"
+        },
+        {
+            "address": "825 8 Ave SW",
+            "birthDate": "1958-12-08 00:00:00",
+            "city": "Calgary",
+            "country": "Canada",
+            "email": "nancy@chinookcorp.com",
+            "id": 2,
+            "fax": "+1 (403) 262-3322",
+            "firstName": "Nancy",
+            "hireDate": "2002-04-30 20:00:00",
+            "lastName": "Edwards",
+            "phone": "+1 (403) 262-3443",
+            "postalCode": "T2P 2T3",
+            "reportsTo": 1,
+            "state": "AB",
+            "title": "Sales Manager"
+        },
+        {
+            "address": "1111 6 Ave SW",
+            "birthDate": "1973-08-29 00:00:00",
+            "city": "Calgary",
+            "country": "Canada",
+            "email": "jane@chinookcorp.com",
+            "id": 3,
+            "fax": "+1 (403) 262-6712",
+            "firstName": "Jane",
+            "hireDate": "2002-04-01 00:00:00",
+            "lastName": "Peacock",
+            "phone": "+1 (403) 262-3443",
+            "postalCode": "T2P 5M5",
+            "reportsTo": 2,
+            "state": "AB",
+            "title": "Sales Support Agent"
+        },
+        {
+            "address": "683 10 Street SW",
+            "birthDate": "1947-09-18 23:00:00",
+            "city": "Calgary",
+            "country": "Canada",
+            "email": "margaret@chinookcorp.com",
+            "id": 4,
+            "fax": "+1 (403) 263-4289",
+            "firstName": "Margaret Zero",
+            "hireDate": "2003-05-02 23:00:00",
+            "lastName": "Park",
+            "phone": "+1 (403) 263-4423",
+            "postalCode": "T2P 5G3",
+            "reportsTo": 2,
+            "state": "AB",
+            "title": "Sales Support Agent"
+        },
+        {
+            "address": "7727B 41 Ave",
+            "birthDate": "1965-03-03 00:00:00",
+            "city": "Calgary",
+            "country": "Canada",
+            "email": "steve@chinookcorp.com",
+            "id": 5,
+            "fax": "1 (780) 836-9543",
+            "firstName": "Steve",
+            "hireDate": "2003-10-17 00:00:00",
+            "lastName": "Johnson",
+            "phone": "1 (780) 836-9987",
+            "postalCode": "T3B 1Y7",
+            "reportsTo": 2,
+            "state": "AB",
+            "title": "Sales Support Agent"
+        },
+        {
+            "address": "5827 Bowness Road NW",
+            "birthDate": "1973-07-01 00:00:00",
+            "city": "Calgary",
+            "country": "Canada",
+            "email": "michael@chinookcorp.com",
+            "id": 6,
+            "fax": "+1 (403) 246-9899",
+            "firstName": "Michael",
+            "hireDate": "2003-10-17 00:00:00",
+            "lastName": "Mitchell",
+            "phone": "+1 (403) 246-9887",
+            "postalCode": "T3B 0C5",
+            "reportsTo": 1,
+            "state": "AB",
+            "title": "IT Manager"
+        },
+        {
+            "address": "590 Columbia Boulevard West",
+            "birthDate": "1970-05-29 00:00:00",
+            "city": "Lethbridge",
+            "country": "Canada",
+            "email": "robert@chinookcorp.com",
+            "id": 7,
+            "fax": "+1 (403) 456-8485",
+            "firstName": "Robert",
+            "hireDate": "2004-01-02 00:00:00",
+            "lastName": "King",
+            "phone": "+1 (403) 456-9986",
+            "postalCode": "T1K 5N8",
+            "reportsTo": 6,
+            "state": "AB",
+            "title": "IT Staff"
+        },
+        {
+            "address": "923 7 ST NW",
+            "birthDate": "1968-01-09 00:00:00",
+            "city": "Lethbridge",
+            "country": "Canada",
+            "email": "laura@chinookcorp.com",
+            "id": 8,
+            "fax": "+1 (403) 467-8772",
+            "firstName": "Laura",
+            "hireDate": "2004-03-04 00:00:00",
+            "lastName": "Callahan",
+            "phone": "+1 (403) 467-3351",
+            "postalCode": "T1H 1Y8",
+            "reportsTo": 6,
+            "state": "AB",
+            "title": "IT Staff"
+        }
+    ],
+    "businessEntites": [
+        {
+            "_id": "old-oak",
+            "name": "Old Oak",
+            "estateId": "old-oak"
+        }
+    ],
+    "accSystems" : [
+        {
+            "id": "old-oak-xero",
+            "businessEntityId" : "old-oak",
+            "configName": "old-oak-xero",
+            "bankAccounts": [
+                {
+                    "paymentType": "moto-bank",
+                    "code": "00002"
+                },
+                {
+                    "paymentType": "stripe",
+                    "code": "00003"
+                }
+            ]
+        }
+    ],
+    "paymentGateways": [
+        {
+            "id": "old-oak-stripe",
+            "businessEntityId" : "old-oak",
+            "roles": "user",
+            "type": "stripe",
+            "configName": "old-oak-stripe"
+        },
+        {
+            "id": "old-oak-stripe-staff",
+            "businessEntityId" : "old-oak",
+            "roles": "staff",
+            "type": "stripe",
+            "configName": "old-oak-stripe-staff"
+        },
+        {
+            "id": "old-oak-moto-bank",
+            "businessEntityId" : "old-oak",
+            "roles": "staff",
+            "type": "moto-bank",
+            "configName": "old-oak-moto-bank"
+        },
+        {
+            "id": "old-oak-moto-bank-staff",
+            "businessEntityId" : "old-oak",
+            "roles": "user",
+            "type": "moto-bank",
+            "configName": "old-oak-moto-bank-staff"
+        }
+    ],
+    "productGroups": [
+        {
+            "id": "old-oak-lettings-carparking",
+            "name": "Car Parking",
+            "productType": "lettings",
+            "accountCode": "4xxx55",
+            "tracking": true,
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe-staff"],
+            "separateAutoInvoices": true
+        },
+        {
+            "id": "old-oak-lettings-storagecage",
+            "name": "Storage Cage",
+            "productType": "lettings",
+            "accountCode": "4xxx55",
+            "tracking": true,
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe-staff"],
+            "separateAutoInvoices": true
+        },
+        {
+            "id": "old-oak-lettings-payments",
+            "name": "Rental Income",
+            "productType": "lettings",
+            "accountCode": "4xxx10",
+            "tracking": true,
+            "paymentGateways": ["old-oak-moto-bank-staff","old-oak-stripe-staff"],
+            "separateAutoInvoices": true
+        },
+        {
+            "id": "old-oak-lettings-fee",
+            "name": "Booking Fees",
+            "productType": "lettings",
+            "accountCode": "4xxx15",
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-lettings-deposit",
+            "name": "Booking Deposit",
+            "productType": "lettings",
+            "accountCode": "xxx9",
+            "paymentGateways": ["old-oak-moto-bank-staff","old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-cust_charge_cleaning",
+            "name": "Customer Recharge - Cleaning",
+            "productType": "lettings",
+            "accountCode": "4xxx80",
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-cust_charge_redecoration",
+            "name": "Customer Recharge - Redecoration",
+            "productType": "lettings",
+            "accountCode": "4xxx20",
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-cust_charge_repairs",
+            "name": "Customer Recharge - Repairs",
+            "productType": "lettings",
+            "accountCode": "4xxx20",
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-cust_charge_keys",
+            "name": "Customer Recharge - Keys",
+            "productType": "lettings",
+            "accountCode": "4xxx20",
+            "paymentGateways": ["old-oak-moto-bank","old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-lettings-cancellaton",
+            "name": "Booking Cancellation Fees",
+            "productType": "lettings",
+            "accountCode": "4xxxx5",
+            "paymentGateways": [],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-laundry",
+            "name": "Laundry",
+            "productType": "lettings",
+            "accountCode": "4xxxx5",
+            "paymentGateways": ["old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-gym",
+            "name": "Gym",
+            "productType": "lettings",
+            "accountCode": "4xxxx0",
+            "paymentGateways": ["old-oak-stripe-staff"],
+            "tracking": true,
+            "separateAutoInvoices": false
+        },         
+        {
+            "id": "old-oak-events",
+            "name": "Events",
+            "productType": "event",
+            "accountCode": "xxx0",
+            "paymentGateways": ["old-oak-stripe-staff"],
+            "tracking": false,
+            "separateAutoInvoices": false
+        },
+        {
+            "id": "old-oak-services",
+            "name": "Services",
+            "productType": "service",
+            "accountCode": "4xxxx5",
+            "paymentGateways": ["old-oak-stripe-staff"],
+            "tracking": false,
+            "separateAutoInvoices": false
+        }
+    ]    
+}
