@@ -1,10 +1,10 @@
 import React from 'react'
-import Client from './pages/Client'
+import Employee from './components/employee/Employee'
 import './App.css'
 
 function App() {
   return (
-    <Client />
+    <Employee />
   )
 }
 
