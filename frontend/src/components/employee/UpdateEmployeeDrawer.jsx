@@ -1,11 +1,11 @@
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, message } from 'antd';
 import PropTypes from 'prop-types';
 import dayjs from "dayjs";
-import { useEffect } from 'react';
-const { Option } = Select;
+import { useEffect, useState } from 'react';
 
 const UpdateEmployeeDrawer = ({open, handleSave, handleClose, id}) => {
   const [form] = Form.useForm();
+  const [meta, setMeta] = useState({});
 
     // -------------------------------------------------------------------------------
     //      FETCH 
@@ -45,6 +45,29 @@ const UpdateEmployeeDrawer = ({open, handleSave, handleClose, id}) => {
             });
     }
 
+    const fetchDrawerConfigData = (id) => {
+        const requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        
+        console.log("drawerConfig", id);
+
+        fetch(baseUrl + "drawerConfigs/" + id, requestOptions)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+              setMeta(data);
+            })
+            .catch(error => {
+                console.error('Failure loading data -> ', error);          
+                message.error("Failure loading data");    
+            })
+            .finally(() => {
+            });
+    }    
+
   const onFinish = (values) => {
     form.resetFields();
     handleSave(values);
@@ -53,6 +76,7 @@ const UpdateEmployeeDrawer = ({open, handleSave, handleClose, id}) => {
   useEffect(() => {
     console.log("useEffect");
     fetchEmployeeData(form, id);
+    fetchDrawerConfigData("UpdateEmployeeDrawer");
   }, [id]);
 
   const onClose = () => {
@@ -245,7 +269,8 @@ const UpdateEmployeeDrawer = ({open, handleSave, handleClose, id}) => {
                 name="reportsTo"
                 label="Reports To"
                 rules={[]}>
-                <Input placeholder="Please enter reportsTo" />
+                <Select placeholder="Please enter reportsTo" options={meta.reportsTo}>
+                </Select>
               </Form.Item>
             </Col>
           </Row>
