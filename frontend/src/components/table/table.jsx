@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import ListEmployees from './ListEmployees';
-import CreateEmployeeDrawer from './CreateEmployeeDrawer';
-import UpdateEmployeeDrawer from './UpdateEmployeeDrawer';
-import ToolbarEmployee from './ToolbarEmployee';
-import { Divider, message, Modal } from 'antd';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect } from 'react'
+import { message, Modal, Typography, Breadcrumb } from 'antd';
+import TableList from './table-list';
+import TableDrawer from './table-drawer';
+import PropTypes from 'prop-types';
 
-function Employee() {
-    const [updateShowDrawer, setUpdateShowDrawer] = useState(false);
-    const [createShowDrawer, setCreateShowDrawer] = useState(false);
+function Table({handleNavigation}) {
+    const [showDrawer, setShowDrawer] = useState(false);
+    const [drawerCaption, setDrawerCaption] = useState("");
+    const [key, setKey] = useState(null);
     const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [selectedId, setSelectedId] = useState(-1);
     const [error, setError] = useState(null);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
        
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
 
-    const baseUrl = "http://localhost:3000/employees";
+    const baseUrl = "http://localhost:3000/tables";
 
     const fetchData = () => {
         setLoading(true);
@@ -35,7 +33,7 @@ function Employee() {
             .then(response => { return response.json() })
             .then(json => { 
                 message.success("Record has been deleted"); 
-                fetchData("baseUrl");
+                fetchData();
             })
             .catch(err => { setError(err) });
         setReload(!reload);
@@ -50,7 +48,7 @@ function Employee() {
             .then(response => { return response.text() })
             .then(data => {
                 message.success("Record has been updated");
-                fetchData("http://localhost:3000/employees");
+                fetchData();
                 
             })
             .catch(err => { setError(err) });
@@ -66,7 +64,7 @@ function Employee() {
             .then(response => { return response.text() })
             .then(data => {
                 message.success("Record has been create");
-                fetchData("http://localhost:3000/employees");
+                fetchData();
                 
             })
             .catch(err => { setError(err) });
@@ -77,22 +75,10 @@ function Employee() {
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
-    const handleCloseCreateDrawer = () => {
-        setCreateShowDrawer(false);
-    }    
-
-    const handleCloseUpdateDrawer = () => {
-        setSelectedId(-1);
-        setUpdateShowDrawer(false);
-    }
-    
-    const handleOpenCreateDrawer = () => {
-        setCreateShowDrawer(true);
-    }
-
-    const handleOpenUpdateDrawer = (record) => {
-        setSelectedId(record.id);
-        setUpdateShowDrawer(true);
+    const handleOpen = () => {
+        setKey(null);
+        setDrawerCaption("Create new table");
+        setShowDrawer(true);
     }
 
     const handleDelete = (record) => {
@@ -108,37 +94,23 @@ function Employee() {
     }
 
     const handleEdit = (record) => {
-        handleOpenUpdateDrawer(record);
-        // console.log("handleEdit");
-        // fetchEmployeeUpdate(record.id, record);
+        setKey(record.id);
+        setDrawerCaption("Change table");
+        setShowDrawer(true);
     }
 
-    const handleUpdateSave = (model) => {
-        console.log("pre", model);
-
-        model.id = selectedId;
-        model.hireDate = model.hireDate.toISOString();
-        model.birthDate = model.birthDate.toISOString();
-
-        console.log("pre update", model);
-
-        setUpdateShowDrawer(false);
-        setSelectedId(-1);
-
-        fetchPut(model.id, model);
+    const handleSave = (key, model) => {
+        if (key) {
+            fetchPut(key, model);
+        }
+        else {
+            fetchPost(model);
+        }
+        setShowDrawer(false);
     }
 
-    const handleCreateSave = (model) => {
-        setCreateShowDrawer(false);
-        setSelectedId(-1);
-
-        model.id = uuidv4();
-        if (model.hireData) { model.hireDate = model.hireDate.toISOString(); }
-        model.birthDate = model.birthDate.toISOString();        
-
-        console.log("Model", model)
-
-        fetchPost(model);
+    const handleClose = () => {
+        setShowDrawer(false);
     }
 
     // -------------------------------------------------------------------------------
@@ -146,7 +118,7 @@ function Employee() {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
-        fetchData();
+       fetchData();
     }, [reload]);
 
     useEffect(() => {
@@ -158,30 +130,31 @@ function Employee() {
 
     return (
         <>
-            <h1 style={{color:'black'}}>Employee</h1>
-            <ToolbarEmployee 
-                handleCreate={handleOpenCreateDrawer}/>
-            <Divider/>
-            <CreateEmployeeDrawer 
-                open={createShowDrawer} 
-                handleSave={handleCreateSave} 
-                handleClose={handleCloseCreateDrawer} 
-            />
-            <UpdateEmployeeDrawer 
-                open={updateShowDrawer} 
-                handleSave={handleUpdateSave} 
-                handleClose={handleCloseUpdateDrawer} 
-                id={selectedId} 
-            />
-            <ListEmployees 
-                handleOpenDrawer={handleOpenUpdateDrawer} 
+            <Breadcrumb items={[{title: "Table Maintinance"}]} />
+            <Typography.Title level={2} style={{ margin: 0 }}>
+                Table Maintinance
+            </Typography.Title>
+            <TableList 
                 dataSource={data} 
                 loading={loading}
+                handleOpen={handleOpen}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                handleNavigation={handleNavigation}
+            />
+            <TableDrawer 
+                id={key} 
+                open={showDrawer}
+                caption={drawerCaption}
+                handleSave={handleSave} 
+                handleClose={handleClose} 
             />
         </>
   )
 }
 
-export default Employee
+Table.propTypes = {
+    handleNavigation: PropTypes.func
+}
+
+export default Table

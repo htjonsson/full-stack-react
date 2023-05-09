@@ -1,5 +1,21 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
+.siderStyle {
+  text-align: left;
+  font-size: 9pt;
+  color: #fff;
+  height: calc(100vh - 50px);
 }
+
+.contentStyle {
+  margin: 10px;
+  color: #fff;
+  background-color: whitesmoke;
+};
+
+.headerStyle {
+  text-align: center;
+  color: #fff;
+  height: 50;
+  padding-inline: 50;
+  line-height: 64px;
+  background-color: #7dbcea;
+};

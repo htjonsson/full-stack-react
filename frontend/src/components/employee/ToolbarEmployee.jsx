@@ -6,11 +6,9 @@ import './ToolbarEmployee.css';
 function ToolbarEmployee({handleCreate}) {
 
     return (
-        <div className='toolbar-employee-button-bar'>
         <Space>
             <Button type="primary" onClick={() => handleCreate()} icon={<PlusOutlined />}>New Employee</Button>
         </Space>
-    </div>    
     )
 }
 

@@ -24,12 +24,10 @@ a:hover {
 }
 
 body {
-  padding-top: 50pt; 
-  margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  margin: 0;
+  background-color: white;
 }
 
 h1 {

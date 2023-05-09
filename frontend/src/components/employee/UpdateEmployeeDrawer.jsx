@@ -51,6 +51,8 @@ const UpdateEmployeeDrawer = ({open, handleSave, handleClose, id}) => {
             redirect: 'follow'
         };
         
+        return;
+
         console.log("drawerConfig", id);
 
         fetch(baseUrl + "drawerConfigs/" + id, requestOptions)
