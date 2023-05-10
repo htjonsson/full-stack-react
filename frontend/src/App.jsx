@@ -5,7 +5,7 @@ const { Header, Sider, Content } = Layout;
 import Employee from './components/employee/Employee';
 import Table from './components/table/table';
 import TableColumn from './components/table-column/table-column';
-import SideMenu from './components/side-menu';
+import SideMenu from './components/side-menu/side-menu';
 import './App.css'
 
 function App () {
@@ -26,7 +26,7 @@ function App () {
         <Layout>
             <Header className='headerStyle'>Header</Header>
             <Layout>
-                <Sider width={200} className='siderStyle' style={{backgroundColor:'white'}} collapsible collapsed={collapsed}>
+                <Sider trigger={null} className='siderStyle' style={{backgroundColor:'white'}} collapsible collapsed={collapsed}>
                     <SideMenu handleMenuAction={handleMenuAction}/>
                 </Sider>
                 <Content className='contentStyle'>

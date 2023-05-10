@@ -22,7 +22,6 @@ const items = [
     getItem('Table', '/table', <SettingOutlined />, null)
   ]),
   getItem('Navigation Three', 'sub4', <AppstoreOutlined />, null),
-  getItem('Group', 'grp', null, [getItem('Option 13', '13'), getItem('Option 14', '14')], 'group'),
 ];
 
 const SideMenu = () => {
@@ -42,7 +41,6 @@ const SideMenu = () => {
         <Menu
             onClick={handleMenuAction}
             style={{
-                width: 200,
                 fontSize: 14,
             }}
             defaultSelectedKeys={['1']}
