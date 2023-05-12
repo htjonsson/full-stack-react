@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Space, Table, Button, message } from 'antd';
+import { Space, Table, Button, message, Input } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
+
+const { Search } = Input;
 
 function TableList({dataSource, loading, handleOpen, handleEdit, handleDelete}) {
 
@@ -51,6 +53,14 @@ function TableList({dataSource, loading, handleOpen, handleEdit, handleDelete}) 
                 icon={<PlusOutlined />}>
                     New Table
             </Button>
+            <Search
+                placeholder="Search for ..."
+                allowClear
+                style={{
+                    width: 400,
+                }}
+                enterButton
+            />
         </Space>
         <div style={{ marginTop: 8, }}></div>
         <Table 

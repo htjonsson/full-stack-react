@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 import PropTypes from 'prop-types';
 
 function getItem(label, key, icon, children, type) {
@@ -18,8 +18,13 @@ const items = [
   {
     type: 'divider',
   },
-  getItem('Data Dictionary', 'dataDictionary', <SettingOutlined />, [
-    getItem('Table', '/table', <SettingOutlined />, null)
+  getItem('Developer', 'developer', <SettingOutlined />, [
+    getItem('Tables', '/table', <SettingOutlined />, null),
+    getItem('Forms', 'form', <SettingOutlined />, null),
+    getItem('Reports', 'report', <SettingOutlined />, null),
+    getItem('XMLports', 'xml-port', <SettingOutlined />, null),
+    getItem('CodeUnit', 'code-unit', <SettingOutlined />, null),
+    getItem('Queries', 'query', <SettingOutlined />, null),
   ]),
   getItem('Navigation Three', 'sub4', <AppstoreOutlined />, null),
 ];
@@ -33,7 +38,7 @@ const SideMenu = () => {
             navigate(e.key);
         }
         else {
-            console.log("Not executed");
+            message.info("Not executed");
         }
     }
 

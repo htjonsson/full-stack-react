@@ -3,6 +3,7 @@ import { message, Modal, Typography, Breadcrumb } from 'antd';
 import TableList from './table-list';
 import TableDrawer from './table-drawer';
 import PropTypes from 'prop-types';
+import { GetBaseUrl } from '../../services/config.js'; 
 
 function Table({handleNavigation}) {
     const [showDrawer, setShowDrawer] = useState(false);
@@ -16,8 +17,7 @@ function Table({handleNavigation}) {
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
-
-    const baseUrl = "http://localhost:3000/tables";
+    const baseUrl = GetBaseUrl('tables');
 
     const fetchData = () => {
         setLoading(true);
@@ -49,7 +49,6 @@ function Table({handleNavigation}) {
             .then(data => {
                 message.success("Record has been updated");
                 fetchData();
-                
             })
             .catch(err => { setError(err) });
         setReload(!reload);
@@ -64,8 +63,7 @@ function Table({handleNavigation}) {
             .then(response => { return response.text() })
             .then(data => {
                 message.success("Record has been create");
-                fetchData();
-                
+                fetchData(); 
             })
             .catch(err => { setError(err) });
         setReload(!reload);
@@ -130,8 +128,7 @@ function Table({handleNavigation}) {
 
     return (
         <>
-            <Breadcrumb items={[{title: "Table Maintinance"}]} />
-            <Typography.Title level={2} style={{ margin: 0 }}>
+            <Typography.Title level={4} style={{ margin: 0 }}>
                 Table Maintinance
             </Typography.Title>
             <TableList 
