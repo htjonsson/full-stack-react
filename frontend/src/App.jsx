@@ -24,7 +24,9 @@ function App () {
           height: '100%'
         }}>
         <Layout>
-            <Header className='headerStyle'>Header</Header>
+            <Header className='headerStyle' style={{backgroundColor:'rgb(25,118,210)', color:'white',paddingInline:'20'}} >
+              This is the header of this ...
+            </Header>
             <Layout>
                 <Sider trigger={null} className='siderStyle' style={{backgroundColor:'white'}} collapsible collapsed={collapsed}>
                     <SideMenu handleMenuAction={handleMenuAction}/>
