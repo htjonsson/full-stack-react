@@ -8,6 +8,7 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
+    const [metadata, setMetadata] = useState({});
 
     // -------------------------------------------------------------------------------
     //      FETCH 
@@ -22,6 +23,21 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
             .then(json => { form.setFieldsValue(json); })
             .catch(err => { setError(err) });
         setLoading(false);
+    }
+
+    const loadMetadata = () => {
+        setMetadata({
+            "estateOptions" : [
+                {
+                    value: 'old-oak',
+                    label: 'Old Oak',
+                },
+                {
+                    value: 'new-oak',
+                    label: 'New Oak',
+                }  
+            ]
+        });
     }
 
     // -------------------------------------------------------------------------------
@@ -42,11 +58,14 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     //      HOOKS
     // -------------------------------------------------------------------------------
 
+    useEffect(() => { loadMetadata(); }, []);
+
     useEffect(() => {
         if (open) {
             if (id === null) {
                 setLoading(false);
                 form.setFieldValue("id", uuidv4());
+                loadMetadata();
             } 
             else {
                 fetchData(id);
@@ -71,8 +90,8 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                 }}
                 extra={
                     <Space>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={form.submit} type="primary">Save</Button>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={form.submit} type="primary">Save</Button>
                     </Space>
                 }>
 
@@ -86,7 +105,7 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                         <Col span={24}>
                                 <Form.Item
                                 name="id"
-                                label="Id"
+                                label="ID"
                                 rules={[]}
                                 >
                                 <Input placeholder="Id" readOnly={true} />
@@ -94,17 +113,32 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                         </Col>
                     </Row>     
                     <Row gutter={16}>
-                        <Col span={24}>
+                        <Col span={12}>
                             <Form.Item
                                 name="name"
-                                label="Name"
+                                label="NAME"
                                 rules={[
                                     {
                                     required: true,
-                                    message: 'Please enter table name',
+                                    message: 'Please enter name',
                                     },
                                 ]}>
-                                <Input placeholder="Please enter table name" />
+                                <Input placeholder="Please enter name" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="estate"
+                                label="ESTATE"
+                                rules={[
+                                    {
+                                    required: true,
+                                    message: 'Please enter estate',
+                                    },
+                                ]}>
+                                <Select
+                                    allowClear
+                                    options= {metadata.estateOptions} />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -112,7 +146,7 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                         <Col span={24}>
                             <Form.Item
                                 name="description"
-                                label="Description"
+                                label="DESCRIPTION"
                                 rules={[]}>
                                 <Input.TextArea rows={4} />
                             </Form.Item>

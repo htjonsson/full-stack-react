@@ -112,7 +112,7 @@ const TableDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                         <Col span={24}>
                             <Form.Item
                                 name="description"
-                                label="Description"
+                                label="DESCRIPTION"
                                 rules={[]}>
                                 <Input.TextArea rows={4} />
                             </Form.Item>

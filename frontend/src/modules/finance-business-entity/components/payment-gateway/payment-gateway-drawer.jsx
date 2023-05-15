@@ -8,6 +8,7 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
+    const [metadata, setMetadata] = useState({});
 
     // -------------------------------------------------------------------------------
     //      FETCH 
@@ -23,6 +24,39 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
             .catch(err => { setError(err) });
         setLoading(false);
     }
+
+    const loadMetadata = () => {
+        setMetadata({
+            "typeOptions" : [
+                {
+                    "value" : "moto-bank",
+                    "label" : "moto-bank"
+                },
+                {
+                    "value" : "moto-cash",
+                    "label" : "moto-cash"
+                },
+                {
+                    "value" : "moto-cheque",
+                    "label" : "moto-cheque"
+                },
+                {
+                    "value" : "moto-card",
+                    "label" : "moto-card"
+                }  
+            ],
+            "roleOptions" : [
+                {
+                    "value" : "user",
+                    "label" : "User"
+                },
+                {
+                    "value" : "staff",
+                    "label" : "Staff"
+                }
+            ]
+        });
+    }  
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
@@ -42,11 +76,14 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     //      HOOKS
     // -------------------------------------------------------------------------------
 
+    useEffect(() => { loadMetadata(); }, []);
+
     useEffect(() => {
         if (open) {
             if (id === null) {
                 setLoading(false);
                 form.setFieldValue("id", uuidv4());
+                loadMetadata();
             } 
             else {
                 fetchData(id);
@@ -86,7 +123,7 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                         <Col span={24}>
                                 <Form.Item
                                 name="id"
-                                label="Id"
+                                label="ID"
                                 rules={[]}
                                 >
                                 <Input placeholder="Id" readOnly={true} />
@@ -94,7 +131,7 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                         </Col>
                     </Row>     
                     <Row gutter={16}>
-                        <Col span={24}>
+                        <Col span={12}>
                             <Form.Item
                                 name="name"
                                 label="Name"
@@ -107,12 +144,39 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                                 <Input placeholder="Please enter table name" />
                             </Form.Item>
                         </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="type"
+                                label="TYPE"
+                                rules={[
+                                    { required: true, message: 'Please enter type', },
+                                ]}>
+                                <Select
+                                    allowClear
+                                    options= {metadata.typeOptions} />
+                            </Form.Item>
+                        </Col>
                     </Row>
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="roles"
+                                label="ROLE"
+                                rules={[
+                                    {
+                                    required: true,
+                                    message: 'Please enter role',
+                                    },
+                                ]}>
+                                <Select allowClear options= {metadata.roleOptions} />
+                            </Form.Item>
+                        </Col>
+                    </Row> 
                     <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item
                                 name="description"
-                                label="Description"
+                                label="DESCRIPTION"
                                 rules={[]}>
                                 <Input.TextArea rows={4} />
                             </Form.Item>

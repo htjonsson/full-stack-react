@@ -19,7 +19,7 @@ function PaymentGatewayList({dataSource, loading, handleOpen, handleEdit, handle
             key: 'type',
         },
         {
-            title: 'role',
+            title: 'ROLE',
             dataIndex: 'roles',
             key: 'roles'
         },                  

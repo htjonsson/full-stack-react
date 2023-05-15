@@ -76,7 +76,7 @@ function BankAccount() {
 
     const handleOpen = () => {
         setKey(null);
-        setDrawerCaption("NEW - BUSINESS ENTITY");
+        setDrawerCaption("NEW - BANK ACCOUNT");
         setShowDrawer(true);
     }
 
@@ -94,7 +94,7 @@ function BankAccount() {
 
     const handleEdit = (record) => {
         setKey(record.id);
-        setDrawerCaption("CHANGE - BUSINESS ENTITY");
+        setDrawerCaption("CHANGE - BANK ACCOUNT");
         setShowDrawer(true);
     }
 

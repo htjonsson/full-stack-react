@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
+import { Button, Col, Checkbox, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { GetBaseUrl } from '../../../../services/config.js'; 
@@ -8,6 +8,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
+    const [metadata, setMetadata] = useState({});
 
     // -------------------------------------------------------------------------------
     //      FETCH 
@@ -23,6 +24,53 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
             .catch(err => { setError(err) });
         setLoading(false);
     }
+
+    const loadMetadata = () => {
+        setMetadata({
+            "productTypeOptions" : [
+                {
+                    "value" : "lettings",
+                    "label" : "lettings"
+                },
+                {
+                    "value" : "service",
+                    "label" : "service"
+                },
+                {
+                    "value" : "event",
+                    "label" : "event"
+                }  
+            ],
+            "paymentGatewayOptions" : [
+                {
+                    "value" : "old-oak-stripe",
+                    "label" : "old-oak-stripe"
+                },
+                {
+                    "value" : "old-oak-stripe-staff",
+                    "label" : "old-oak-stripe-staff"
+                },
+                {
+                    "value" : "old-oak-moto-bank",
+                    "label" : "old-oak-moto-bank"
+                },
+                {
+                    "value" : "old-oak-moto-bank-staff",
+                    "label" : "old-oak-moto-bank-staff"
+                }
+            ],
+            "roleOptions" : [
+                {
+                    "value" : "user",
+                    "label" : "User"
+                },
+                {
+                    "value" : "staff",
+                    "label" : "Staff"
+                }
+            ]
+        });
+    }     
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
@@ -42,11 +90,14 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
     //      HOOKS
     // -------------------------------------------------------------------------------
 
+    useEffect(() => { loadMetadata(); }, []);
+
     useEffect(() => {
         if (open) {
             if (id === null) {
                 setLoading(false);
                 form.setFieldValue("id", uuidv4());
+                loadMetadata();
             } 
             else {
                 fetchData(id);
@@ -86,7 +137,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                         <Col span={24}>
                                 <Form.Item
                                 name="id"
-                                label="Id"
+                                label="ID"
                                 rules={[]}
                                 >
                                 <Input placeholder="Id" readOnly={true} />
@@ -94,30 +145,73 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                         </Col>
                     </Row>     
                     <Row gutter={16}>
-                        <Col span={24}>
+                        <Col span={12}>
                             <Form.Item
                                 name="name"
-                                label="Name"
+                                label="NAME"
                                 rules={[
                                     {
                                     required: true,
-                                    message: 'Please enter table name',
+                                    message: 'Please enter name',
                                     },
                                 ]}>
-                                <Input placeholder="Please enter table name" />
+                                <Input placeholder="Please enter name" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="productType"
+                                label="PRODUCT TYPE"
+                                rules={[
+                                    { required: true, message: 'Please enter product type', },
+                                ]}>
+                                <Select
+                                    allowClear
+                                    options= {metadata.productTypeOptions} />
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item
+                                name="paymentGateway"
+                                label="PAYMENT GATEWAY(S)"  
+                                rules={[]}>
+                                <Select
+                                    allowClear
+                                    mode="multiple"
+                                    options= {metadata.paymentGatewayOptions} />
+                            </Form.Item>
+                        </Col>                        
+                    </Row>
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="tracking"
+                                label="TRACKING"
+                                rules={[]}>
+                                <Checkbox></Checkbox>
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="separateAutoInvoices"
+                                label="SEPARATE AUTO INVOICE"
+                                rules={[]}>
+                                <Checkbox></Checkbox>
+                            </Form.Item>
+                        </Col>
+                    </Row> 
+                    <Row gutter={16}>
+                        <Col span={24}>
+                            <Form.Item
                                 name="description"
-                                label="Description"
+                                label="DESCRIPTION"
                                 rules={[]}>
                                 <Input.TextArea rows={4} />
                             </Form.Item>
                         </Col>
-                    </Row>                
+                    </Row>                     
                 </Form>}
             </Drawer>
         </>

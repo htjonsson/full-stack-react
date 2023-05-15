@@ -76,7 +76,7 @@ function ProductGroup() {
 
     const handleOpen = () => {
         setKey(null);
-        setDrawerCaption("NEW");
+        setDrawerCaption("NEW - PRODUCT GROUP");
         setShowDrawer(true);
     }
 
@@ -94,7 +94,7 @@ function ProductGroup() {
 
     const handleEdit = (record) => {
         setKey(record.id);
-        setDrawerCaption("CHANGE - BUSINESS ENTITY");
+        setDrawerCaption("CHANGE - PRODUCT GROUP");
         setShowDrawer(true);
     }
 

@@ -8,6 +8,7 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
+    const [metadata, setMetadata] = useState({});
 
     // -------------------------------------------------------------------------------
     //      FETCH 
@@ -23,6 +24,39 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
             .catch(err => { setError(err) });
         setLoading(false);
     }
+
+    const loadMetadata = () => {
+        setMetadata({
+            "paymentTypeOptions" : [
+                {
+                    "value" : "moto-bank",
+                    "label" : "moto-bank"
+                },
+                {
+                    "value" : "moto-cash",
+                    "label" : "moto-cash"
+                },
+                {
+                    "value" : "moto-cheque",
+                    "label" : "moto-cheque"
+                },
+                {
+                    "value" : "moto-card",
+                    "label" : "moto-card"
+                }  
+            ],
+            "roleOptions" : [
+                {
+                    "value" : "staff",
+                    "label" : "Staff"
+                },
+                {
+                    "value" : "user",
+                    "label" : "User"
+                },                
+            ]
+        });
+    }    
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
@@ -42,11 +76,14 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
     //      HOOKS
     // -------------------------------------------------------------------------------
 
+    useEffect(() => { loadMetadata(); }, []);
+
     useEffect(() => {
         if (open) {
             if (id === null) {
                 setLoading(false);
                 form.setFieldValue("id", uuidv4());
+                loadMetadata();
             } 
             else {
                 fetchData(id);
@@ -84,27 +121,35 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                     onFinish={onFinish}>
                     <Row gutter={16}>
                         <Col span={24}>
-                                <Form.Item
-                                name="id"
-                                label="Id"
-                                rules={[]}
-                                >
+                            <Form.Item 
+                                name="id" 
+                                label="ID"
+                                rules={[]}>
                                 <Input placeholder="Id" readOnly={true} />
                             </Form.Item>
                         </Col>
                     </Row>     
                     <Row gutter={16}>
-                        <Col span={24}>
+                        <Col span={12}>
                             <Form.Item
-                                name="name"
-                                label="Name"
+                                name="bankAccount"
+                                label="BANK ACCOUNT"
                                 rules={[
-                                    {
-                                    required: true,
-                                    message: 'Please enter table name',
-                                    },
+                                    { required: true, message: 'Please enter bank account', },
                                 ]}>
-                                <Input placeholder="Please enter table name" />
+                                <Input placeholder="Please enter bank account" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="paymentType"
+                                label="PAYMENT TYPE"
+                                rules={[
+                                    { required: true, message: 'Please enter payment type', },
+                                ]}>
+                                <Select
+                                    allowClear
+                                    options= {metadata.paymentTypeOptions} />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -112,7 +157,7 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                         <Col span={24}>
                             <Form.Item
                                 name="description"
-                                label="Description"
+                                label="DESCRIPTION"
                                 rules={[]}>
                                 <Input.TextArea rows={4} />
                             </Form.Item>

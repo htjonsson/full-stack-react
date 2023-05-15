@@ -76,7 +76,7 @@ function PaymentGateway() {
 
     const handleOpen = () => {
         setKey(null);
-        setDrawerCaption("NEW - BUSINESS ENTITY");
+        setDrawerCaption("NEW - PAYMENT GATEWAY");
         setShowDrawer(true);
     }
 
@@ -94,7 +94,7 @@ function PaymentGateway() {
 
     const handleEdit = (record) => {
         setKey(record.id);
-        setDrawerCaption("CHANGE - BUSINESS ENTITY");
+        setDrawerCaption("CHANGE - PAYMENT GATEWAY");
         setShowDrawer(true);
     }
 
