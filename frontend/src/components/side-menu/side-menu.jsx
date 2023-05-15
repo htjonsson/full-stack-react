@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { MailOutlined, SettingOutlined, AppstoreOutlined, FileOutlined, HomeOutlined } from '@ant-design/icons';
 import { Menu, message } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -14,6 +14,12 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
+  getItem('Config', 'config', <HomeOutlined />, [
+    getItem('Business Entity', '/business-entity', <FileOutlined />, null),
+  ]),
+  {
+    type: 'divider',
+  },
   getItem('Employee', '/employee', <MailOutlined />, null),
   {
     type: 'divider',

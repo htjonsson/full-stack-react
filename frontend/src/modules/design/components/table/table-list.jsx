@@ -51,7 +51,7 @@ function TableList({dataSource, loading, handleOpen, handleEdit, handleDelete}) 
                 type="primary" 
                 onClick={() => handleOpen()} 
                 icon={<PlusOutlined />}>
-                    New Table
+                    NEW
             </Button>
             <Search
                 placeholder="Search for ..."

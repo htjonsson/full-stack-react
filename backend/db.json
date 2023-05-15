@@ -191,7 +191,11 @@
     {
       "_id": "old-oak",
       "name": "Old Oak",
-      "estateId": "old-oak"
+      "estateId": "old-oak",
+      "estateName": "Old Oak",
+      "numberOfBankAccounts" : 2,
+      "numberOfPaymentGateWays" : 4,
+      "numberOfProductGroups" : 14
     }
   ],
   "accSystems": [
@@ -244,6 +248,7 @@
   "productGroups": [
     {
       "id": "old-oak-lettings-carparking",
+      "businessEntityId": "old-oak",
       "name": "Car Parking",
       "productType": "lettings",
       "accountCode": "4xxx55",
@@ -256,6 +261,7 @@
     },
     {
       "id": "old-oak-lettings-storagecage",
+      "businessEntityId": "old-oak",
       "name": "Storage Cage",
       "productType": "lettings",
       "accountCode": "4xxx55",
@@ -268,6 +274,7 @@
     },
     {
       "id": "old-oak-lettings-payments",
+      "businessEntityId": "old-oak",
       "name": "Rental Income",
       "productType": "lettings",
       "accountCode": "4xxx10",
@@ -280,6 +287,7 @@
     },
     {
       "id": "old-oak-lettings-fee",
+      "businessEntityId": "old-oak",
       "name": "Booking Fees",
       "productType": "lettings",
       "accountCode": "4xxx15",
@@ -292,6 +300,7 @@
     },
     {
       "id": "old-oak-lettings-deposit",
+      "businessEntityId": "old-oak",
       "name": "Booking Deposit",
       "productType": "lettings",
       "accountCode": "xxx9",
@@ -304,6 +313,7 @@
     },
     {
       "id": "old-oak-cust_charge_cleaning",
+      "businessEntityId": "old-oak",
       "name": "Customer Recharge - Cleaning",
       "productType": "lettings",
       "accountCode": "4xxx80",
@@ -316,6 +326,7 @@
     },
     {
       "id": "old-oak-cust_charge_redecoration",
+      "businessEntityId": "old-oak",
       "name": "Customer Recharge - Redecoration",
       "productType": "lettings",
       "accountCode": "4xxx20",
@@ -328,6 +339,7 @@
     },
     {
       "id": "old-oak-cust_charge_repairs",
+      "businessEntityId": "old-oak",
       "name": "Customer Recharge - Repairs",
       "productType": "lettings",
       "accountCode": "4xxx20",
@@ -340,6 +352,7 @@
     },
     {
       "id": "old-oak-cust_charge_keys",
+      "businessEntityId": "old-oak",
       "name": "Customer Recharge - Keys",
       "productType": "lettings",
       "accountCode": "4xxx20",
@@ -352,6 +365,7 @@
     },
     {
       "id": "old-oak-lettings-cancellaton",
+      "businessEntityId": "old-oak",
       "name": "Booking Cancellation Fees",
       "productType": "lettings",
       "accountCode": "4xxxx5",
@@ -361,6 +375,7 @@
     },
     {
       "id": "old-oak-laundry",
+      "businessEntityId": "old-oak",
       "name": "Laundry",
       "productType": "lettings",
       "accountCode": "4xxxx5",
@@ -372,6 +387,7 @@
     },
     {
       "id": "old-oak-gym",
+      "businessEntityId": "old-oak",
       "name": "Gym",
       "productType": "lettings",
       "accountCode": "4xxxx0",
@@ -383,6 +399,7 @@
     },
     {
       "id": "old-oak-events",
+      "businessEntityId": "old-oak",
       "name": "Events",
       "productType": "event",
       "accountCode": "xxx0",
@@ -394,6 +411,7 @@
     },
     {
       "id": "old-oak-services",
+      "businessEntityId": "old-oak",
       "name": "Services",
       "productType": "service",
       "accountCode": "4xxxx5",

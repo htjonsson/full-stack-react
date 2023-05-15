@@ -2,13 +2,12 @@
   text-align: left;
   font-size: 9pt;
   color: #fff;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 20px); 
 }
 
 .contentStyle {
   margin: 24px;
   color: #fff;
-  background-color: whitesmoke;
 };
 
 .headerStyle {

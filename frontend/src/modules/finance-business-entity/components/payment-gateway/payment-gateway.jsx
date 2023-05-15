@@ -1,29 +1,28 @@
 import { useState, useEffect } from 'react'
 import { message, Modal, Typography, Breadcrumb } from 'antd';
-import TableList from './table-list';
-import TableDrawer from './table-drawer';
-import PropTypes from 'prop-types';
-import { GetBaseUrl } from '../../services/config.js'; 
+import PaymentGatewayList from './payment-gateway-list';
+import PaymentGatewayDrawer from './payment-gateway-drawer';
+import { GetBaseUrl } from '../../../../services/config.js'; 
 
-function Table({handleNavigation}) {
+function PaymentGateway() {
     const [showDrawer, setShowDrawer] = useState(false);
     const [drawerCaption, setDrawerCaption] = useState("");
     const [key, setKey] = useState(null);
     const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [data, setData] = useState([]);
+    const [viewModel, setViewModel] = useState([]);
        
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('tables');
+    const baseUrl = GetBaseUrl('payment-gateways');
 
     const fetchData = () => {
         setLoading(true);
         fetch(baseUrl, { method: 'GET', redirect: 'follow' })
             .then(response => { return response.json() })
-            .then(json => { setData(json) })
+            .then(json => { setViewModel(json) })
             .catch(err => { setError(err) });
         setLoading(false);
     }
@@ -75,7 +74,7 @@ function Table({handleNavigation}) {
 
     const handleOpen = () => {
         setKey(null);
-        setDrawerCaption("Create new table");
+        setDrawerCaption("NEW - BUSINESS ENTITY");
         setShowDrawer(true);
     }
 
@@ -93,7 +92,7 @@ function Table({handleNavigation}) {
 
     const handleEdit = (record) => {
         setKey(record.id);
-        setDrawerCaption("Change table");
+        setDrawerCaption("CHANGE - BUSINESS ENTITY");
         setShowDrawer(true);
     }
 
@@ -116,6 +115,39 @@ function Table({handleNavigation}) {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
+        setViewModel([
+            {
+              "id": "old-oak-stripe",
+              "businessEntityId": "old-oak",
+              "roles": "user",
+              "type": "stripe",
+              "configName": "old-oak-stripe"
+            },
+            {
+              "id": "old-oak-stripe-staff",
+              "businessEntityId": "old-oak",
+              "roles": "staff",
+              "type": "stripe",
+              "configName": "old-oak-stripe-staff"
+            },
+            {
+              "id": "old-oak-moto-bank",
+              "businessEntityId": "old-oak",
+              "roles": "staff",
+              "type": "moto-bank",
+              "configName": "old-oak-moto-bank"
+            },
+            {
+              "id": "old-oak-moto-bank-staff",
+              "businessEntityId": "old-oak",
+              "roles": "user",
+              "type": "moto-bank",
+              "configName": "old-oak-moto-bank-staff"
+            }
+          ]);
+    }, []);
+
+    useEffect(() => {
        fetchData();
     }, [reload]);
 
@@ -128,18 +160,17 @@ function Table({handleNavigation}) {
 
     return (
         <>
-            <Typography.Title level={4} style={{ margin: 0 }}>
-                Table Maintinance
+            <Typography.Title level={2} style={{ margin: 0 }}>
+                PAYMENT GATEWAYS
             </Typography.Title>
-            <TableList 
-                dataSource={data} 
+            <PaymentGatewayList 
+                dataSource={viewModel} 
                 loading={loading}
                 handleOpen={handleOpen}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
-                handleNavigation={handleNavigation}
             />
-            <TableDrawer 
+            <PaymentGatewayDrawer 
                 id={key} 
                 open={showDrawer}
                 caption={drawerCaption}
@@ -150,8 +181,4 @@ function Table({handleNavigation}) {
   )
 }
 
-Table.propTypes = {
-    handleNavigation: PropTypes.func
-}
-
-export default Table
+export default PaymentGateway
