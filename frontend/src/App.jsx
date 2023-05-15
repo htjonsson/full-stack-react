@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { Routes, Route } from "react-router-dom";
 import { Layout, Space } from 'antd';
+import SideMenu from './components/side-menu/side-menu';
 const { Header, Sider, Content } = Layout;
 import './App.css'
-import BusinessEntity from './modules/finance-business-entity/components/business-entity/business-entity';
-import ProductGroup from './modules/finance-business-entity/components/product-group/product-group';
-import PaymentGateway from './modules/finance-business-entity/components/payment-gateway/payment-gateway';
-import BankAccount from './modules/finance-business-entity/components/bank-account/bank-account';
+import AppRoutes from './AppRoutes';
+
 
 function App () {
   const [menuKey, setMenuKey] = useState(null);
@@ -29,12 +27,7 @@ function App () {
             </Sider>
             <Layout style={{backgroundColor:'white'}}>
                 <Content className='contentStyle'>
-                    <Routes>
-                        <Route path="/business-entity" element={<BusinessEntity/>} />
-                        <Route path="/product-group/:id" element={<ProductGroup/>} />
-                        <Route path="/bank-account/:id" element={<BankAccount/>} />
-                        <Route path="/payment-gateway/:id" element={<PaymentGateway/>} />
-                    </Routes>
+                  <AppRoutes />
                 </Content>
             </Layout>
         </Layout>
