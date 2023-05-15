@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Breadcrumb } from 'antd';
 import BankAccountList from './bank-account-list';
 import BankAccountDrawer from './bank-account-drawer';
 import { GetBaseUrl } from '../../../../services/config.js'; 
+import BusinessEntityBreadcrumb from '../business-entity-bread-crumb';
 
 function BankAccount() {
     const [showDrawer, setShowDrawer] = useState(false);
@@ -134,8 +136,6 @@ function BankAccount() {
             ]
           }
         );
-        console.log(JSON.stringify(viewModel));
-        console.log(JSON.stringify(viewModel.bankAccounts));
     }, []);
 
     useEffect(() => {
@@ -151,8 +151,9 @@ function BankAccount() {
 
     return (
         <>
+            <BusinessEntityBreadcrumb name={'Old-Oak'} />
             <Typography.Title level={2} style={{ margin: 0 }}>
-                ACCOUNTING SYSTEM
+                BANK ACCOUNTS
             </Typography.Title>
             <BankAccountList 
                 dataSource={viewModel.bankAccounts} 

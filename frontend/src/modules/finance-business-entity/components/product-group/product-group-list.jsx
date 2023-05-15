@@ -19,7 +19,7 @@ function ProductGroupList({dataSource, loading, handleOpen, handleEdit, handleDe
             key: 'productType',
         },
         {
-            title: 'ACC. CODE',
+            title: 'NOMINAL CODE',
             dataIndex: 'accountCode',
             key: 'accountCode'
         },

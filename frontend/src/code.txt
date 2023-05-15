@@ -1,3 +1,32 @@
             <Header className='headerStyle' style={{backgroundColor:'rgb(25,118,210)', color:'white',paddingInline:'20'}} >
               This is the header of this ...
             </Header>
+
+
+        {
+            "id" : "moto-bank", 
+            "roles" : [
+                "staff"
+            ], 
+            "type" : "moto-bank"
+        }, 
+        {
+            "id" : "moto-cash", 
+            "roles" : [
+                "staff"
+            ], 
+            "type" : "moto-cash"
+        }, 
+        {
+            "id" : "moto-cheque", 
+            "roles" : [
+                "staff"
+            ], 
+            "type" : "moto-cheque"
+        }, 
+        {
+            "id" : "moto-card", 
+            "roles" : [
+                "staff"
+            ], 
+            "type" : "moto-card"            
