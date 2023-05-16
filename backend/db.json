@@ -198,7 +198,7 @@
       "numberOfProductGroups" : 14
     }
   ],
-  "accSystems": [
+  "bankAccounts": [
     {
       "id": "old-oak-xero",
       "businessEntityId": "old-oak",
@@ -420,6 +420,128 @@
       ],
       "tracking": false,
       "separateAutoInvoices": false
+    }
+  ],
+  "metadata": [
+    {
+      "id": "productGroups",
+      "productTypeOptions" : [
+        {
+          "value" : "lettings",
+          "label" : "lettings"
+        },
+        {
+          "value" : "service",
+          "label" : "service"
+        },
+        {
+          "value" : "event",
+          "label" : "event"
+        }  
+      ],
+      "paymentGatewayOptions" : [
+        {
+          "value" : "old-oak-stripe",
+          "label" : "old-oak-stripe"
+        },
+        {
+          "value" : "old-oak-stripe-staff",
+          "label" : "old-oak-stripe-staff"
+        },
+        {
+          "value" : "old-oak-moto-bank",
+          "label" : "old-oak-moto-bank"
+        },
+        {
+          "value" : "old-oak-moto-bank-staff",
+          "label" : "old-oak-moto-bank-staff"
+        }
+      ],
+      "roleOptions" : [
+        {
+          "value" : "user",
+          "label" : "User"
+        },
+        {
+          "value" : "staff",
+          "label" : "Staff"
+        }
+      ]
+    },
+    {
+      "id": "paymentGateways",
+      "typeOptions" : [
+        {
+            "value" : "moto-bank",
+            "label" : "moto-bank"
+        },
+        {
+            "value" : "moto-cash",
+            "label" : "moto-cash"
+        },
+        {
+            "value" : "moto-cheque",
+            "label" : "moto-cheque"
+        },
+        {
+            "value" : "moto-card",
+            "label" : "moto-card"
+        }  
+      ],
+      "roleOptions" : [
+          {
+              "value" : "user",
+              "label" : "User"
+          },
+          {
+              "value" : "staff",
+              "label" : "Staff"
+          }
+      ]
+    },
+    {
+      "id": "bankAccounts",
+      "paymentTypeOptions" : [
+        {
+            "value" : "moto-bank",
+            "label" : "moto-bank"
+        },
+        {
+            "value" : "moto-cash",
+            "label" : "moto-cash"
+        },
+        {
+            "value" : "moto-cheque",
+            "label" : "moto-cheque"
+        },
+        {
+            "value" : "moto-card",
+            "label" : "moto-card"
+        }  
+      ],
+      "roleOptions" : [
+          {
+              "value" : "staff",
+              "label" : "Staff"
+          },
+          {
+              "value" : "user",
+              "label" : "User"
+          }                
+      ]
+    },
+    {
+      "id": "businessEntites",
+      "estateOptions" : [
+        {
+            "value": "old-oak",
+            "label": "Old Oak"
+        },
+        {
+            "value": "new-oak",
+            "label": "New Oak"
+        }  
+      ]
     }
   ]
 }
