@@ -172,6 +172,16 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                         </Col>
                     </Row>
                     <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="nominalCode"
+                                label="NOMINAL CODE"  
+                                rules={[]}>
+                                <Input placeholder="Please enter nominal code" />
+                            </Form.Item>
+                        </Col>                        
+                    </Row>
+                    <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item
                                 name="paymentGateway"

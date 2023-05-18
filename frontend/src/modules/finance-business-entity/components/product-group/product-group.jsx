@@ -123,7 +123,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Car Parking",
                 "productType": "lettings",
-                "accountCode": "4xxx55",
+                "accountCode": "xxxx55",
                 "tracking": true,
                 "paymentGateways": [
                   "old-oak-moto-bank",
@@ -136,7 +136,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Storage Cage",
                 "productType": "lettings",
-                "accountCode": "4xxx55",
+                "accountCode": "xxxx55",
                 "tracking": true,
                 "paymentGateways": [
                   "old-oak-moto-bank",
@@ -149,7 +149,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Rental Income",
                 "productType": "lettings",
-                "accountCode": "4xxx10",
+                "accountCode": "xxxx10",
                 "tracking": true,
                 "paymentGateways": [
                   "old-oak-moto-bank-staff",
@@ -162,7 +162,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Booking Fees",
                 "productType": "lettings",
-                "accountCode": "4xxx15",
+                "accountCode": "xxxx15",
                 "paymentGateways": [
                   "old-oak-moto-bank",
                   "old-oak-stripe"
@@ -188,7 +188,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Customer Recharge - Cleaning",
                 "productType": "lettings",
-                "accountCode": "4xxx80",
+                "accountCode": "xxxx80",
                 "paymentGateways": [
                   "old-oak-moto-bank",
                   "old-oak-stripe-staff"
@@ -201,7 +201,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Customer Recharge - Redecoration",
                 "productType": "lettings",
-                "accountCode": "4xxx20",
+                "accountCode": "xxxx20",
                 "paymentGateways": [
                   "old-oak-moto-bank",
                   "old-oak-stripe-staff"
@@ -214,7 +214,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Customer Recharge - Repairs",
                 "productType": "lettings",
-                "accountCode": "4xxx20",
+                "accountCode": "xxxx20",
                 "paymentGateways": [
                   "old-oak-moto-bank",
                   "old-oak-stripe-staff"
@@ -227,7 +227,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Customer Recharge - Keys",
                 "productType": "lettings",
-                "accountCode": "4xxx20",
+                "accountCode": "xxxx20",
                 "paymentGateways": [
                   "old-oak-moto-bank",
                   "old-oak-stripe-staff"
@@ -240,7 +240,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Booking Cancellation Fees",
                 "productType": "lettings",
-                "accountCode": "4xxxx5",
+                "accountCode": "xxxxx5",
                 "paymentGateways": [],
                 "tracking": true,
                 "separateAutoInvoices": false
@@ -250,7 +250,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Laundry",
                 "productType": "lettings",
-                "accountCode": "4xxxx5",
+                "accountCode": "xxxxx5",
                 "paymentGateways": [
                   "old-oak-stripe-staff"
                 ],
@@ -262,7 +262,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Gym",
                 "productType": "lettings",
-                "accountCode": "4xxxx0",
+                "accountCode": "xxxxx0",
                 "paymentGateways": [
                   "old-oak-stripe-staff"
                 ],
@@ -274,7 +274,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Events",
                 "productType": "event",
-                "accountCode": "xxx0",
+                "accountCode": "xxxx0",
                 "paymentGateways": [
                   "old-oak-stripe-staff"
                 ],
@@ -286,7 +286,7 @@ function ProductGroup() {
                 "businessEntityId": "old-oak",
                 "name": "Services",
                 "productType": "service",
-                "accountCode": "4xxxx5",
+                "accountCode": "xxxx5",
                 "paymentGateways": [
                   "old-oak-stripe-staff"
                 ],
