@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams  } from 'react-router-dom';
 import { message, Modal, Typography, Breadcrumb } from 'antd';
 import PaymentGatewayList from './payment-gateway-list';
 import PaymentGatewayDrawer from './payment-gateway-drawer';
@@ -15,6 +15,8 @@ function PaymentGateway() {
     const [error, setError] = useState(null);
     const [viewModel, setViewModel] = useState([]);
        
+    const { id } = useParams();
+
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------

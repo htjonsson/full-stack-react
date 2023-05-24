@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams  } from 'react-router-dom';
 import { message, Modal, Typography, Breadcrumb } from 'antd';
 import BankAccountList from './bank-account-list';
 import BankAccountDrawer from './bank-account-drawer';
@@ -7,6 +7,8 @@ import { GetBaseUrl } from '../../../../services/config.js';
 import BusinessEntityBreadcrumb from '../business-entity-bread-crumb';
 
 function BankAccount() {
+    const { id } = useParams();
+
     const [showDrawer, setShowDrawer] = useState(false);
     const [drawerCaption, setDrawerCaption] = useState("");
     const [key, setKey] = useState(null);
@@ -14,17 +16,23 @@ function BankAccount() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [viewModel, setViewModel] = useState({});
+    const [bankAccounts, setBankAccounts] = useState([]);
        
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('acc-systems');
+    const baseUrl = GetBaseUrl('bankAccounts');
 
-    const fetchData = () => {
+    const fetchData = (id) => {
         setLoading(true);
-        fetch(baseUrl, { method: 'GET', redirect: 'follow' })
+        console.log(`${baseUrl}?businessEntityId=${id}`);
+        fetch(`${baseUrl}?businessEntityId=${id}`, { method: 'GET', redirect: 'follow' })
             .then(response => { return response.json() })
-            .then(json => { setViewModel(json) })
+            .then(json => { 
+                console.log(JSON.stringify(json)); 
+                setViewModel(json);
+                setBankAccounts(json.bankAccounts); 
+            })
             .catch(err => { setError(err) });
         setLoading(false);
     }
@@ -117,6 +125,11 @@ function BankAccount() {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
+        console.log(id);
+        
+        //fetchData(id);
+        console.log(JSON.stringify(viewModel));
+        
         setViewModel(
           {
             "id": "old-oak-xero",
@@ -136,10 +149,11 @@ function BankAccount() {
             ]
           }
         );
+        
     }, []);
 
     useEffect(() => {
-       fetchData();
+       fetchData(id);
     }, [reload]);
 
     useEffect(() => {
@@ -155,6 +169,7 @@ function BankAccount() {
             <Typography.Title level={2} style={{ margin: 0 }}>
                 BANK ACCOUNTS
             </Typography.Title>
+            <div>Data : {JSON.stringify(viewModel)}</div>
             <BankAccountList 
                 dataSource={viewModel.bankAccounts} 
                 loading={loading}

@@ -16,14 +16,15 @@ function BusinessEntity() {
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('business-entities');
+    const baseUrl = GetBaseUrl('businessEntites');
+    console.log(baseUrl);
 
     const fetchData = () => {
         setLoading(true);
         fetch(baseUrl, { method: 'GET', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { setViewModel(json) })
-            .catch(err => { setError(err) });
+            .then(response => {console.log(JSON.stringify(response)); return response.json() })
+            .then(json => { console.log(JSON.stringify(json)); setViewModel(json) })
+            .catch(err => { console.error(JSON.stringify(err)); setError(err) });
         setLoading(false);
     }
 
@@ -115,10 +116,12 @@ function BusinessEntity() {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
+        fetchData();
+        /*
         setViewModel([
             {
                 "id": "old-oak",
-                "name": "Old Oak",
+                "name": "Old Oak (local)",
                 "estateId": "old-oak",
                 "estateName": "Old Oak",
                 "numberOfBankAccounts" : 2,
@@ -126,6 +129,7 @@ function BusinessEntity() {
                 "numberOfProductGroups" : 14
             }
         ]);
+        */
     }, []);
 
     useEffect(() => {

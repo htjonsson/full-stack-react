@@ -14,7 +14,7 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     //      FETCH 
     // -------------------------------------------------------------------------------
 
-    const baseUrl = GetBaseUrl('business-entities');
+    const baseUrl = GetBaseUrl('businessEntites');
 
     const fetchData = (id) => {
         setLoading(true);
@@ -128,7 +128,7 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name="estate"
+                                name="estateId"
                                 label="ESTATE"
                                 rules={[
                                     {
