@@ -14,7 +14,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
     //      FETCH 
     // -------------------------------------------------------------------------------
 
-    const baseUrl = GetBaseUrl('product-groups');
+    const baseUrl = GetBaseUrl('productGroups');
 
     const fetchData = (id) => {
         setLoading(true);
@@ -24,6 +24,17 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
             .catch(err => { setError(err) });
         setLoading(false);
     }
+
+    const metadataUrl = GetBaseUrl('metadata');
+
+    const fetchMetadata = (id) => {
+        setLoading(true);
+        fetch(`${metadataUrl}/${id}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { return response.json() })
+            .then(json => { setMetadata(json); })
+            .catch(err => { setError(err) });
+        setLoading(false);
+    }    
 
     const loadMetadata = () => {
         setMetadata({

@@ -7,8 +7,6 @@ import { GetBaseUrl } from '../../../../services/config.js';
 import BusinessEntityBreadcrumb from '../business-entity-bread-crumb';
 
 function BankAccount() {
-    const { id } = useParams();
-
     const [showDrawer, setShowDrawer] = useState(false);
     const [drawerCaption, setDrawerCaption] = useState("");
     const [key, setKey] = useState(null);
@@ -18,6 +16,8 @@ function BankAccount() {
     const [viewModel, setViewModel] = useState({});
     const [bankAccounts, setBankAccounts] = useState([]);
        
+    const { id } = useParams();
+
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------

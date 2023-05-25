@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { message, Modal, Typography, Breadcrumb } from 'antd';
 import ProductGroupList from './product-group-list';
 import ProductGroupDrawer from './product-group-drawer';
@@ -15,14 +15,18 @@ function ProductGroup() {
     const [error, setError] = useState(null);
     const [viewModel, setViewModel] = useState([]);
        
+    const { id } = useParams();
+
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('product-groups');
+    const baseUrl = GetBaseUrl('productGroups');
 
-    const fetchData = () => {
+    const fetchData = (id) => {
+        console.log(`${baseUrl}?businessEntityId=${id}`);
+
         setLoading(true);
-        fetch(baseUrl, { method: 'GET', redirect: 'follow' })
+        fetch(`${baseUrl}?businessEntityId=${id}`, { method: 'GET', redirect: 'follow' })
             .then(response => { return response.json() })
             .then(json => { setViewModel(json) })
             .catch(err => { setError(err) });
@@ -117,6 +121,8 @@ function ProductGroup() {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
+      fetchData(id);
+      /*
         setViewModel([
             {
                 "id": "old-oak-lettings-carparking",
@@ -294,12 +300,14 @@ function ProductGroup() {
                 "separateAutoInvoices": false
               }
         ]);
+      */
     }, []);
-
+    /*
     useEffect(() => {
        fetchData();
+       console.log('reload');
     }, [reload]);
-
+    */
     useEffect(() => {
         if (error !== null) {
             message.error("Network error");
