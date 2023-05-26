@@ -20,7 +20,7 @@ function PaymentGateway() {
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('payment-gateways');
+    const baseUrl = GetBaseUrl('paymentGateways');
 
     const fetchData = () => {
         setLoading(true);
@@ -149,10 +149,11 @@ function PaymentGateway() {
               "configName": "old-oak-moto-bank-staff"
             }
           ]);
+          setLoading(false);
     }, []);
 
     useEffect(() => {
-       fetchData();
+       // fetchData();
     }, [reload]);
 
     useEffect(() => {

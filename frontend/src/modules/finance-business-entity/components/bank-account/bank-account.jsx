@@ -149,11 +149,12 @@ function BankAccount() {
             ]
           }
         );
+        setLoading(false);
         
     }, []);
 
     useEffect(() => {
-       fetchData(id);
+       // fetchData(id);
     }, [reload]);
 
     useEffect(() => {
