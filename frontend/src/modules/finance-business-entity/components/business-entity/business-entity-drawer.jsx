@@ -21,8 +21,15 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
         fetch(`${baseUrl}/${id}`, { method: 'GET', redirect: 'follow' })
             .then(response => { return response.json() })
             .then(json => { form.setFieldsValue(json); })
-            .catch(err => { setError(err) });
+            .catch(error => { setError(error) });
         setLoading(false);
+    }
+
+    const fetchMetadata = () => {
+        fetch(`${baseUrl}?id=businessEntites`, { method: 'GET', redirect: 'follow' })
+            .then(response => { return response.json() })
+            .then(json => { if (Array.isArray(json) && json.length != 0) setMetadata(json[0]); })
+            .catch(error => { setError(error) });
     }
 
     const loadMetadata = () => {
@@ -58,14 +65,15 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     //      HOOKS
     // -------------------------------------------------------------------------------
 
-    useEffect(() => { loadMetadata(); }, []);
+    useEffect(() => { 
+        fetchMetadata(); 
+    }, []);
 
     useEffect(() => {
         if (open) {
             if (id === null) {
                 setLoading(false);
                 form.setFieldValue("id", uuidv4());
-                loadMetadata();
             } 
             else {
                 fetchData(id);
