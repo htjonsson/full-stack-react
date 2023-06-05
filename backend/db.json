@@ -200,7 +200,10 @@
     {
       "id": "80a7982e-b44d-40c5-956f-31f824d43cb0",
       "name": "Main",
-      "estateId": "old-oak"
+      "estateId": "old-oak",
+      "numberOfBankAccounts": 0,
+      "numberOfPaymentGateways": 0,
+      "numberOfProductGroups": 0      
     }
   ],
   "bankAccounts": [

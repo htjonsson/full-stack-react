@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import BusinessEntityDrawer from './business-entity-drawer';
-import { GetBaseUrl } from '../../../../services/config.js'; 
+#drawer#
+import { GetBaseUrl } from '../src/services/config.js'; 
 
 const { Search } = Input;
 
-function BusinessEntity() {
+function {instance}() {
     const [showDrawer, setShowDrawer] = useState(false);
     const [key, setKey] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -19,14 +19,14 @@ function BusinessEntity() {
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('businessEntites');
+    const baseUrl = GetBaseUrl(#endPoint#);
 
     const fetchData = () => {
         httpQuery(baseUrl, { method: 'GET', redirect: 'follow' });
     }
 
     const fetchDataByFilter = (filter) => {
-        httpQuery(`${baseUrl}?name_like=${filter}`, { method: 'GET', redirect: 'follow' });
+        httpQuery(`${baseUrl}?#filter#=${filter}`, { method: 'GET', redirect: 'follow' });
     }
 
     const fetchDelete = (id) => {
@@ -78,7 +78,7 @@ function BusinessEntity() {
 
     const handleDelete = (record) => {
         Modal.confirm({
-            title: "Are you sure, you want to delete this record?",
+            title: "#confirm#",
             okText: "Yes",
             okType: "danger",
             cancelText: "No",
@@ -138,7 +138,8 @@ function BusinessEntity() {
     // -------------------------------------------------------------------------------
     //      COLUMNS
     // -------------------------------------------------------------------------------
-
+    
+    {columns}
     const columns = [
         {
             title: 'NAME',
@@ -201,7 +202,7 @@ function BusinessEntity() {
     return (
         <>
             <Typography.Title level={2} style={{ margin: 0 }}>
-                BUSINESS ENTITY
+                #caption#
             </Typography.Title>
             <div style={{ marginBottom: 16, }}></div>
             <Space>
@@ -240,4 +241,4 @@ function BusinessEntity() {
   )
 }
 
-export default BusinessEntity
+export default #instance#

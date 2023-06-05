@@ -1,0 +1,20 @@
+{
+    "page": {
+        "instance": "BusinessEntity",
+        "drawer": "import BusinessEntityDrawer from './business-entity-drawer';",
+        "endPoint": "businessEntites",
+        "filter": "name_like",
+        "confirm": "Are you sure, you want to delete this record?",
+        "columns": "",
+        "caption": "BUSINESS ENTITY"
+    },
+    "drawer": {
+        "instance": "BusinessEntityDrawer",
+        "endPoint": "businessEntites",
+        "captionForNew": "NEW - BUSINESS ENTITY",
+        "captionForEdit": "CHANGE - BUSINESS ENTITY",
+        "metadataKey": "businessEntites",
+        "columns": ""
+    }
+
+}

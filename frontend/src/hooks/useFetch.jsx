@@ -1,3 +1,6 @@
+// https://www.30secondsofcode.org/react/s/use-fetch/
+// https://www.developerway.com/posts/how-to-fetch-data-in-react
+
 import { useState, useEffect } from 'react';
 
 function useFetch(url) {

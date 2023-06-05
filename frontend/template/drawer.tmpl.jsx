@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
-const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
+const #instance# = ({ id, open, handleSave, handleClose }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     //      FETCH 
     // -------------------------------------------------------------------------------
 
-    const baseUrl = GetBaseUrl('businessEntites');
+    const baseUrl = GetBaseUrl('#endPoint#');
     
     const fetchData = (id) => {
         setLoading(true);
@@ -28,7 +28,7 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     }
 
     const metaUrl = GetBaseUrl('metadata');
-    const metadataKey = 'businessEntites';
+    const metadataKey = '#metadataKey#';
 
     const fetchMetadata = () => {
         fetch(`${metaUrl}?id=${metadataKey}`, { method: 'GET', redirect: 'follow' })
@@ -66,12 +66,12 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     }
 
     const onNewRecord = (id, form) => {
-        setCaption("NEW - BUSINESS ENTITY");
+        setCaption("#captionForNew#");
         form.setFieldValue("id", id);
     }
 
     const onEditRecord = (id) => {
-        setCaption("CHANGE - BUSINESS ENTITY");
+        setCaption("#captionForEdit#");
         fetchData(id);
     }
 
@@ -121,6 +121,7 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
                     requiredMark={true}
                     form={form}
                     onFinish={onFinish}>
+                    #columns#
                     <Row gutter={16}>
                         <Col span={24}>
                                 <Form.Item
@@ -178,11 +179,11 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     );
 };
 
-BusinessEntityDrawer.propTypes = {
+#instance#.propTypes = {
     id: PropTypes.any,
     open: PropTypes.bool,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
 }
 
-export default BusinessEntityDrawer;
+export default #instance#;
