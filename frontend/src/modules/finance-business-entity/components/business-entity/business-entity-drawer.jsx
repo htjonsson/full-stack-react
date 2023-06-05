@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
+import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
-const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) => {
+const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
     const [metadata, setMetadata] = useState({});
+    const [caption, setCaption] = useState("");
 
     // -------------------------------------------------------------------------------
     //      FETCH 
     // -------------------------------------------------------------------------------
 
     const baseUrl = GetBaseUrl('businessEntites');
-
+    
     const fetchData = (id) => {
         setLoading(true);
         fetch(`${baseUrl}/${id}`, { method: 'GET', redirect: 'follow' })
@@ -25,8 +26,12 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
         setLoading(false);
     }
 
+    const metaUrl = GetBaseUrl('metadata');
+
     const fetchMetadata = () => {
-        fetch(`${baseUrl}?id=businessEntites`, { method: 'GET', redirect: 'follow' })
+        console.log('fetchMetadata');
+        console.log(`${metaUrl}?id=businessEntites`)
+        fetch(`${metaUrl}?id=businessEntites`, { method: 'GET', redirect: 'follow' })
             .then(response => { return response.json() })
             .then(json => { if (Array.isArray(json) && json.length != 0) setMetadata(json[0]); })
             .catch(error => { setError(error) });
@@ -61,6 +66,26 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
         handleClose();
     };
 
+    const onOpen = () => {
+        if (id === null) {
+            onNewRecord(uuidv4(), form);
+            setLoading(false); 
+        } 
+        else {
+            onEditRecord(id);
+        }       
+    }
+
+    const onNewRecord = (id, form) => {
+        setCaption("NEW - BUSINESS ENTITY");
+        form.setFieldValue("id", id);
+    }
+
+    const onEditRecord = (id) => {
+        setCaption("CHANGE - BUSINESS ENTITY");
+        fetchData(id);
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
@@ -71,13 +96,7 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
 
     useEffect(() => {
         if (open) {
-            if (id === null) {
-                setLoading(false);
-                form.setFieldValue("id", uuidv4());
-            } 
-            else {
-                fetchData(id);
-            }
+            onOpen();
         }
     }, [open]);
 
@@ -169,7 +188,6 @@ const BusinessEntityDrawer = ({ id, open, caption, handleSave, handleClose }) =>
 BusinessEntityDrawer.propTypes = {
     id: PropTypes.any,
     open: PropTypes.bool,
-    caption: PropTypes.string,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
 }

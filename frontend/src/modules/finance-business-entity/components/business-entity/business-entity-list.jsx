@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const { Search } = Input;
 
-function BusinessEntityList({dataSource, loading, handleOpen, handleEdit, handleDelete}) {
+function BusinessEntityList({dataSource, loading, handleOpen, handleEdit, handleDelete, handleSearch}) {
 
     const columns = [
         {
@@ -79,6 +79,7 @@ function BusinessEntityList({dataSource, loading, handleOpen, handleEdit, handle
                     width: 400,
                 }}
                 enterButton
+                onSearch={handleSearch}
             />
         </Space>
         <div style={{ marginTop: 8, }}></div>
@@ -99,7 +100,8 @@ BusinessEntityList.propTypes = {
     loading: PropTypes.bool,
     handleOpen: PropTypes.func,
     handleDelete: PropTypes.func,
-    handleEdit: PropTypes.func
+    handleEdit: PropTypes.func,
+    handleSearch: PropTypes.func
 }
 
 export default BusinessEntityList

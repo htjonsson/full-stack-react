@@ -6,7 +6,6 @@ import { GetBaseUrl } from '../../../../services/config.js';
 
 function BusinessEntity() {
     const [showDrawer, setShowDrawer] = useState(false);
-    const [drawerCaption, setDrawerCaption] = useState("");
     const [key, setKey] = useState(null);
     const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -17,15 +16,23 @@ function BusinessEntity() {
     //      FETCH 
     // -------------------------------------------------------------------------------
     const baseUrl = GetBaseUrl('businessEntites');
-    console.log(baseUrl);
 
     const fetchData = () => {
         setLoading(true);
         fetch(baseUrl, { method: 'GET', redirect: 'follow' })
-            .then(response => {console.log(JSON.stringify(response)); return response.json() })
+            .then(response => { console.log(JSON.stringify(response)); return response.json() })
             .then(json => { console.log(JSON.stringify(json)); setViewModel(json) })
-            .catch(err => { console.error(JSON.stringify(err)); setError(err) });
+            .catch(error => { console.error(JSON.stringify(error)); setError(error) });
         setLoading(false);
+    }
+
+    const fetchDataByFilter = (filter) => {
+        setLoading(true);
+        fetch(`${baseUrl}?name_like=${filter}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { console.log(JSON.stringify(response)); return response.json() })
+            .then(json => { console.log(JSON.stringify(json)); setViewModel(json) })
+            .catch(error => { console.error(JSON.stringify(error)); setError(error) });
+        setLoading(false);     
     }
 
     const fetchDelete = (id) => {
@@ -35,7 +42,7 @@ function BusinessEntity() {
                 message.success("Record has been deleted"); 
                 fetchData();
             })
-            .catch(err => { setError(err) });
+            .catch(error => { setError(error) });
         setReload(!reload);
     }    
 
@@ -50,7 +57,7 @@ function BusinessEntity() {
                 message.success("Record has been updated");
                 fetchData();
             })
-            .catch(err => { setError(err) });
+            .catch(error => { setError(error) });
         setReload(!reload);
     } 
 
@@ -75,7 +82,6 @@ function BusinessEntity() {
 
     const handleOpen = () => {
         setKey(null);
-        setDrawerCaption("NEW - BUSINESS ENTITY");
         setShowDrawer(true);
     }
 
@@ -93,7 +99,6 @@ function BusinessEntity() {
 
     const handleEdit = (record) => {
         setKey(record.id);
-        setDrawerCaption("CHANGE - BUSINESS ENTITY");
         setShowDrawer(true);
     }
 
@@ -111,25 +116,20 @@ function BusinessEntity() {
         setShowDrawer(false);
     }
 
+    const handleSearch = (value) => {
+        if (value) {
+            fetchDataByFilter(value);
+        } else {
+            fetchData();
+        }
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
         fetchData();
-        /*
-        setViewModel([
-            {
-                "id": "old-oak",
-                "name": "Old Oak (local)",
-                "estateId": "old-oak",
-                "estateName": "Old Oak",
-                "numberOfBankAccounts" : 2,
-                "numberOfPaymentGateways" : 4,
-                "numberOfProductGroups" : 14
-            }
-        ]);
-        */
     }, []);
 
     useEffect(() => {
@@ -154,11 +154,11 @@ function BusinessEntity() {
                 handleOpen={handleOpen}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                handleSearch={handleSearch}
             />
             <BusinessEntityDrawer 
                 id={key} 
                 open={showDrawer}
-                caption={drawerCaption}
                 handleSave={handleSave} 
                 handleClose={handleClose} 
             />
