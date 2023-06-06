@@ -18,11 +18,17 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     const baseUrl = GetBaseUrl('businessEntites');
     
     const fetchData = (id) => {
+        console.log('fetchData');
         setLoading(true);
         
         fetch(`${baseUrl}?id=${id}`, { method: 'GET', redirect: 'follow' })
             .then(response => { if (!response.ok) { throw new Error() } return response.json() })
-            .then(json => { setViewModel(json) })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) {
+                    form.setFieldsValue(json[0]);
+                    console.log(JSON.stringify(json))
+                }
+            })
             .catch(error => { setError(error) })
             .finally(() => { setLoading(false) });
     }
@@ -56,6 +62,7 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     };
 
     const onOpen = () => {
+        console.log('onOpen', id);
         if (id === null) {
             onNewRecord(uuidv4(), form);
             setLoading(false); 
@@ -84,6 +91,7 @@ const BusinessEntityDrawer = ({ id, open, handleSave, handleClose }) => {
     }, []);
 
     useEffect(() => {
+        console.log('open', open);
         if (open) {
             onOpen();
         }

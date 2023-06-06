@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
+import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
-const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
+const BankAccountDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     const [form] = Form.useForm();
+    const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
     const [metadata, setMetadata] = useState({});
@@ -14,48 +15,35 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
     //      FETCH 
     // -------------------------------------------------------------------------------
 
-    const baseUrl = GetBaseUrl('product-groups');
+    const baseUrl = GetBaseUrl('bankAccounts');
 
     const fetchData = (id) => {
         setLoading(true);
-        fetch(`${baseUrl}/${id}`, { method: 'GET', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { form.setFieldsValue(json); })
-            .catch(err => { setError(err) });
-        setLoading(false);
+        console.log(`${baseUrl}?id=${id}`);
+        fetch(`${baseUrl}?id=${id}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) {
+                    form.setFieldsValue(json[0]);
+                    console.log(JSON.stringify(json))
+    }
+            })
+            .catch(error => { setError(error) })
+            .finally(() => { setLoading(false) });
     }
 
-    const loadMetadata = () => {
-        setMetadata({
-            "paymentTypeOptions" : [
-                {
-                    "value" : "moto-bank",
-                    "label" : "moto-bank"
-                },
-                {
-                    "value" : "moto-cash",
-                    "label" : "moto-cash"
-                },
-                {
-                    "value" : "moto-cheque",
-                    "label" : "moto-cheque"
-                },
-                {
-                    "value" : "moto-card",
-                    "label" : "moto-card"
+    const metaUrl = GetBaseUrl('metadata');
+    const metadataKey = 'bankAccounts';
+
+    const fetchMetadata = () => {
+        fetch(`${metaUrl}?id=${metadataKey}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) { 
+                    setMetadata(json[0]); 
                 }  
-            ],
-            "roleOptions" : [
-                {
-                    "value" : "staff",
-                    "label" : "Staff"
-                },
-                {
-                    "value" : "user",
-                    "label" : "User"
-                },                
-            ]
-        });
+            })
+            .catch(error => { setError(error) });
     }    
 
     // -------------------------------------------------------------------------------
@@ -72,27 +60,48 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
         handleClose();
     };
 
+    const onOpen = () => {
+        console.log('onOpen', id, pid);
+        if (id === null) {
+            onNewRecord(uuidv4(), form);
+            setLoading(false); 
+        } 
+        else {
+            onEditRecord(id);
+        }       
+    }
+
+    const onNewRecord = (id, form) => {
+        setCaption("NEW - BANK ACCOUNT");
+        form.setFieldValue("id", id);
+        form.setFieldValue("businessEntityId", pid);
+    }
+
+    const onEditRecord = (id) => {
+        setCaption("CHANGE - BANK ACCOUNT");
+        fetchData(id);
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
 
-    useEffect(() => { loadMetadata(); }, []);
+    useEffect(() => { 
+        fetchMetadata(); 
+    }, []);
 
     useEffect(() => {
         if (open) {
-            if (id === null) {
-                setLoading(false);
-                form.setFieldValue("id", uuidv4());
-                loadMetadata();
-            } 
-            else {
-                fetchData(id);
-            }
+            onOpen();
         }
     }, [open]);
 
     useEffect(() => {
     }, [error]);
+
+    // -------------------------------------------------------------------------------
+    //      VIEW
+    // -------------------------------------------------------------------------------
 
     return (
         <>      
@@ -132,7 +141,7 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
-                                name="bankAccount"
+                                name="code"
                                 label="BANK ACCOUNT"
                                 rules={[
                                     { required: true, message: 'Please enter bank account', },
@@ -162,7 +171,8 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                                 <Input.TextArea rows={4} />
                             </Form.Item>
                         </Col>
-                    </Row>                
+                    </Row>
+                    <Form.Item name="businessEntityId"><Input type="hidden"/></Form.Item>                  
                 </Form>}
             </Drawer>
         </>
@@ -170,9 +180,9 @@ const BankAccountDrawer = ({ id, open, caption, handleSave, handleClose }) => {
 };
 
 BankAccountDrawer.propTypes = {
-    id: PropTypes.any,
+    id: PropTypes.string,
+    pid: PropTypes.string,
     open: PropTypes.bool,
-    caption: PropTypes.string,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
 }

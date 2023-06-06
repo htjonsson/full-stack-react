@@ -198,23 +198,13 @@
       "numberOfProductGroups": 14
     },
     {
-      "id": "80a7982e-b44d-40c5-956f-31f824d43cb0",
-      "name": "Main",
+      "id": "8a0a9eb7-f4cb-46c2-b714-e524a1b1b3de",
+      "name": "This system",
       "estateId": "old-oak",
-      "numberOfBankAccounts": 0,
-      "numberOfPaymentGateways": 0,
-      "numberOfProductGroups": 0      
+      "description": "system"
     }
   ],
   "bankAccounts": [
-    {
-      "id": "07c866e8-7f81-46b6-9bb8-260c128a4426",
-      "groupId": "old-oak-xero",
-      "businessEntityId": "old-oak",
-      "configName": "old-oak-xero",
-      "paymentType": "moto-bank",
-      "code": "00002"
-    },
     {
       "id": "a0cc981f-32fe-4592-9a0c-97bc9783a492",
       "groupId": "old-oak-xero",
@@ -222,6 +212,11 @@
       "configName": "old-oak-xero",
       "paymentType": "stripe",
       "code": "00003"
+    },
+    {
+      "id": "8833e3e9-81a5-4d7d-80d1-e7b44dd17242",
+      "bankAccount": "00005",
+      "paymentType": "moto-cash"
     }
   ],
   "paymentGateways": [

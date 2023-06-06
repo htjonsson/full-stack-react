@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams  } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 #drawer#
@@ -7,7 +7,7 @@ import { GetBaseUrl } from '../src/services/config.js';
 
 const { Search } = Input;
 
-function {instance}() {
+function #instance#() {
     const [showDrawer, setShowDrawer] = useState(false);
     const [key, setKey] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -16,6 +16,8 @@ function {instance}() {
     const [viewModel, setViewModel] = useState([]);
     const [searchText, setSearchText] = useState(null);
        
+    #parameters#
+
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
     // -------------------------------------------------------------------------------
