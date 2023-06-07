@@ -207,16 +207,20 @@
   "bankAccounts": [
     {
       "id": "a0cc981f-32fe-4592-9a0c-97bc9783a492",
-      "groupId": "old-oak-xero",
-      "businessEntityId": "old-oak",
-      "configName": "old-oak-xero",
+      "code": "000031",
       "paymentType": "stripe",
-      "code": "00003"
+      "businessEntityId": "old-oak"
     },
     {
       "id": "8833e3e9-81a5-4d7d-80d1-e7b44dd17242",
       "bankAccount": "00005",
       "paymentType": "moto-cash"
+    },
+    {
+      "id": "a19c7598-0611-49c3-9f78-9ab9a0e27556",
+      "code": "39195100",
+      "paymentType": "moto-bank",
+      "businessEntityId": "old-oak"
     }
   ],
   "paymentGateways": [
@@ -240,29 +244,9 @@
       "roles": "staff",
       "type": "moto-bank",
       "configName": "old-oak-moto-bank"
-    },
-    {
-      "id": "old-oak-moto-bank-staff",
-      "businessEntityId": "old-oak",
-      "roles": "user",
-      "type": "moto-bank",
-      "configName": "old-oak-moto-bank-staff"
     }
   ],
   "productGroups": [
-    {
-      "id": "old-oak-lettings-carparking",
-      "businessEntityId": "old-oak",
-      "name": "Car Parking",
-      "productType": "lettings",
-      "accountCode": "4xxx55",
-      "tracking": true,
-      "paymentGateways": [
-        "old-oak-moto-bank",
-        "old-oak-stripe-staff"
-      ],
-      "separateAutoInvoices": true
-    },
     {
       "id": "old-oak-lettings-storagecage",
       "businessEntityId": "old-oak",
@@ -291,7 +275,6 @@
     },
     {
       "id": "old-oak-lettings-fee",
-      "businessEntityId": "old-oak",
       "name": "Booking Fees",
       "productType": "lettings",
       "accountCode": "4xxx15",
@@ -299,8 +282,9 @@
         "old-oak-moto-bank",
         "old-oak-stripe"
       ],
-      "tracking": true,
-      "separateAutoInvoices": false
+      "tracking": false,
+      "separateAutoInvoices": false,
+      "businessEntityId": "old-oak"
     },
     {
       "id": "old-oak-lettings-deposit",
@@ -343,7 +327,6 @@
     },
     {
       "id": "old-oak-cust_charge_repairs",
-      "businessEntityId": "old-oak",
       "name": "Customer Recharge - Repairs",
       "productType": "lettings",
       "accountCode": "4xxx20",
@@ -352,11 +335,11 @@
         "old-oak-stripe-staff"
       ],
       "tracking": true,
-      "separateAutoInvoices": false
+      "separateAutoInvoices": true,
+      "businessEntityId": "old-oak"
     },
     {
       "id": "old-oak-cust_charge_keys",
-      "businessEntityId": "old-oak",
       "name": "Customer Recharge - Keys",
       "productType": "lettings",
       "accountCode": "4xxx20",
@@ -365,21 +348,19 @@
         "old-oak-stripe-staff"
       ],
       "tracking": true,
-      "separateAutoInvoices": false
+      "separateAutoInvoices": true
     },
     {
       "id": "old-oak-lettings-cancellaton",
-      "businessEntityId": "old-oak",
       "name": "Booking Cancellation Fees",
       "productType": "lettings",
       "accountCode": "4xxxx5",
       "paymentGateways": [],
       "tracking": true,
-      "separateAutoInvoices": false
+      "separateAutoInvoices": true
     },
     {
       "id": "old-oak-laundry",
-      "businessEntityId": "old-oak",
       "name": "Laundry",
       "productType": "lettings",
       "accountCode": "4xxxx5",
@@ -391,7 +372,6 @@
     },
     {
       "id": "old-oak-gym",
-      "businessEntityId": "old-oak",
       "name": "Gym",
       "productType": "lettings",
       "accountCode": "4xxxx0",
@@ -403,7 +383,6 @@
     },
     {
       "id": "old-oak-events",
-      "businessEntityId": "old-oak",
       "name": "Events",
       "productType": "event",
       "accountCode": "xxx0",
@@ -415,7 +394,6 @@
     },
     {
       "id": "old-oak-services",
-      "businessEntityId": "old-oak",
       "name": "Services",
       "productType": "service",
       "accountCode": "4xxxx5",

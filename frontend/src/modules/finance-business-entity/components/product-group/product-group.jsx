@@ -1,92 +1,88 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import { message, Modal, Typography, Breadcrumb } from 'antd';
-import ProductGroupList from './product-group-list';
+import { Link, useParams  } from 'react-router-dom';
+import { message, Modal, Typography, Space, Table, Button, Input, Tag } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import ProductGroupDrawer from './product-group-drawer';
-import { GetBaseUrl } from '../../../../services/config.js'; 
 import BusinessEntityBreadcrumb from '../business-entity-bread-crumb';
+import { GetBaseUrl } from '../../../../services/config.js'; 
+
+const { Search } = Input;
 
 function ProductGroup() {
     const [showDrawer, setShowDrawer] = useState(false);
-    const [drawerCaption, setDrawerCaption] = useState("");
-    const [key, setKey] = useState(null);
-    const [reload, setReload] = useState(false);
+    const [key, setKey] = useState({id: null, pid: null});
     const [loading, setLoading] = useState(true);
+    const [reload, setReload] = useState(false);
     const [error, setError] = useState(null);
     const [viewModel, setViewModel] = useState([]);
-       
-    const { id } = useParams();
+    const [searchText, setSearchText] = useState(null);
 
+    const { id } = useParams();
+       
     // -------------------------------------------------------------------------------
-    //      FETCH 
+    //      FETCH SERVICE
     // -------------------------------------------------------------------------------
     const baseUrl = GetBaseUrl('productGroups');
 
     const fetchData = (id) => {
-        console.log(`${baseUrl}?businessEntityId=${id}`);
+        httpQuery(`${baseUrl}?businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
+    }
 
-        setLoading(true);
-        fetch(`${baseUrl}?businessEntityId=${id}`, { method: 'GET', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { setViewModel(json) })
-            .catch(err => { setError(err) });
-        setLoading(false);
+    const fetchDataByFilter = (id, filter) => {
+        httpQuery(`${baseUrl}?name_like=${filter}&businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
     }
 
     const fetchDelete = (id) => {
-        fetch(`${baseUrl}/${id}`, { method: 'DELETE', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { 
-                message.success("Record has been deleted"); 
-                fetchData();
-            })
-            .catch(err => { setError(err) });
-        setReload(!reload);
-    }    
+        httpCommand(`${baseUrl}/${id}`, { method: 'DELETE', redirect: 'follow' });
+    }
 
     const fetchPut = (id, model) => {
         const requestHeaders = new Headers();
         requestHeaders.append("Content-Type", "application/json");  
-        const raw = JSON.stringify(model);      
+        const raw = JSON.stringify(model);  
 
-        fetch(`${baseUrl}/${id}`, { method: 'PUT', redirect: 'follow', headers: requestHeaders, body: raw })
-            .then(response => { return response.text() })
-            .then(data => {
-                message.success("Record has been updated");
-                fetchData();
-            })
-            .catch(err => { setError(err) });
-        setReload(!reload);
-    } 
+        httpCommand(`${baseUrl}/${id}`, { method: 'PUT', redirect: 'follow', headers: requestHeaders, body: raw });
+    }    
 
     const fetchPost = (model) => {
         const requestHeaders = new Headers();
         requestHeaders.append("Content-Type", "application/json");  
-        const raw = JSON.stringify(model);      
+        const raw = JSON.stringify(model);  
+        console.log("post - model", raw);
+        httpCommand(`${baseUrl}`, { method: 'POST', redirect: 'follow', headers: requestHeaders, body: raw });
+    }    
 
-        fetch(baseUrl, { method: 'POST', redirect: 'follow', headers: requestHeaders, body: raw })
-            .then(response => { return response.text() })
-            .then(data => {
-                message.success("Record has been create");
-                fetchData(); 
-            })
-            .catch(err => { setError(err) });
-        setReload(!reload);
+    const httpQuery = (url, options) => {
+        setLoading(true);
+
+        fetch(url, options)
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { setViewModel(json) })
+            .catch(error => { setError(error) })
+            .finally(() => { setLoading(false) });
     }
 
+    const httpCommand = (url, options) => {
+        fetch(url, options)
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { setReload(!reload) })
+            .catch(error => { setError(error) })   
+            .finally(() => fetchData() )    
+    }
+    
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
     const handleOpen = () => {
-        setKey(null);
-        setDrawerCaption("NEW - PRODUCT GROUP");
+        setKey({id: null, pid: id});
+        console.log(JSON.stringify(key));
         setShowDrawer(true);
     }
 
     const handleDelete = (record) => {
         Modal.confirm({
-            title: "Are you sure, you want to delete this record?",
+            title: "Are you sure, you want to delete this product group ?",
             okText: "Yes",
             okType: "danger",
             cancelText: "No",
@@ -97,14 +93,17 @@ function ProductGroup() {
     }
 
     const handleEdit = (record) => {
-        setKey(record.id);
-        setDrawerCaption("CHANGE - PRODUCT GROUP");
+        setKey({id: record.id, pid: record.businessEntityId});
+        console.log(JSON.stringify(key));
         setShowDrawer(true);
     }
 
-    const handleSave = (key, model) => {
-        if (key) {
-            fetchPut(key, model);
+    const handleSave = (id, model) => {
+        console.log('id:', id);
+        console.log('model:', JSON.stringify(model));
+        
+        if (id) {
+            fetchPut(id, model);
         }
         else {
             fetchPost(model);
@@ -116,198 +115,29 @@ function ProductGroup() {
         setShowDrawer(false);
     }
 
+    const handleSearch = (value) => {
+        setSearchText(value);
+        console.log(value);
+        setReload(!reload);
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
-      fetchData(id);
-      /*
-        setViewModel([
-            {
-                "id": "old-oak-lettings-carparking",
-                "businessEntityId": "old-oak",
-                "name": "Car Parking",
-                "productType": "lettings",
-                "accountCode": "xxxx55",
-                "tracking": true,
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe-staff"
-                ],
-                "separateAutoInvoices": true
-              },
-              {
-                "id": "old-oak-lettings-storagecage",
-                "businessEntityId": "old-oak",
-                "name": "Storage Cage",
-                "productType": "lettings",
-                "accountCode": "xxxx55",
-                "tracking": true,
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe-staff"
-                ],
-                "separateAutoInvoices": true
-              },
-              {
-                "id": "old-oak-lettings-payments",
-                "businessEntityId": "old-oak",
-                "name": "Rental Income",
-                "productType": "lettings",
-                "accountCode": "xxxx10",
-                "tracking": true,
-                "paymentGateways": [
-                  "old-oak-moto-bank-staff",
-                  "old-oak-stripe-staff"
-                ],
-                "separateAutoInvoices": true
-              },
-              {
-                "id": "old-oak-lettings-fee",
-                "businessEntityId": "old-oak",
-                "name": "Booking Fees",
-                "productType": "lettings",
-                "accountCode": "xxxx15",
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-lettings-deposit",
-                "businessEntityId": "old-oak",
-                "name": "Booking Deposit",
-                "productType": "lettings",
-                "accountCode": "xxx9",
-                "paymentGateways": [
-                  "old-oak-moto-bank-staff",
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-cust_charge_cleaning",
-                "businessEntityId": "old-oak",
-                "name": "Customer Recharge - Cleaning",
-                "productType": "lettings",
-                "accountCode": "xxxx80",
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-cust_charge_redecoration",
-                "businessEntityId": "old-oak",
-                "name": "Customer Recharge - Redecoration",
-                "productType": "lettings",
-                "accountCode": "xxxx20",
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-cust_charge_repairs",
-                "businessEntityId": "old-oak",
-                "name": "Customer Recharge - Repairs",
-                "productType": "lettings",
-                "accountCode": "xxxx20",
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-cust_charge_keys",
-                "businessEntityId": "old-oak",
-                "name": "Customer Recharge - Keys",
-                "productType": "lettings",
-                "accountCode": "xxxx20",
-                "paymentGateways": [
-                  "old-oak-moto-bank",
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-lettings-cancellaton",
-                "businessEntityId": "old-oak",
-                "name": "Booking Cancellation Fees",
-                "productType": "lettings",
-                "accountCode": "xxxxx5",
-                "paymentGateways": [],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-laundry",
-                "businessEntityId": "old-oak",
-                "name": "Laundry",
-                "productType": "lettings",
-                "accountCode": "xxxxx5",
-                "paymentGateways": [
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-gym",
-                "businessEntityId": "old-oak",
-                "name": "Gym",
-                "productType": "lettings",
-                "accountCode": "xxxxx0",
-                "paymentGateways": [
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": true,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-events",
-                "businessEntityId": "old-oak",
-                "name": "Events",
-                "productType": "event",
-                "accountCode": "xxxx0",
-                "paymentGateways": [
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": false,
-                "separateAutoInvoices": false
-              },
-              {
-                "id": "old-oak-services",
-                "businessEntityId": "old-oak",
-                "name": "Services",
-                "productType": "service",
-                "accountCode": "xxxx5",
-                "paymentGateways": [
-                  "old-oak-stripe-staff"
-                ],
-                "tracking": false,
-                "separateAutoInvoices": false
-              }
-        ]);
-      */
+        fetchData(id);
     }, []);
-    /*
+
     useEffect(() => {
-       fetchData();
-       console.log('reload');
-    }, [reload]);
-    */
+        if (searchText) {
+            console.log('fetchDataByFilter');
+            fetchDataByFilter(id, searchText);
+        } else {
+            fetchData(id);
+        }
+    }, [reload])
+
     useEffect(() => {
         if (error !== null) {
             message.error("Network error");
@@ -315,23 +145,134 @@ function ProductGroup() {
         }
     }, [error])
 
+    // -------------------------------------------------------------------------------
+    //      COLUMNS
+    // -------------------------------------------------------------------------------
+    
+    const columns = [
+        {
+            title: 'NAME',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'PRODUCT TYPE',
+            dataIndex: 'productType',
+            key: 'productType',
+        },
+        {
+            title: 'NOMINAL CODE',
+            dataIndex: 'accountCode',
+            key: 'accountCode'
+        },
+        {
+            title: 'PAYMENT GATEWAYS',
+            dataIndex: 'paymentGateways',
+            key: 'paymentGateways',
+            render: (paymentGateways) => {
+                return (
+                <>
+                    {paymentGateways.map((tag) => (
+                        <Tag color="blue" key={tag}>
+                            {tag}
+                        </Tag>
+                    ))}
+                </>
+              );
+            },
+        },
+        {
+            title: 'TRACKING',
+            dataIndex: 'tracking',
+            key: 'tracking',
+            align: 'center',
+            width: 60,
+            render: (tracking) => {
+                return (
+                    <>
+                        {tracking && <CheckOutlined />}
+                    </>
+                );
+            }
+        },          
+        {
+            title: 'SEPAREATE AUTO INVOICES',
+            dataIndex: 'separateAutoInvoices',
+            key: 'separateAutoInvoices',
+            align: 'center',
+            width: 60,
+            render: (tracking) => {
+                return (
+                    <>
+                        {tracking && <CheckOutlined />}
+                    </>
+                );
+            }            
+        },             
+        {
+            title: "ACTIONS",
+            width: 50,
+            render: (record) => {
+                return (
+                <>
+                    <EditOutlined
+                        onClick={() => {
+                            handleEdit(record);
+                    }}
+                    />
+                    <DeleteOutlined
+                        onClick={() => {
+                            handleDelete(record);
+                        }}
+                        style={{ color: "red", marginLeft: 12 }}
+                    />
+                </>
+                );
+            },
+        },
+    ];
+
+    // -------------------------------------------------------------------------------
+    //      VIEW
+    // -------------------------------------------------------------------------------
+
     return (
         <>
             <BusinessEntityBreadcrumb name={'Old-Oak'} />
             <Typography.Title level={2} style={{ margin: 0 }}>
                 PRODUCT GROUPS
             </Typography.Title>
-            <ProductGroupList 
+            <div style={{ marginBottom: 16, }}></div>
+            <Space>
+                <Button 
+                    type="primary" 
+                    onClick={() => handleOpen()} 
+                    icon={<PlusOutlined />}>
+                        NEW
+                </Button>
+                <Search
+                    placeholder="Search for ..."
+                    allowClear
+                    style={{
+                        width: 400,
+                    }}
+                    enterButton
+                    onSearch={handleSearch}
+                />
+            </Space>
+            <div style={{ marginTop: 8, }}></div>
+            <Table 
+                columns={columns} 
                 dataSource={viewModel} 
+                pagination={false} 
+                bordered={true} 
+                rowKey={'id'}
                 loading={loading}
-                handleOpen={handleOpen}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
             />
             <ProductGroupDrawer 
-                id={key} 
+                id={key.id}
+                pid={key.pid} 
                 open={showDrawer}
-                caption={drawerCaption}
                 handleSave={handleSave} 
                 handleClose={handleClose} 
             />

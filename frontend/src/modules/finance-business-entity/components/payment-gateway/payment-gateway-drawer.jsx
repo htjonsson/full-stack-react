@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
-const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) => {
+const PaymentGatewayDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     const [form] = Form.useForm();
+    const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
     const [metadata, setMetadata] = useState({});
@@ -14,48 +15,35 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
     //      FETCH 
     // -------------------------------------------------------------------------------
 
-    const baseUrl = GetBaseUrl('payment-gateways');
+    const baseUrl = GetBaseUrl('paymentGateways');
 
     const fetchData = (id) => {
         setLoading(true);
-        fetch(`${baseUrl}/${id}`, { method: 'GET', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { form.setFieldsValue(json); })
-            .catch(err => { setError(err) });
-        setLoading(false);
+        console.log(`${baseUrl}?id=${id}`);
+        fetch(`${baseUrl}?id=${id}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) {
+                    form.setFieldsValue(json[0]);
+                    console.log(JSON.stringify(json))
     }
-
-    const loadMetadata = () => {
-        setMetadata({
-            "typeOptions" : [
-                {
-                    "value" : "moto-bank",
-                    "label" : "moto-bank"
-                },
-                {
-                    "value" : "moto-cash",
-                    "label" : "moto-cash"
-                },
-                {
-                    "value" : "moto-cheque",
-                    "label" : "moto-cheque"
-                },
-                {
-                    "value" : "moto-card",
-                    "label" : "moto-card"
+            })
+            .catch(error => { setError(error) })
+            .finally(() => { setLoading(false) });
                 }  
-            ],
-            "roleOptions" : [
-                {
-                    "value" : "user",
-                    "label" : "User"
-                },
-                {
-                    "value" : "staff",
-                    "label" : "Staff"
+
+    const metaUrl = GetBaseUrl('metadata');
+    const metadataKey = 'paymentGateways';
+
+    const fetchMetadata = () => {
+        fetch(`${metaUrl}?id=${metadataKey}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) { 
+                    setMetadata(json[0]); 
                 }
-            ]
-        });
+            })
+            .catch(error => { setError(error) });
     }  
 
     // -------------------------------------------------------------------------------
@@ -72,27 +60,48 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
         handleClose();
     };
 
+    const onOpen = () => {
+        console.log('onOpen', id, pid);
+        if (id === null) {
+            onNewRecord(uuidv4(), form);
+            setLoading(false); 
+        } 
+        else {
+            onEditRecord(id);
+        }       
+    }
+
+    const onNewRecord = (id, form) => {
+        setCaption("NEW - BANK ACCOUNT");
+        form.setFieldValue("id", id);
+        form.setFieldValue("businessEntityId", pid);
+    }
+
+    const onEditRecord = (id) => {
+        setCaption("CHANGE - BANK ACCOUNT");
+        fetchData(id);
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
 
-    useEffect(() => { loadMetadata(); }, []);
+    useEffect(() => { 
+        fetchMetadata(); 
+    }, []);
 
     useEffect(() => {
         if (open) {
-            if (id === null) {
-                setLoading(false);
-                form.setFieldValue("id", uuidv4());
-                loadMetadata();
-            } 
-            else {
-                fetchData(id);
-            }
+            onOpen();
         }
     }, [open]);
 
     useEffect(() => {
     }, [error]);
+
+    // -------------------------------------------------------------------------------
+    //      VIEW
+    // -------------------------------------------------------------------------------
 
     return (
         <>      
@@ -133,7 +142,7 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
-                                name="name"
+                                name="configName"
                                 label="Name"
                                 rules={[
                                     {
@@ -182,6 +191,7 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
                             </Form.Item>
                         </Col>
                     </Row>                
+                    <Form.Item name="businessEntityId"><Input type="hidden"/></Form.Item>                  
                 </Form>}
             </Drawer>
         </>
@@ -189,9 +199,9 @@ const PaymentGatewayDrawer = ({ id, open, caption, handleSave, handleClose }) =>
 };
 
 PaymentGatewayDrawer.propTypes = {
-    id: PropTypes.any,
+    id: PropTypes.string,
+    pid: PropTypes.string,
     open: PropTypes.bool,
-    caption: PropTypes.string,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
 }

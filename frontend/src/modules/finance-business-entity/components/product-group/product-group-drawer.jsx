@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
-const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
+const ProductGroupDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     const [form] = Form.useForm();
+    const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
     const [metadata, setMetadata] = useState({});
@@ -18,70 +19,33 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
 
     const fetchData = (id) => {
         setLoading(true);
-        fetch(`${baseUrl}/${id}`, { method: 'GET', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { form.setFieldsValue(json); })
-            .catch(err => { setError(err) });
-        setLoading(false);
+        console.log(`${baseUrl}?id=${id}`);
+        fetch(`${baseUrl}?id=${id}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) {
+                    form.setFieldsValue(json[0]);
+                    console.log(JSON.stringify(json))
     }
-
-    const metadataUrl = GetBaseUrl('metadata');
-
-    const fetchMetadata = (id) => {
-        setLoading(true);
-        fetch(`${metadataUrl}/${id}`, { method: 'GET', redirect: 'follow' })
-            .then(response => { return response.json() })
-            .then(json => { setMetadata(json); })
-            .catch(err => { setError(err) });
-        setLoading(false);
-    }    
-
-    const loadMetadata = () => {
-        setMetadata({
-            "productTypeOptions" : [
-                {
-                    "value" : "lettings",
-                    "label" : "lettings"
-                },
-                {
-                    "value" : "service",
-                    "label" : "service"
-                },
-                {
-                    "value" : "event",
-                    "label" : "event"
+            })
+            .catch(error => { setError(error) })
+            .finally(() => { setLoading(false) });
                 }  
-            ],
-            "paymentGatewayOptions" : [
-                {
-                    "value" : "old-oak-stripe",
-                    "label" : "old-oak-stripe"
-                },
-                {
-                    "value" : "old-oak-stripe-staff",
-                    "label" : "old-oak-stripe-staff"
-                },
-                {
-                    "value" : "old-oak-moto-bank",
-                    "label" : "old-oak-moto-bank"
-                },
-                {
-                    "value" : "old-oak-moto-bank-staff",
-                    "label" : "old-oak-moto-bank-staff"
+
+    const metaUrl = GetBaseUrl('metadata');
+    const metadataKey = 'productGroups';
+
+    const fetchMetadata = () => {
+        fetch(`${metaUrl}?id=${metadataKey}`, { method: 'GET', redirect: 'follow' })
+            .then(response => { if (!response.ok) { throw new Error() } return response.json() })
+            .then(json => { 
+                if (Array.isArray(json) && json.length != 0) { 
+                    setMetadata(json[0]); 
+                    console.log(JSON.stringify(json))
                 }
-            ],
-            "roleOptions" : [
-                {
-                    "value" : "user",
-                    "label" : "User"
-                },
-                {
-                    "value" : "staff",
-                    "label" : "Staff"
-                }
-            ]
-        });
-    }     
+            })
+            .catch(error => { setError(error) });
+    }  
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
@@ -97,27 +61,47 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
         handleClose();
     };
 
+    const onOpen = () => {
+        if (id === null) {
+            onNewRecord(uuidv4(), form);
+            setLoading(false); 
+        } 
+        else {
+            onEditRecord(id);
+        }       
+    }
+
+    const onNewRecord = (id, form) => {
+        setCaption("NEW - PRODUCT GROUP");
+        form.setFieldValue("id", id);
+        form.setFieldValue("businessEntityId", pid);
+    }
+
+    const onEditRecord = (id) => {
+        setCaption("CHANGE - PRODUCT GROUP");
+        fetchData(id);
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
 
-    useEffect(() => { loadMetadata(); }, []);
+    useEffect(() => { 
+        fetchMetadata(); 
+    }, []);
 
     useEffect(() => {
         if (open) {
-            if (id === null) {
-                setLoading(false);
-                form.setFieldValue("id", uuidv4());
-                loadMetadata();
-            } 
-            else {
-                fetchData(id);
-            }
+            onOpen();
         }
     }, [open]);
 
     useEffect(() => {
     }, [error]);
+
+    // -------------------------------------------------------------------------------
+    //      VIEW
+    // -------------------------------------------------------------------------------
 
     return (
         <>      
@@ -185,7 +169,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
-                                name="nominalCode"
+                                name="accountCode"
                                 label="NOMINAL CODE"  
                                 rules={[]}>
                                 <Input placeholder="Please enter nominal code" />
@@ -195,7 +179,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                     <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item
-                                name="paymentGateway"
+                                name="paymentGateways"
                                 label="PAYMENT GATEWAY(S)"  
                                 rules={[]}>
                                 <Select
@@ -210,6 +194,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                             <Form.Item
                                 name="tracking"
                                 label="TRACKING"
+                                valuePropName="checked"
                                 rules={[]}>
                                 <Checkbox></Checkbox>
                             </Form.Item>
@@ -218,6 +203,7 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                             <Form.Item
                                 name="separateAutoInvoices"
                                 label="SEPARATE AUTO INVOICE"
+                                valuePropName="checked"
                                 rules={[]}>
                                 <Checkbox></Checkbox>
                             </Form.Item>
@@ -232,7 +218,8 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
                                 <Input.TextArea rows={4} />
                             </Form.Item>
                         </Col>
-                    </Row>                     
+                    </Row>  
+                    <Form.Item name="businessEntityId"><Input type="hidden"/></Form.Item>                    
                 </Form>}
             </Drawer>
         </>
@@ -240,9 +227,9 @@ const ProductGroupDrawer = ({ id, open, caption, handleSave, handleClose }) => {
 };
 
 ProductGroupDrawer.propTypes = {
-    id: PropTypes.any,
+    id: PropTypes.string,
+    pid: PropTypes.string,
     open: PropTypes.bool,
-    caption: PropTypes.string,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
 }
