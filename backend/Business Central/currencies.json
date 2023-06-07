@@ -1,0 +1,475 @@
+{
+    "@odata.context": "https://api.businesscentral.dynamics.com/v2.0/63cce169-261e-4069-ad30-e4d5ffd7ffdf/Sandbox/api/v2.0/$metadata#companies(01d3fdd3-071c-ec11-bb76-000d3a245f47)/currencies",
+    "value": [
+        {
+            "@odata.etag": "W/\"JzQ0OzVvVVJ3S0xDMTJBWTBvMTUwT2phZmd2enVIYjlWK05XeUZlU3Vob3p4dUU9MTswMDsn\"",
+            "id": "7769b205-081c-ec11-bb76-000d3a245f47",
+            "code": "AED",
+            "displayName": "United Arab Emirates dirham",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.25,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.45Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0Fwc1VydjllM3BscUxCYkRuMHR2ZjZVZUlTcjRJc3pLSi9lQm5LU1NSTDQ9MTswMDsn\"",
+            "id": "7869b205-081c-ec11-bb76-000d3a245f47",
+            "code": "AUD",
+            "displayName": "Australian dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.467Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OytmZEQ2SUZzVmprdEkxM1pYaGZlaU56UzlKbHBqUHg0dUJoMHdiU0M1V3c9MTswMDsn\"",
+            "id": "7969b205-081c-ec11-bb76-000d3a245f47",
+            "code": "BGN",
+            "displayName": "Bulgarian leva",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.483Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1Y2Rzg0THdGL1poMTE2RlU5UlcwM3JsNjVXd21QRVhZSDZMZzdYSm5jOHc9MTswMDsn\"",
+            "id": "7a69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "BND",
+            "displayName": "Brunei Darussalem dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.493Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O01hSFUrZmE2WUZrRVdrVmRIRERkSmdiODVTUzBoWERtY1JYZC9rN3NOVkE9MTswMDsn\"",
+            "id": "7b69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "BRL",
+            "displayName": "Brazilian real",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.507Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O05YOGoxWXNseUEyWTJXaTc4NlVWcmQ0VEdiYyt3aXgxLzJRVUpYRHJGT3M9MTswMDsn\"",
+            "id": "7c69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "CAD",
+            "displayName": "Canadian dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.52Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1VkOW14ZnAyckwrdGRBeUdzcXBkTmlZbEQ0VkF6bFhNL1BKcGxvWHVHSDA9MTswMDsn\"",
+            "id": "7d69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "CHF",
+            "displayName": "Swiss franc",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.533Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2ErUDhaVE9rUnY2c0U4Y3JzcmZEd2pHNXhndGY4TkNLQVNSTnp1WGZOWDQ9MTswMDsn\"",
+            "id": "7e69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "CZK",
+            "displayName": "Czech koruna",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.543Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzBKb2E2NkRuR1pNOVMrNjRobTIzQjg2N09oQUl1U0ZHNHFNRXJKR0FDVFE9MTswMDsn\"",
+            "id": "7f69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "DKK",
+            "displayName": "Danish krone",
+            "symbol": "kr",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.557Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O3VSMUtPZ0hRbTJNNXhNSjhhZnZsNkpyWjIvZ1RoZURRZW8xTW1LVXQrZFU9MTswMDsn\"",
+            "id": "8069b205-081c-ec11-bb76-000d3a245f47",
+            "code": "DZD",
+            "displayName": "Algerian dinar",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.567Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1VvS05FVi8wcE44VzBkM0FRWXBJQnFQRmg2ZjZWOW1tL3RZL25wUXBBSGM9MTswMDsn\"",
+            "id": "8169b205-081c-ec11-bb76-000d3a245f47",
+            "code": "EUR",
+            "displayName": "Euro",
+            "symbol": "€",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.58Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzQzUWlhT01wRERpSTJjRGZXbVpoMWhUR2t6OHdGbjdEczZQT0ZodEdXUFU9MTswMDsn\"",
+            "id": "8269b205-081c-ec11-bb76-000d3a245f47",
+            "code": "FJD",
+            "displayName": "Fiji dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.597Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0liRVZPRXZxWGVOZmZoeXdLT3BKaWwzNnd3a0tRY1pNS3d4TlhYRDBKRDg9MTswMDsn\"",
+            "id": "8369b205-081c-ec11-bb76-000d3a245f47",
+            "code": "HKD",
+            "displayName": "Hong Kong dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.613Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1JPRG1JRm5yWXJmYjVxdHBuL0NIMFdlS2FYZXZBcXRiNkkvWkkyVDF3R0U9MTswMDsn\"",
+            "id": "8469b205-081c-ec11-bb76-000d3a245f47",
+            "code": "HRK",
+            "displayName": "Croatian Kuna",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.633Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzBKS1Q1cS9SMXkrWksyaWFibys4RGhvSWw4Z2xWMDhsV243aU5pWjdGWlE9MTswMDsn\"",
+            "id": "8569b205-081c-ec11-bb76-000d3a245f47",
+            "code": "HUF",
+            "displayName": "Hungarian forint",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 1,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.65Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1VkNXRxWnNmOHJhbzZNOEV4em5UNnJ5RGVZZWpxQUdDZ2VLYld1R2J2aWM9MTswMDsn\"",
+            "id": "8669b205-081c-ec11-bb76-000d3a245f47",
+            "code": "IDR",
+            "displayName": "Indonesian rupiah",
+            "symbol": "",
+            "amountDecimalPlaces": "0:0",
+            "amountRoundingPrecision": 1,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.673Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2JFTjExWnpaeXE2ZEdnc2t5L2c2YVc3cVd0VHZueWZKTEFEYlp4ZWpFbEE9MTswMDsn\"",
+            "id": "8769b205-081c-ec11-bb76-000d3a245f47",
+            "code": "INR",
+            "displayName": "Indian rupee",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.687Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2RWd2dVVGsvLzNnaTloV1dIRnlxWmxBNDVUaUdTNXZXNW9FRXI5M3JOTWs9MTswMDsn\"",
+            "id": "8869b205-081c-ec11-bb76-000d3a245f47",
+            "code": "ISK",
+            "displayName": "Icelandic krona",
+            "symbol": "kr",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.7Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0paRWcwaUFkNUNzZHlISEdUSzVFa0duZHRESHlVMXlBYU9TMi9nU1NpUWM9MTswMDsn\"",
+            "id": "8969b205-081c-ec11-bb76-000d3a245f47",
+            "code": "JPY",
+            "displayName": "Japanese yen",
+            "symbol": "¥",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.713Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzVLbWU0NHpVV25YZXdrelZyNmpVcnh5SGtQMDlnb0gvM21GMVVLdUg0cnM9MTswMDsn\"",
+            "id": "8a69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "KES",
+            "displayName": "Kenyan Shilling",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.5,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.723Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1d4VmhxSWJGOTVWWFlRWWNNOHUxYjhMVDdvTW11SWNZMU9vd3ZwdWNiU2c9MTswMDsn\"",
+            "id": "8b69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "MAD",
+            "displayName": "Moroccan dirham",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.733Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1EzczBtbUt0ZWRzZWtTZVpRY2E4U0RJb1FDL0F1eGFaVCsrRkYrRERLZ289MTswMDsn\"",
+            "id": "8c69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "MXN",
+            "displayName": "Mexican peso",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.757Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0JTVWIxbkxoRmdkN25vcnhHQ1hObWNXNElCcGF0TS81cjRNNmNzM1ZyTTg9MTswMDsn\"",
+            "id": "8d69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "MYR",
+            "displayName": "Malaysian ringgit",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.777Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O3p4ZEE2MlpaRGk5ejl5bUNMZzJPdXJqM21CMytCclBXNkg5WnBielhBZk09MTswMDsn\"",
+            "id": "8e69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "MZN",
+            "displayName": "Mozambique metical",
+            "symbol": "",
+            "amountDecimalPlaces": "0:0",
+            "amountRoundingPrecision": 10,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.79Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1VSbCtGR2s0TklmUkVHUWVCMEYyaXpZNXR2NXNWRHRzKzFTOWpXcS9iOUE9MTswMDsn\"",
+            "id": "8f69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "NGN",
+            "displayName": "Nigerian naira",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 1,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.803Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0xNZWovQmJqSzVEcXM3b3VJQTlHMHJDeFNONFVacks4QnViZXFadktYN2s9MTswMDsn\"",
+            "id": "9069b205-081c-ec11-bb76-000d3a245f47",
+            "code": "NOK",
+            "displayName": "Norwegian krone",
+            "symbol": "kr",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.813Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1BGQzJYSWt2NkZjUm9IcWw0a2drTnUra3RNazZ0TkdRQ1NMQ3ZvTWRyL289MTswMDsn\"",
+            "id": "9169b205-081c-ec11-bb76-000d3a245f47",
+            "code": "NZD",
+            "displayName": "New Zealand dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.827Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2JyQ1hFeERuNGw0L2hmQXgxMjNrOElkRHh4Vk5uOWtiUzhtaUdCbWRtOUU9MTswMDsn\"",
+            "id": "9269b205-081c-ec11-bb76-000d3a245f47",
+            "code": "PHP",
+            "displayName": "Philippines peso",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.837Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1BPREs5Y0M2MkU4OHg0WDNUMHF1V1NBbzFaQVRYdUl3SEE4bVAvOWFXL3c9MTswMDsn\"",
+            "id": "9369b205-081c-ec11-bb76-000d3a245f47",
+            "code": "PLN",
+            "displayName": "Polish zloty",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.85Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1AwMEpyUi8rVk1xM1BWeEVYSzB4M3U1dVduaExtTDRmb1pubnRvZmRlRmc9MTswMDsn\"",
+            "id": "9469b205-081c-ec11-bb76-000d3a245f47",
+            "code": "RON",
+            "displayName": "Romanian leu",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.86Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1NnS2pRWTV3U3d3b3NqeXE2bFpqMmhUT0grZUV5SXJlWDJVZG1LTjVTd1E9MTswMDsn\"",
+            "id": "9569b205-081c-ec11-bb76-000d3a245f47",
+            "code": "RSD",
+            "displayName": "Serbian Dinar",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.877Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0VsVktSalhWOUxQc0ZvOG1IVEZJeW1tOGZKdEsxYXh1SEs5VlZ0bmxxRm89MTswMDsn\"",
+            "id": "9669b205-081c-ec11-bb76-000d3a245f47",
+            "code": "RUB",
+            "displayName": "Russian ruble",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.903Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0VadXJRWlUyRVBOMXhNRTBOVTc5UUtwTVVNUHE4YitmSEtwcFBBdk9lVTA9MTswMDsn\"",
+            "id": "9769b205-081c-ec11-bb76-000d3a245f47",
+            "code": "SAR",
+            "displayName": "Saudi Arabian ryial",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.917Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzlCT0I1RnVRTVJlVHkvbCtrYmFXRktXWXJ4UkJUSjc5RTdQelVaNnVma3M9MTswMDsn\"",
+            "id": "9869b205-081c-ec11-bb76-000d3a245f47",
+            "code": "SBD",
+            "displayName": "Solomon Islands dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.93Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O05oMFJtKzUydEZrSnlHOC9wZTdRM3EyYkVNQng0a2o1WjJGcjMwZzNaNmM9MTswMDsn\"",
+            "id": "9969b205-081c-ec11-bb76-000d3a245f47",
+            "code": "SEK",
+            "displayName": "Swedish krona",
+            "symbol": "kr",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.95Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O242ZDUwNjg4RUtHUFR5YTErejgveGJ1eCtSNFNoOGZFZWxzY1JOUU9CRm89MTswMDsn\"",
+            "id": "9a69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "SGD",
+            "displayName": "Singapore dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.96Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzN1bzZkSEF2cUxzMFc1WHcvdXhCamM2VEptTFBURnJaUjltQkMwSFI2c1k9MTswMDsn\"",
+            "id": "9b69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "SZL",
+            "displayName": "Swaziland lilangeni",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.973Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0lUNEZBc0sxRmlnOW9pWFhJaHQ3VnhWZ250N3NBdGJWVTNqMUtyZm05cm89MTswMDsn\"",
+            "id": "9c69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "THB",
+            "displayName": "Thai baht",
+            "symbol": "",
+            "amountDecimalPlaces": "0:0",
+            "amountRoundingPrecision": 1,
+            "lastModifiedDateTime": "2021-09-23T00:49:23.987Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1R6TERsVlpEUlNKdXJTNkR5UldKWFBjL1RQQjM1VmQycWdpZDc0NmlTWmc9MTswMDsn\"",
+            "id": "9d69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "TND",
+            "displayName": "Tunesian dinar",
+            "symbol": "",
+            "amountDecimalPlaces": "3:3",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2JQaEp0aEJWenJKVkxVUnY3alNwQUU2WFRHTS9raHpBYjVsOHBNZU9CUGc9MTswMDsn\"",
+            "id": "9e69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "TOP",
+            "displayName": "Tongan Pa anga",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.017Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O3FwT3NaV0FoZzFib0pGUzBEZSsvRGh6Ly9ER2Y1cnFyeklFckdBZkFsUFE9MTswMDsn\"",
+            "id": "9f69b205-081c-ec11-bb76-000d3a245f47",
+            "code": "TRY",
+            "displayName": "New Turkish lira",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.027Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O29QV1g5VjR0TE1zcTFQaUZ6OGxCdVpVMGhhZHdUZFkxY0k4ZGRUMkxMSW89MTswMDsn\"",
+            "id": "a069b205-081c-ec11-bb76-000d3a245f47",
+            "code": "UGX",
+            "displayName": "Ugandan Shilling",
+            "symbol": "",
+            "amountDecimalPlaces": "0:0",
+            "amountRoundingPrecision": 1,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.043Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O25IN0dtSStTeXR2YnoxL3hZcnBnbThmNkJuRUpUVXhnNmZVOEVrM1dGVEk9MTswMDsn\"",
+            "id": "a169b205-081c-ec11-bb76-000d3a245f47",
+            "code": "USD",
+            "displayName": "US dollar",
+            "symbol": "$",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.063Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzBBTWpCZGhPQ2RMbkVxS0krYzI4YlNNWkJiaE5MdHY4cm1ZZko5WE9WK0E9MTswMDsn\"",
+            "id": "a269b205-081c-ec11-bb76-000d3a245f47",
+            "code": "VUV",
+            "displayName": "Vanuatu vatu",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.08Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O21TdndQbnN4eDdhQnBob0N6V0ZkbGRwS1RtMDd1bU1rMHF6eEZkOU5xV0U9MTswMDsn\"",
+            "id": "a369b205-081c-ec11-bb76-000d3a245f47",
+            "code": "WST",
+            "displayName": "Western Samoan tala",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.093Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzM4Ulc0MFJEb3lLbmduVXdnZGpieEd4NzdZU1IwODBzbjZTRUUzRXJNUzA9MTswMDsn\"",
+            "id": "a469b205-081c-ec11-bb76-000d3a245f47",
+            "code": "XPF",
+            "displayName": "French Pacific Franc",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.103Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1R5UkluQ05GNC96YldrOS9hNStvczc3bElIalpWOHRZeFNra3phVCttc0U9MTswMDsn\"",
+            "id": "a569b205-081c-ec11-bb76-000d3a245f47",
+            "code": "ZAR",
+            "displayName": "South African rand",
+            "symbol": "",
+            "amountDecimalPlaces": "2:2",
+            "amountRoundingPrecision": 0.01,
+            "lastModifiedDateTime": "2021-09-23T00:49:24.117Z"
+        }
+    ]
+}

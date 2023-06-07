@@ -335,7 +335,7 @@
         "old-oak-stripe-staff"
       ],
       "tracking": true,
-      "separateAutoInvoices": true,
+      "separateAutoInvoices": false,
       "businessEntityId": "old-oak"
     },
     {

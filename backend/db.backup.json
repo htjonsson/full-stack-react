@@ -49,6 +49,16 @@
       "name": "one extra one"
     }
   ],
+  "fields" : [
+    {
+      "fieldNo": 1,
+      "fieldName": "Number",
+      "caption": "No.",
+      "dataType": "Code",
+      "length": 20,
+      "description": ""
+    }
+  ],
   "employees": [
     {
       "address": "11120 Jasper Ave NW",

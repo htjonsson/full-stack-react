@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams  } from 'react-router-dom';
-import { message, Modal, Typography, Space, Table, Button, Input, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
-import ProductGroupDrawer from './product-group-drawer';
+import { message, Modal, Typography, Space, Table, Button, Input } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import PaymentGatewayDrawer from './payment-gateway-drawer';
 import BusinessEntityBreadcrumb from '../business-entity-bread-crumb';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
 const { Search } = Input;
 
-function ProductGroup() {
+function PaymentGatewayPage() {
     const [showDrawer, setShowDrawer] = useState(false);
     const [key, setKey] = useState({id: null, pid: null});
     const [loading, setLoading] = useState(true);
@@ -22,14 +22,14 @@ function ProductGroup() {
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('productGroups');
+    const baseUrl = GetBaseUrl('paymentGateways');
 
     const fetchData = (id) => {
         httpQuery(`${baseUrl}?businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
     }
 
     const fetchDataByFilter = (id, filter) => {
-        httpQuery(`${baseUrl}?name_like=${filter}&businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
+        httpQuery(`${baseUrl}?configName_like=${filter}&businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
     }
 
     const fetchDelete = (id) => {
@@ -82,7 +82,7 @@ function ProductGroup() {
 
     const handleDelete = (record) => {
         Modal.confirm({
-            title: "Are you sure, you want to delete this product group ?",
+            title: "Are you sure, you want to delete this bank account ?",
             okText: "Yes",
             okType: "danger",
             cancelText: "No",
@@ -130,6 +130,7 @@ function ProductGroup() {
     }, []);
 
     useEffect(() => {
+        console.log('reload');
         if (searchText) {
             console.log('fetchDataByFilter');
             fetchDataByFilter(id, searchText);
@@ -152,63 +153,19 @@ function ProductGroup() {
     const columns = [
         {
             title: 'NAME',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'configName',
+            key: 'configName',
         },
         {
-            title: 'PRODUCT TYPE',
-            dataIndex: 'productType',
-            key: 'productType',
+            title: 'TYPE',
+            dataIndex: 'type',
+            key: 'type',
         },
         {
-            title: 'NOMINAL CODE',
-            dataIndex: 'accountCode',
-            key: 'accountCode'
-        },
-        {
-            title: 'PAYMENT GATEWAYS',
-            dataIndex: 'paymentGateways',
-            key: 'paymentGateways',
-            render: (paymentGateways) => {
-                return (
-                <>
-                    {paymentGateways.map((tag) => (
-                        <Tag color="blue" key={tag}>
-                            {tag}
-                        </Tag>
-                    ))}
-                </>
-              );
-            },
-        },
-        {
-            title: 'TRACKING',
-            dataIndex: 'tracking',
-            key: 'tracking',
-            align: 'center',
-            width: 60,
-            render: (tracking) => {
-                return (
-                    <>
-                        {tracking && <CheckOutlined />}
-                    </>
-                );
-            }
-        },          
-        {
-            title: 'SEPAREATE AUTO INVOICES',
-            dataIndex: 'separateAutoInvoices',
-            key: 'separateAutoInvoices',
-            align: 'center',
-            width: 60,
-            render: (tracking) => {
-                return (
-                    <>
-                        {tracking && <CheckOutlined />}
-                    </>
-                );
-            }            
-        },             
+            title: 'ROLE',
+            dataIndex: 'roles',
+            key: 'roles'
+        },                  
         {
             title: "ACTIONS",
             width: 50,
@@ -240,7 +197,7 @@ function ProductGroup() {
         <>
             <BusinessEntityBreadcrumb name={'Old-Oak'} />
             <Typography.Title level={2} style={{ margin: 0 }}>
-                PRODUCT GROUPS
+                PAYMENT GATEWAYS
             </Typography.Title>
             <div style={{ marginBottom: 16, }}></div>
             <Space>
@@ -269,7 +226,7 @@ function ProductGroup() {
                 rowKey={'id'}
                 loading={loading}
             />
-            <ProductGroupDrawer 
+            <PaymentGatewayDrawer 
                 id={key.id}
                 pid={key.pid} 
                 open={showDrawer}
@@ -280,4 +237,4 @@ function ProductGroup() {
   )
 }
 
-export default ProductGroup
+export default PaymentGatewayPage

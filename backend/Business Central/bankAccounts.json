@@ -1,0 +1,17 @@
+{
+    "@odata.context": "https://api.businesscentral.dynamics.com/v2.0/63cce169-261e-4069-ad30-e4d5ffd7ffdf/Sandbox/api/v2.0/$metadata#companies(01d3fdd3-071c-ec11-bb76-000d3a245f47)/bankAccounts",
+    "value": [
+        {
+            "@odata.etag": "W/\"JzQ0O2RKaGdDVGRpVDFFUWNHZnhDUC9XRTNub1ZpU2pmUDFqT0hnUUJSbzZ1WFU9MTswMDsn\"",
+            "id": "986cb205-081c-ec11-bb76-000d3a245f47",
+            "number": "CHECKING",
+            "displayName": "World Wide Bank"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0Vaa1dmUk5lM3l2SUN5NmJLeEd0VnhnamlDcmM3ZWdqcFNHQW1lMjNFM289MTswMDsn\"",
+            "id": "996cb205-081c-ec11-bb76-000d3a245f47",
+            "number": "SAVINGS",
+            "displayName": "World Wide Bank"
+        }
+    ]
+}

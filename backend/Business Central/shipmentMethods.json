@@ -1,0 +1,110 @@
+{
+    "@odata.context": "https://api.businesscentral.dynamics.com/v2.0/63cce169-261e-4069-ad30-e4d5ffd7ffdf/Sandbox/api/v2.0/$metadata#companies(01d3fdd3-071c-ec11-bb76-000d3a245f47)/shipmentMethods",
+    "value": [
+        {
+            "@odata.etag": "W/\"JzQ0OzRicmFpY3gxNWdNUUJ2NlhJOFdXRzdwbDNDa1A4Y3hFYnpZanl6djFQeGM9MTswMDsn\"",
+            "id": "216ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "CFR",
+            "displayName": "Cost and Freight",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.24Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzFpMjVpdnlTbU0vcmJ4Uld6bXQ2N3F5d0duL2QyRmMrWDB1MytkRDZ2MVE9MTswMDsn\"",
+            "id": "226ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "CIF",
+            "displayName": "Cost Insurance and Freight",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.247Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzBlem9XVFlEZnliZ2d3Y3BwSFRqUDJTUlVJcXNCYXhGckJxOTBFVVU2RTg9MTswMDsn\"",
+            "id": "236ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "CIP",
+            "displayName": "Carriage and Insurance Paid",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.25Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2YyR0JDQnBVY2pQU2FoZk5SOEpPV01sTjd3UGR4VnhiSzVRUnVtc05ZTlE9MTswMDsn\"",
+            "id": "246ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "CPT",
+            "displayName": "Carriage Paid to",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.257Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0JDVDN6MHhxWXAxbmE5bXRpYmRpRHZGV1BhT0xWb1ZxRGZPLzhqSXo0SU09MTswMDsn\"",
+            "id": "256ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "DAF",
+            "displayName": "Delivered at Frontier",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.257Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O3lYOWlMVXVZeW41dkFXZGUvbzBuVEIzRnNxY2tkTytCWkxiTnc3V0x2Ukk9MTswMDsn\"",
+            "id": "266ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "DDP",
+            "displayName": "Delivered Duty Paid",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.263Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1dqZnlOR1dmNG1LdUlVVnpPWVovU3F4d0dCR3dSOUFDY0lJbjlsNG5YM3M9MTswMDsn\"",
+            "id": "276ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "DDU",
+            "displayName": "Delivered Duty Unpaid",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.277Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2ZsWTZWQ3V0a0xGamFSeEpUUnpldWVBTE5vRU5zYVg1Rlh5TGg3ODl2YWc9MTswMDsn\"",
+            "id": "286ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "DELIVERY",
+            "displayName": "DELIVERY",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.277Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O3ZWRkY2OVpybnBtaFhSNFQrQlF3R0ZSajVBNE8rTWhVcFJRTjBhQmVIck09MTswMDsn\"",
+            "id": "296ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "DEQ",
+            "displayName": "Delivered ex Quay",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.283Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0hMNkcwOUo2bmQrVEtWeVFOUi9SY2ZJaGd1UDdvZE0vTnJEM1NoWXBDbDA9MTswMDsn\"",
+            "id": "2a6ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "DES",
+            "displayName": "Delivered ex Ship",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.287Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2c1cUxzS2tBZVdUNGFCcHo2VFNqZTBKUGM4Vi9nYmhXK3hoRXdWMlhNRjQ9MTswMDsn\"",
+            "id": "2b6ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "EXW",
+            "displayName": "Ex Warehouse",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.29Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0x3QUFrbTFHRzg3M1VsTFo4bTkrSk9uSzQyajlka2ZHQlp5WlpheHVNbG89MTswMDsn\"",
+            "id": "2c6ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "FAS",
+            "displayName": "Free Alongside Ship",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.293Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1FMc3FEOS9JT3JMR1VHS3VLWkxlK0ZteWZMWHVMU3FqUzFoM3pkazBkU1k9MTswMDsn\"",
+            "id": "2d6ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "FCA",
+            "displayName": "Free Carrier",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.3Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0OzVLMDE4VzFORzJsTU1Qejk4aGFoYXZ6ZU5JWnpSbkRTWnhGQVBsR0ZjU3c9MTswMDsn\"",
+            "id": "2e6ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "FOB",
+            "displayName": "Free on Board",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.303Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0RudG9XQnRhRzZhWEdBQW5Mc3JkRUpkazV5bENjbDVPZHNCcEY2VXhJSWs9MTswMDsn\"",
+            "id": "2f6ab205-081c-ec11-bb76-000d3a245f47",
+            "code": "PICKUP",
+            "displayName": "Pickup at Location",
+            "lastModifiedDateTime": "2021-09-23T00:49:25.307Z"
+        }
+    ]
+}

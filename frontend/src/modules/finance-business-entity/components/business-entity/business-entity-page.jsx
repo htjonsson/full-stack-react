@@ -1,35 +1,32 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import BankAccountDrawer from './bank-account-drawer';
-import BusinessEntityBreadcrumb from '../business-entity-bread-crumb';
+import BusinessEntityDrawer from './business-entity-drawer';
 import { GetBaseUrl } from '../../../../services/config.js'; 
 
 const { Search } = Input;
 
-function BankAccount() {
+function BusinessEntityPage() {
     const [showDrawer, setShowDrawer] = useState(false);
-    const [key, setKey] = useState({id: null, pid: null});
+    const [key, setKey] = useState(null);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [error, setError] = useState(null);
     const [viewModel, setViewModel] = useState([]);
     const [searchText, setSearchText] = useState(null);
-
-    const { id } = useParams();
        
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
     // -------------------------------------------------------------------------------
-    const baseUrl = GetBaseUrl('bankAccounts');
+    const baseUrl = GetBaseUrl('businessEntites');
 
-    const fetchData = (id) => {
-        httpQuery(`${baseUrl}?businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
+    const fetchData = () => {
+        httpQuery(baseUrl, { method: 'GET', redirect: 'follow' });
     }
 
-    const fetchDataByFilter = (id, filter) => {
-        httpQuery(`${baseUrl}?code_like=${filter}&businessEntityId=${id}`, { method: 'GET', redirect: 'follow' });
+    const fetchDataByFilter = (filter) => {
+        httpQuery(`${baseUrl}?name_like=${filter}`, { method: 'GET', redirect: 'follow' });
     }
 
     const fetchDelete = (id) => {
@@ -48,13 +45,13 @@ function BankAccount() {
         const requestHeaders = new Headers();
         requestHeaders.append("Content-Type", "application/json");  
         const raw = JSON.stringify(model);  
-        console.log("post - model", raw);
+
         httpCommand(`${baseUrl}`, { method: 'POST', redirect: 'follow', headers: requestHeaders, body: raw });
     }    
 
     const httpQuery = (url, options) => {
         setLoading(true);
-
+        
         fetch(url, options)
             .then(response => { if (!response.ok) { throw new Error() } return response.json() })
             .then(json => { setViewModel(json) })
@@ -75,14 +72,13 @@ function BankAccount() {
     // -------------------------------------------------------------------------------
 
     const handleOpen = () => {
-        setKey({id: null, pid: id});
-        console.log(JSON.stringify(key));
+        setKey(null);
         setShowDrawer(true);
     }
 
     const handleDelete = (record) => {
         Modal.confirm({
-            title: "Are you sure, you want to delete this bank account ?",
+            title: "Are you sure, you want to delete this record?",
             okText: "Yes",
             okType: "danger",
             cancelText: "No",
@@ -93,17 +89,13 @@ function BankAccount() {
     }
 
     const handleEdit = (record) => {
-        setKey({id: record.id, pid: record.businessEntityId});
-        console.log(JSON.stringify(key));
+        setKey(record.id);
         setShowDrawer(true);
     }
 
-    const handleSave = (id, model) => {
-        console.log('id:', id);
-        console.log('model:', JSON.stringify(model));
-        
-        if (id) {
-            fetchPut(id, model);
+    const handleSave = (key, model) => {
+        if (key) {
+            fetchPut(key, model);
         }
         else {
             fetchPost(model);
@@ -117,7 +109,6 @@ function BankAccount() {
 
     const handleSearch = (value) => {
         setSearchText(value);
-        console.log(value);
         setReload(!reload);
     }
 
@@ -126,16 +117,14 @@ function BankAccount() {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
-        fetchData(id);
+        fetchData();
     }, []);
 
     useEffect(() => {
-        console.log('reload');
         if (searchText) {
-            console.log('fetchDataByFilter');
-            fetchDataByFilter(id, searchText);
+            fetchDataByFilter(searchText);
         } else {
-            fetchData(id);
+            fetchData();
         }
     }, [reload])
 
@@ -149,18 +138,39 @@ function BankAccount() {
     // -------------------------------------------------------------------------------
     //      COLUMNS
     // -------------------------------------------------------------------------------
-    
+
     const columns = [
         {
-            title: 'BANK ACCOUNT',
-            dataIndex: 'code',
-            key: 'code'
-        }, 
+            title: 'NAME',
+            dataIndex: 'name',
+            key: 'name',
+        },
         {
-            title: 'PRODUCT TYPE',
-            dataIndex: 'paymentType',
-            key: 'paymentType',
-        },      
+            title: 'ESTATE',
+            dataIndex: 'estateName',
+            key: 'estateName',
+        },
+        {
+            title: 'BANK ACCOUNTS',
+            dataIndex: 'numberOfBankAccounts',
+            key: 'numberOfBankAccounts',
+            width: 60,
+            render: (text, record) => <Link to={`/bank-account/${record.id}`}><span>{text}</span></Link>,
+        },
+        {
+            title: 'PAYMENT GATEWAYS',
+            dataIndex: 'numberOfPaymentGateways',
+            key: 'numberOfPaymentGateways',
+            width: 60,
+            render: (text, record) => <Link to={`/payment-gateway/${record.id}`}><span>{text}</span></Link>,
+        },
+        {
+            title: 'PRODUCT GROUPS',
+            dataIndex: 'numberOfProductGroups',
+            key: 'numberOfProductGroups',
+            width: 60,
+            render: (text, record) => <Link to={`/product-group/${record.id}`}><span>{text}</span></Link>,
+        },                      
         {
             title: "ACTIONS",
             width: 50,
@@ -182,7 +192,7 @@ function BankAccount() {
                 );
             },
         },
-    ];  
+    ];    
 
     // -------------------------------------------------------------------------------
     //      VIEW
@@ -190,9 +200,8 @@ function BankAccount() {
 
     return (
         <>
-            <BusinessEntityBreadcrumb name={'Old-Oak'} />
             <Typography.Title level={2} style={{ margin: 0 }}>
-                BANK ACCOUNTS
+                BUSINESS ENTITY
             </Typography.Title>
             <div style={{ marginBottom: 16, }}></div>
             <Space>
@@ -221,9 +230,8 @@ function BankAccount() {
                 rowKey={'id'}
                 loading={loading}
             />
-            <BankAccountDrawer 
-                id={key.id}
-                pid={key.pid} 
+            <BusinessEntityDrawer 
+                id={key} 
                 open={showDrawer}
                 handleSave={handleSave} 
                 handleClose={handleClose} 
@@ -232,4 +240,4 @@ function BankAccount() {
   )
 }
 
-export default BankAccount
+export default BusinessEntityPage

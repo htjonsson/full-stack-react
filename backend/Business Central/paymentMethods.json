@@ -1,0 +1,89 @@
+{
+    "@odata.context": "https://api.businesscentral.dynamics.com/v2.0/63cce169-261e-4069-ad30-e4d5ffd7ffdf/Sandbox/api/v2.0/$metadata#companies(01d3fdd3-071c-ec11-bb76-000d3a245f47)/paymentMethods",
+    "value": [
+        {
+            "@odata.etag": "W/\"JzQ0O0V1YjRGMENUb1hYMXN6aTZ6NTdhWFJSVEFPRFplNVp5K1lteEdOUW41eE09MTswMDsn\"",
+            "id": "ac6cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "ACCOUNT",
+            "displayName": "Payment on account",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.96Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1p2d3p3Ym5ic0NUelJuakFXMERwaThKakhDeXdyL21PYjkzMmdFK29VVW89MTswMDsn\"",
+            "id": "ad6cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "BANK",
+            "displayName": "Bank Transfer",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.98Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1Q4cjRJYzV4MVNUcnZERmROUUJNd1MrVzhnYitXUnBFRDZlMlBGYml4Qjg9MTswMDsn\"",
+            "id": "ae6cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "BNKCONVDOM",
+            "displayName": "Bank Data Conversion for Domestic Banks",
+            "lastModifiedDateTime": "2021-09-23T01:24:03.093Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1RHUjVNSVlZOEhWUVZWVUpIdHdKenNaL3RGR1RyVnh1RW9sSy91TEMyNzg9MTswMDsn\"",
+            "id": "af6cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "BNKCONVINT",
+            "displayName": "Bank Data Conversion for International Banks",
+            "lastModifiedDateTime": "2021-09-23T01:24:03.093Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0VhTFZKVDRiQ3QrQWpZdStVUkltdnZPR21XSzhDZ3VFcHEzdTFkN0RFUlU9MTswMDsn\"",
+            "id": "b06cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "CARD",
+            "displayName": "Card payment",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.983Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0RtZys3aWlVd3ozU3JITmFyMVFPSTByR3kzMkJQMWttcVY3bUJTSnFrTFE9MTswMDsn\"",
+            "id": "b16cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "CASH",
+            "displayName": "Cash payment",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.983Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0xUZjR0K3F0eThFalUyeDNvV2VNMER6SFllZktXajVFSXpnS1BoVkt5SDA9MTswMDsn\"",
+            "id": "b26cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "CHEQUE",
+            "displayName": "Cheque payment",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.983Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0hGcE83aDdhR2Y2VlpSNHZtR1ZZSTBxN2RObE5iMERVOE1zU01EbGozaGc9MTswMDsn\"",
+            "id": "b36cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "GIRO",
+            "displayName": "Giro transfer",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.983Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1lOU3FrYTVYRURTSzZiMFBpZllYR0VFMWEwS0VlYmE1ZzZBbjd6S0Z1ZGM9MTswMDsn\"",
+            "id": "b46cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "INTERCOM",
+            "displayName": "Intercompany payment",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.983Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O2ZuRXNEdmZRaldnUWwyNGZlWXlqekRaaHMyZU52bCt3dW1tbTNpN3FhL2M9MTswMDsn\"",
+            "id": "b56cb205-081c-ec11-bb76-000d3a245f47",
+            "code": "MULTIPLE",
+            "displayName": "Multiple payment methods",
+            "lastModifiedDateTime": "2021-09-23T01:24:02.983Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O0NDMlBvbXJSS1pXYWdob0xJMUtwNU5jZUt5Y28xRm5nU3h2eEhEZDlaK1E9MTswMDsn\"",
+            "id": "b0f43009-0d1c-ec11-bb76-000d3a398647",
+            "code": "PAYPAL",
+            "displayName": "PayPal payment",
+            "lastModifiedDateTime": "2021-09-23T01:24:46.657Z"
+        },
+        {
+            "@odata.etag": "W/\"JzQ0O1BGaDdtR1JEazFCam1RUEVrUFAvcnpJc1VhS1k3eXhpN3NUYU9UcUdOV2M9MTswMDsn\"",
+            "id": "6d3a0e39-0d1c-ec11-bb76-000d3a398647",
+            "code": "WORLDPAY",
+            "displayName": "WorldPay payment",
+            "lastModifiedDateTime": "2021-09-23T01:26:07.047Z"
+        }
+    ]
+}
