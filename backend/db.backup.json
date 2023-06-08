@@ -1,4 +1,146 @@
 {
+    "querySubjects": [
+        {
+            "externalName": "Suppliers",
+            "queryItems": [
+                {
+                    "externalName": "SupplierID",
+                    "type": "identity",
+                    "dataType": "int"
+                },
+                {
+                    "externalName": "CompanyName",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "ContactName",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "ContactTitle",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "Address",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "City",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "Region",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "PostalCode",
+                    "type": "attribute",
+                    "dataType": "string"                    
+                },
+                {
+                    "externalName": "Country",
+                    "type": "attribute",
+                    "dataType": "string"                    
+                },
+                {
+                    "externalName": "Phone",
+                    "type": "attribute",
+                    "dataType": "string"                    
+                },
+                {
+                    "externalName": "Fax",
+                    "type": "attribute",
+                    "dataType": "string"                    
+                },
+                {
+                    "externalName": "HomePage",
+                    "type": "attribute",
+                    "dataType": "string"                    
+                }                                                                                                          
+            ]      
+        },        
+        {
+            "externalName": "Categories",
+            "queryItems": [
+                {
+                    "externalName": "CategoryID",
+                    "type": "identity",
+                    "dataType": "int"
+                },
+                {
+                    "externalName": "CategoryName",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "Description",
+                    "type": "attribute",
+                    "dataType": "string"
+                }  
+            ]      
+        },
+        {
+            "externalName": "Products",
+            "queryItems": [
+                {
+                    "externalName": "ProductID",
+                    "type": "identity",
+                    "dataType": "int"
+                },
+                {
+                    "externalName": "ProductName",
+                    "type": "attribute",
+                    "dataType": "string"
+                },
+                {
+                    "externalName": "SupplierID",
+                    "type": "identity",
+                    "dataType": "int"
+                },
+                {
+                    "externalName": "CategoryID",
+                    "type": "identity",
+                    "dataType": "int"
+                },
+                {
+                    "externalName": "QuantityPerUnit",
+                    "type": "attribute",
+                    "dataType": "double"
+                }, 
+                {
+                    "externalName": "UnitPrice",
+                    "type": "attribute",
+                    "dataType": "double"
+                },
+                {
+                    "externalName": "UnitInStock",
+                    "type": "attribute",
+                    "dataType": "double"
+                },
+                {
+                    "externalName": "UnitOnOrder",
+                    "type": "attribute",
+                    "dataType": "double"
+                },
+                {
+                    "externalName": "ReorderLevel",
+                    "type": "attribute",
+                    "dataType": "double"
+                },
+                {
+                    "externalName": "Discontinued",
+                    "type": "attribute",
+                    "dataType": "int"
+                }                                                    
+            ]
+        }
+    ],
   "tables": [
     {
       "id": "2",
