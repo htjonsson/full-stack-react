@@ -2,19 +2,26 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input, Tree, Skeleton, Row, Col } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import AnalysisInfoDrawer from "./analysis-info-drawer";
+import AnalysisFilterDrawer from "./analysis-filter-drawer";
+import AnalysisFieldDrawer from "./analysis-field-drawer";
 import './analysis.css'
 
 const { Search } = Input;
 
 function AnalysisPage() {
-    const [showDrawer, setShowDrawer] = useState(false);
-    const [key, setKey] = useState(null);
+    const [showInfoDrawer, setShowInfoDrawer] = useState(false);
+    const [showFieldDrawer, setShowFieldDrawer] = useState(false);
+    const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+    const [showQueryDrawer, setShowQueryDrawer] = useState(false);
+
+    const [id, setId] = useState(null);
+    const [pId, setPId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [error, setError] = useState(null);
     const [viewModel, setViewModel] = useState([]);
     const [reportModel, setReportModel] = useState([]);
-    const [searchText, setSearchText] = useState(null);
        
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
@@ -153,33 +160,14 @@ function AnalysisPage() {
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
-    const handleOpen = () => {
-        setKey(null);
-        setShowDrawer(true);
-    }
-
-    const handleEdit = (record) => {
-        setKey(record.id);
-        setShowDrawer(true);
-    }
-
-    const handleSave = (key, model) => {
-        if (key) {
-            fetchPut(key, model);
-        }
-        else {
-            fetchPost(model);
-        }
+    const handleSave = (id, model) => {
         setShowDrawer(false);
     }
 
     const handleClose = () => {
-        setShowDrawer(false);
-    }
-
-    const handleSearch = (value) => {
-        setSearchText(value);
-        setReload(!reload);
+        setShowInfoDrawer(false);
+        setShowFieldDrawer(false);
+        setShowFilterDrawer(false);
     }
 
     const handleSelect = (selectedKeys, info) => {
@@ -193,9 +181,12 @@ function AnalysisPage() {
         console.log(JSON.stringify(reportModel));
     }
 
-    const handleClick = (event) => {
-        console.log('handleClick', JSON.stringify(event));
-        alert(JSON.stringify(event));
+    const handleFieldClick = (id) => {
+        setShowFieldDrawer(true);
+    }
+
+    const handleFilterClick = (id) => {
+        setShowFilterDrawer(true);
     }
 
     // -------------------------------------------------------------------------------
@@ -203,6 +194,7 @@ function AnalysisPage() {
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
+        setShowInfoDrawer(true);
         fetchData();
     }, []);
 
@@ -229,9 +221,17 @@ function AnalysisPage() {
     //      VIEW
     // -------------------------------------------------------------------------------
 
-    const print = () => {
-        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleClick(key)}>{key}</td>)
+    const titleList = () => {
+        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFieldClick(key)}>{key}</td>)
     }
+
+    const filterList = () => {
+        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFilterClick(key)}>FILTER</td>)
+    }   
+
+    const dataList = () => {
+        return reportModel.map((key) => <td key={key} className="c8-text">XXXX-XXXX-XXXX</td>)
+    }    
 
     return (
         <>
@@ -243,29 +243,53 @@ function AnalysisPage() {
             <div className='c8-wrapper'>
                 <table className="c8-table">
                     <tr>
-                        {print()}
-                    </tr>     
+                        {titleList()}
+                    </tr> 
+                    <tr>
+                        {filterList()}
+                    </tr> 
+                    <tr>
+                        {dataList()}
+                    </tr>
+                    <tr>
+                        {dataList()}
+                    </tr>  
+                    <tr>
+                        {dataList()}
+                    </tr>  
+                    <tr>
+                        {dataList()}
+                    </tr>  
+                    <tr>
+                        {dataList()}
+                    </tr>  
+                    <tr>
+                        {dataList()}
+                    </tr>  
                 </table>
             </div>
-            <Row>
-                <Col span={6}>
-                    <Tree
-                    checkable
-                    autoExpandParent={true}
-                    onSelect={handleSelect}
-                    onCheck={handleCheck}
-                    treeData={viewModel}
-                    />
-                </Col>
-                <Col span={4}>
-
-                </Col>
-                <Col span={8}></Col>
-            </Row>
-
-
-
-            
+            <AnalysisInfoDrawer 
+                id={id}
+                pid={pId} 
+                treeData={treeData}
+                open={showInfoDrawer}
+                handleSave={handleSave} 
+                handleClose={handleClose} 
+            />
+            <AnalysisFieldDrawer 
+                id={id}
+                pid={pId} 
+                open={showFieldDrawer}
+                handleSave={handleSave} 
+                handleClose={handleClose} 
+            />
+            <AnalysisFilterDrawer 
+                id={id}
+                pid={pId} 
+                open={showFilterDrawer}
+                handleSave={handleSave} 
+                handleClose={handleClose} 
+            />                       
         </>
   )
 }
