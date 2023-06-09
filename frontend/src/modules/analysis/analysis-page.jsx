@@ -20,7 +20,7 @@ function AnalysisPage() {
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [error, setError] = useState(null);
-    const [viewModel, setViewModel] = useState([]);
+    const [viewModel, setViewModel] = useState(null);
     const [reportModel, setReportModel] = useState([]);
        
     // -------------------------------------------------------------------------------
@@ -153,15 +153,26 @@ function AnalysisPage() {
       ];
 
     const fetchData = () => {
-        setViewModel(treeData);
+        console.log('fetchData');
+        var model = {treeData: [...treeData]};
+        setViewModel(model);
+        // console.log(JSON.stringify(model));
+        // console.log(JSON.stringify(viewModel));
     }
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
-    const handleSave = (id, model) => {
-        setShowDrawer(false);
+
+    const handleSave = (data) => {
+        setReportModel([...data]);
+        handleClose();
+
+        var model = {treeData: [...treeData], checkedKeys: [...data]};
+        setViewModel(model);
+
+        console.log(JSON.stringify(model))
     }
 
     const handleClose = () => {
@@ -189,13 +200,17 @@ function AnalysisPage() {
         setShowFilterDrawer(true);
     }
 
+    const handleInfoClick = () => {
+        setShowInfoDrawer(true);
+    }
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
 
     useEffect(() => {
-        setShowInfoDrawer(true);
         fetchData();
+        setShowInfoDrawer(true);
     }, []);
 
     useEffect(() => {
@@ -239,7 +254,13 @@ function AnalysisPage() {
                 ANALYSIS
             </Typography.Title>
             <div style={{ marginBottom: 16, }}></div>
-            <Skeleton />
+            <Space>
+                <Button 
+                    type="primary" 
+                    onClick={() => handleInfoClick()}>
+                        SETUP
+                </Button>
+            </Space>
             <div className='c8-wrapper'>
                 <table className="c8-table">
                     <tr>
@@ -268,11 +289,9 @@ function AnalysisPage() {
                     </tr>  
                 </table>
             </div>
-            <AnalysisInfoDrawer 
-                id={id}
-                pid={pId} 
-                treeData={treeData}
+            <AnalysisInfoDrawer             
                 open={showInfoDrawer}
+                dataSource={viewModel}
                 handleSave={handleSave} 
                 handleClose={handleClose} 
             />

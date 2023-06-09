@@ -3,7 +3,7 @@ import { Button, Col, Drawer, Tree, Input, Row, Select, Space, Spin } from 'antd
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisInfoDrawer = ({ id, pid, treeData, open, handleSave, handleClose }) => {
+const AnalysisInfoDrawer = ({ dataSource, open, handleSave, handleClose }) => {
     const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
@@ -18,8 +18,7 @@ const AnalysisInfoDrawer = ({ id, pid, treeData, open, handleSave, handleClose }
     // -------------------------------------------------------------------------------
 
     const onSave = () => {
-        alert(JSON.stringify(checkedItems));
-        // handleSave(id, values);
+        handleSave(checkedItems);
     }
 
     const onClose = () => {
@@ -38,7 +37,6 @@ const AnalysisInfoDrawer = ({ id, pid, treeData, open, handleSave, handleClose }
     // -------------------------------------------------------------------------------
 
     useEffect(() => { 
-        console.log(JSON.stringify(treeData));
         setLoading(false);
     }, []);
 
@@ -80,7 +78,8 @@ const AnalysisInfoDrawer = ({ id, pid, treeData, open, handleSave, handleClose }
                         checkable
                         onCheck={handleCheck}
                         autoExpandParent={true}
-                        treeData={treeData}
+                        treeData={dataSource.treeData}
+                        defaultCheckedKeys={dataSource.checkedKeys}
                     />
                 }
             </Drawer>
@@ -89,9 +88,7 @@ const AnalysisInfoDrawer = ({ id, pid, treeData, open, handleSave, handleClose }
 };
 
 AnalysisInfoDrawer.propTypes = {
-    id: PropTypes.string,
-    pid: PropTypes.string,
-    treeData: PropTypes.any,    
+    dataSource: PropTypes.any,  
     open: PropTypes.bool,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
