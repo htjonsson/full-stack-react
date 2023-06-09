@@ -20,7 +20,7 @@ const items = [
   {
     type: 'divider',
   },
-  getItem('Employee', '/employee', <MailOutlined />, null),
+  getItem('Analysis', '/analysis', <MailOutlined />, null),
   {
     type: 'divider',
   },
