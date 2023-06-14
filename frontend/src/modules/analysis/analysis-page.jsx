@@ -5,22 +5,45 @@ import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import AnalysisInfoDrawer from "./analysis-info-drawer";
 import AnalysisFilterDrawer from "./analysis-filter-drawer";
 import AnalysisFieldDrawer from "./analysis-field-drawer";
+import AnalysisOrderDrawer from "./analysis-order-drawer";
 import './analysis.css'
+import './analysisService.js'
+import { analysisService_getItemData, analysisService_getTreeData, analysisService_getItemDataByFilter, analysisService_setOrderNumbers } from './analysisService.js';
 
 const { Search } = Input;
 
 function AnalysisPage() {
+    // -------------------------------------------------------------------------------
+    //      DRAWERS
+    // -------------------------------------------------------------------------------
+
     const [showInfoDrawer, setShowInfoDrawer] = useState(false);
     const [showFieldDrawer, setShowFieldDrawer] = useState(false);
     const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+    const [showOrderDrawer, setShowOrderDrawer] = useState(false);
     const [showQueryDrawer, setShowQueryDrawer] = useState(false);
 
+    // -------------------------------------------------------------------------------
+    //      DATA MODELS
+    // -------------------------------------------------------------------------------
+    
+    const [viewModel, setViewModel] = useState(null);
+    const [tableModel, setTableModel] = useState([]);
+
+    // -------------------------------------------------------------------------------
+    //      PAGE STATE
+    // -------------------------------------------------------------------------------
+    
+    const [loading, setLoading] = useState(true);
+
+    // -------------------------------------------------------------------------------
+    //      
+    // -------------------------------------------------------------------------------
+    
     const [id, setId] = useState(null);
     const [pId, setPId] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [error, setError] = useState(null);
-    const [viewModel, setViewModel] = useState(null);
     const [reportModel, setReportModel] = useState([]);
        
     // -------------------------------------------------------------------------------
@@ -154,31 +177,45 @@ function AnalysisPage() {
 
     const fetchData = () => {
         console.log('fetchData');
-        var model = {treeData: [...treeData]};
+        var td = analysisService_getTreeData();
+        var id = analysisService_getItemData();
+        var model = {treeData: [...td]};
         setViewModel(model);
+        console.log(JSON.stringify(id));
+        // setTableModel([...id]);
         // console.log(JSON.stringify(model));
         // console.log(JSON.stringify(viewModel));
+        setLoading(false);
     }
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
-
     const handleSave = (data) => {
         setReportModel([...data]);
         handleClose();
 
-        var model = {treeData: [...treeData], checkedKeys: [...data]};
+        var model = {
+            treeData: [...treeData], 
+            checkedKeys: [...data]
+        };
         setViewModel(model);
 
         console.log(JSON.stringify(model))
+
+        let viewModel = analysisService_getItemDataByFilter(data);
+        viewModel = analysisService_setOrderNumbers(viewModel);
+        console.log(viewModel);
+        setTableModel(viewModel);
     }
 
     const handleClose = () => {
         setShowInfoDrawer(false);
         setShowFieldDrawer(false);
         setShowFilterDrawer(false);
+        setShowQueryDrawer(false);
+        setShowOrderDrawer(false);
     }
 
     const handleSelect = (selectedKeys, info) => {
@@ -202,6 +239,10 @@ function AnalysisPage() {
 
     const handleInfoClick = () => {
         setShowInfoDrawer(true);
+    }
+
+    const handleOrderClick = () => {
+        setShowOrderDrawer(true);
     }
 
     // -------------------------------------------------------------------------------
@@ -232,10 +273,55 @@ function AnalysisPage() {
     //      COLUMNS
     // -------------------------------------------------------------------------------
 
+    const columns = [
+        {
+            title: '',
+            dataIndex: 'number',
+            key: 'number',
+            width: 20,
+        },        
+        {
+            title: 'TITLE',
+            dataIndex: 'title',
+            key: 'title',
+            render: (text, record) => <Link><span onClick={() => handleFieldClick(record.key)}>{text}</span></Link>,
+        },
+        {
+            title: 'TYPE',
+            dataIndex: 'type',
+            key: 'type',
+        },        
+        {
+            title: 'KEY',
+            dataIndex: 'key',
+            key: 'key',
+        },
+        {
+            title: 'DATA TYPE',
+            dataIndex: 'dataType',
+            key: 'dataType',
+        },
+        {
+            title: 'FILTERS',
+            dataIndex: 'numberOfFilters',
+            key: 'numberOfFilters',
+            width: 60,
+            render: (text, record) => <Link><span onClick={() => handleFilterClick(record.key)}>{text}</span></Link>,
+        },
+        {
+            title: 'ORDER',
+            dataIndex: 'order',
+            key: 'order',
+            width: 60,
+            render: (text, record) => <Link><span onClick={() => handleOrderClick(record.key)}>{text}</span></Link>,
+        },              
+    ];    
+
     // -------------------------------------------------------------------------------
     //      VIEW
     // -------------------------------------------------------------------------------
 
+    /*
     const titleList = () => {
         return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFieldClick(key)}>{key}</td>)
     }
@@ -246,7 +332,8 @@ function AnalysisPage() {
 
     const dataList = () => {
         return reportModel.map((key) => <td key={key} className="c8-text">XXXX-XXXX-XXXX</td>)
-    }    
+    } 
+    */   
 
     return (
         <>
@@ -261,34 +348,15 @@ function AnalysisPage() {
                         SETUP
                 </Button>
             </Space>
-            <div className='c8-wrapper'>
-                <table className="c8-table">
-                    <tr>
-                        {titleList()}
-                    </tr> 
-                    <tr>
-                        {filterList()}
-                    </tr> 
-                    <tr>
-                        {dataList()}
-                    </tr>
-                    <tr>
-                        {dataList()}
-                    </tr>  
-                    <tr>
-                        {dataList()}
-                    </tr>  
-                    <tr>
-                        {dataList()}
-                    </tr>  
-                    <tr>
-                        {dataList()}
-                    </tr>  
-                    <tr>
-                        {dataList()}
-                    </tr>  
-                </table>
-            </div>
+            <div style={{ marginBottom: 16, }}></div>
+            <Table 
+                columns={columns} 
+                dataSource={tableModel} 
+                pagination={false} 
+                bordered={true} 
+                rowKey={'key'}
+                loading={loading}
+            />
             <AnalysisInfoDrawer             
                 open={showInfoDrawer}
                 dataSource={viewModel}
@@ -308,7 +376,14 @@ function AnalysisPage() {
                 open={showFilterDrawer}
                 handleSave={handleSave} 
                 handleClose={handleClose} 
-            />                       
+            /> 
+            <AnalysisOrderDrawer 
+                id={id}
+                pid={pId} 
+                open={showOrderDrawer}
+                handleSave={handleSave} 
+                handleClose={handleClose} 
+            />                      
         </>
   )
 }

@@ -2,15 +2,15 @@
 	"item" [
 		{
 			"id": "",
-			"title": "",
+			""title"": "",
 			"type": "",
 			"dataType": "",
 			"style": "default"
 		}
 	],
 	"title": {
-		"title": "",
-		"subtitle": "",
+		""title"": "",
+		"sub"title"": "",
 		"showFilters": true,
 		"showOrdering": true
 	},	
@@ -25,7 +25,7 @@
 			"maximum": true    
 		},
 		"text": {
-			"value": "",
+			""value"": "",
 			"condition": "match|contains|startsWith|endsWith",
 			"caseSensitive": true
 		},
@@ -36,6 +36,7 @@
 		"orderBy": "default|asc|dec"
 	}
 }
+
 
 
 treeData = [  
@@ -183,6 +184,7 @@ itemData = [
 		"key": "Products.ProductName",
 		"value": "Products.ProductName",
 		"dataType": "string",
+		"type": "attribute",
 	},
 	{
 		"title": "SupplierID",
