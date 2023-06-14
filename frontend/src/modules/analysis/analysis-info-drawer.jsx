@@ -78,8 +78,8 @@ const AnalysisInfoDrawer = ({ dataSource, open, handleSave, handleClose }) => {
                         checkable
                         onCheck={handleCheck}
                         autoExpandParent={true}
-                        treeData={dataSource.treeData}
-                        defaultCheckedKeys={dataSource.checkedKeys}
+                        treeData={dataSource.external.tree.nodes}
+                        defaultCheckedKeys={dataSource.external.tree.selected}
                     />
                 }
             </Drawer>

@@ -8,7 +8,7 @@ import AnalysisFieldDrawer from "./analysis-field-drawer";
 import AnalysisOrderDrawer from "./analysis-order-drawer";
 import './analysis.css'
 import './analysisService.js'
-import { analysisService_getItemData, analysisService_getTreeData, analysisService_getItemDataByFilter, analysisService_setOrderNumbers } from './analysisService.js';
+import { analysisService_external_getItemData, analysisService_external_getTreeData, analysisService_getItemDataByKeys, analysisService_getByKey, analysisService_setOrderNumbers, analysisService_fetchData } from './analysisService.js';
 
 const { Search } = Input;
 
@@ -29,6 +29,7 @@ function AnalysisPage() {
     
     const [viewModel, setViewModel] = useState(null);
     const [tableModel, setTableModel] = useState([]);
+    const [dataModel, setDataModel] = useState(null);
 
     // -------------------------------------------------------------------------------
     //      PAGE STATE
@@ -40,6 +41,7 @@ function AnalysisPage() {
     //      
     // -------------------------------------------------------------------------------
     
+    const [item, setItem] = useState(null);
     const [id, setId] = useState(null);
     const [pId, setPId] = useState(null);
     const [reload, setReload] = useState(false);
@@ -50,141 +52,14 @@ function AnalysisPage() {
     //      FETCH SERVICE
     // -------------------------------------------------------------------------------
 
-    const treeData = [  
-        {
-          title: 'Products',
-          key: 'Products',
-          children: [
-            {
-              title: 'ProductID',
-              key: 'Products.ProductID',
-              value: 'Products.ProductID',
-            },
-            {
-                title: 'ProductName',
-                key: 'Products.ProductName',
-                value: 'Products.ProductName',
-            },
-            {
-                title: 'SupplierID',
-                key: 'Products.SupplierID',
-                value: 'Products.SupplierID',
-            },
-            {
-                title: 'CategoryID',
-                key: 'Products.CategoryID',
-                value: 'Products.CategoryID',
-            }, 
-            {
-                title: 'QuantityPerUnit',
-                key: 'Products.QuantityPerUnit',
-                value: 'Products.QuantityPerUnit',
-            }, 
-            {
-                title: 'UnitPrice',
-                key: 'Products.UnitPrice',
-                value: 'Products.UnitPrice',
-            },            
-            {
-                title: 'UnitInStock',
-                key: 'Products.UnitInStock',
-                value: 'Products.UnitInStock',
-            },
-            {
-                title: 'UnitOnOrder',
-                key: 'Products.UnitOnOrder',
-                value: 'Products.UnitOnOrder',
-            },
-            {
-                title: 'ReorderLevel',
-                key: 'Products.ReorderLevel',
-                value: 'Products.ReorderLevel',
-            },
-            {
-                title: 'Discontinued',
-                key: 'Products.Discontinued',
-                value: 'Products.Discontinued',
-            }
-          ],
-        },
-        {
-            title: 'Suppliers',
-            key: 'Suppliers',
-            children: [
-              {
-                title: 'ProductID',
-                key: 'Suppliers.SupplierID',
-                value: 'Suppliers.SupplierID',
-              },
-              {
-                  title: 'CompanyName',
-                  key: 'Suppliers.CompanyName',
-                  value: 'Suppliers.CompanyName',
-              },
-              {
-                  title: 'ContactName',
-                  key: 'Suppliers.ContactName',
-                  value: 'Suppliers.ContactName',
-              },
-              {
-                  title: 'ContactTitle',
-                  key: 'Suppliers.ContactTitle',
-                  value: 'Suppliers.ContactTitle',
-              }, 
-              {
-                  title: 'Address',
-                  key: 'Suppliers.Address',
-                  value: 'Suppliers.Address',
-              }, 
-              {
-                  title: 'City',
-                  key: 'Suppliers.City',
-                  value: 'Suppliers.City',
-              },            
-              {
-                  title: 'Region',
-                  key: 'Suppliers.Region',
-                  value: 'Suppliers.Region',
-              },
-              {
-                  title: 'PostalCode',
-                  key: 'Suppliers.PostalCode',
-                  value: 'Suppliers.PostalCode',
-              },
-              {
-                  title: 'Country',
-                  key: 'Suppliers.Country',
-                  value: 'Suppliers.Country',
-              },
-              {
-                  title: 'Phone',
-                  key: 'Suppliers.Phone',
-                  value: 'Suppliers.Phone',
-              },
-              {
-                title: 'Fax',
-                key: 'Suppliers.Fax',
-                value: 'Suppliers.Fax',
-                },              
-                {
-                title: 'HomePage',
-                key: 'Suppliers.HomePage',
-                value: 'Suppliers.HomePage',
-                }
-            ],
-          },   
-      ];
-
     const fetchData = () => {
-        console.log('fetchData');
-        var td = analysisService_getTreeData();
-        var id = analysisService_getItemData();
-        var model = {treeData: [...td]};
-        setViewModel(model);
-        console.log(JSON.stringify(id));
-        // setTableModel([...id]);
-        // console.log(JSON.stringify(model));
-        // console.log(JSON.stringify(viewModel));
+        const data = analysisService_fetchData();
+
+        data.items = analysisService_getItemDataByKeys(data.external.items, data.external.tree.selected);
+
+        setDataModel(data);
+        updateTableModel();
+        
         setLoading(false);
     }
 
@@ -193,21 +68,12 @@ function AnalysisPage() {
     // -------------------------------------------------------------------------------
 
     const handleSave = (data) => {
-        setReportModel([...data]);
+        dataModel.external.tree.selected = [...data];
+        dataModel.items = analysisService_getItemDataByKeys(dataModel.external.items, dataModel.external.tree.selected);
+        
+        updateTableModel();
+
         handleClose();
-
-        var model = {
-            treeData: [...treeData], 
-            checkedKeys: [...data]
-        };
-        setViewModel(model);
-
-        console.log(JSON.stringify(model))
-
-        let viewModel = analysisService_getItemDataByFilter(data);
-        viewModel = analysisService_setOrderNumbers(viewModel);
-        console.log(viewModel);
-        setTableModel(viewModel);
     }
 
     const handleClose = () => {
@@ -230,7 +96,13 @@ function AnalysisPage() {
     }
 
     const handleFieldClick = (id) => {
-        setShowFieldDrawer(true);
+        console.log('handleFieldClick', id)
+        const item = analysisService_getByKey(dataModel.items, id);
+        console.log('item', item)
+        if (item) {
+            setItem(item);
+            setShowFieldDrawer(true);
+        }
     }
 
     const handleFilterClick = (id) => {
@@ -243,6 +115,19 @@ function AnalysisPage() {
 
     const handleOrderClick = () => {
         setShowOrderDrawer(true);
+    }
+
+    // -------------------------------------------------------------------------------
+    //      UTILITY 
+    // -------------------------------------------------------------------------------
+
+    const updateTableModel = () => {
+        if (dataModel && dataModel.items) {
+            setTableModel([...dataModel.items]);
+        } 
+        else {
+            setTableModel([]);
+        }
     }
 
     // -------------------------------------------------------------------------------
@@ -359,13 +244,12 @@ function AnalysisPage() {
             />
             <AnalysisInfoDrawer             
                 open={showInfoDrawer}
-                dataSource={viewModel}
+                dataSource={dataModel}
                 handleSave={handleSave} 
                 handleClose={handleClose} 
             />
             <AnalysisFieldDrawer 
-                id={id}
-                pid={pId} 
+                item={item}
                 open={showFieldDrawer}
                 handleSave={handleSave} 
                 handleClose={handleClose} 

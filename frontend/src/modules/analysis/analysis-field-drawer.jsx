@@ -3,11 +3,8 @@ import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisFieldDrawer = ({ id, pid, open, handleSave, handleClose }) => {
-    const [caption, setCaption] = useState("");
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null);
-    const [metadata, setMetadata] = useState({});
+const AnalysisFieldDrawer = ({ item, open, handleSave, handleClose }) => {
+    const [title, setTitle] = useState("");
 
     // -------------------------------------------------------------------------------
     //      FETCH 
@@ -22,6 +19,7 @@ const AnalysisFieldDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     };
 
     const onOpen = () => {
+        setTitle('FIELD - ' + item.key);
     }
 
     // -------------------------------------------------------------------------------
@@ -29,7 +27,6 @@ const AnalysisFieldDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     // -------------------------------------------------------------------------------
 
     useEffect(() => { 
-        // fetchMetadata(); 
     }, []);
 
     useEffect(() => {
@@ -38,9 +35,6 @@ const AnalysisFieldDrawer = ({ id, pid, open, handleSave, handleClose }) => {
         }
     }, [open]);
 
-    useEffect(() => {
-    }, [error]);
-
     // -------------------------------------------------------------------------------
     //      VIEW
     // -------------------------------------------------------------------------------
@@ -48,8 +42,8 @@ const AnalysisFieldDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     return (
         <>      
             <Drawer
-                title={"FIELD"}
-                width={720}
+                title={title}
+
                 onClose={onClose}
                 open={open}
                 maskClosable={false}
@@ -59,21 +53,22 @@ const AnalysisFieldDrawer = ({ id, pid, open, handleSave, handleClose }) => {
                 }}
                 extra={
                     <Space>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onClose} type="primary">Save</Button>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onClose} type="primary">Save</Button>
                     </Space>
                 }>
-
-                {loading && <Spin />}
-                {!loading && <Spin />}
+                <>
+                    <span>{item.title}</span><br/>
+                    <span>{item.type}</span><br/>
+                    <span>{item.dataType}</span><br/>
+                </>
             </Drawer>
         </>
     );
 };
 
 AnalysisFieldDrawer.propTypes = {
-    id: PropTypes.string,
-    pid: PropTypes.string,
+    item: PropTypes.any,
     open: PropTypes.bool,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
