@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
+import { Button, Col, Drawer, Form, Input, Row, Space, Select } from 'antd';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisFieldDrawer = ({ item, open, handleSave, handleClose }) => {
+const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
+    const [form] = Form.useForm();
     const [title, setTitle] = useState("");
 
     // -------------------------------------------------------------------------------
@@ -11,11 +11,37 @@ const AnalysisFieldDrawer = ({ item, open, handleSave, handleClose }) => {
     // -------------------------------------------------------------------------------
 
     const onClose = () => {
-        handleClose();
+        closeCallback();
     };
+
+    const onFinish = (values) => {
+        let refresh = false;
+        
+        if (values.title) item.title = values.title;
+        if (values.orderBy) item.orderBy = values.orderBy;
+        if (values.description) item.description = values.description;
+
+        if (values.number) {
+            const parsed = parseInt(values.number, 0);
+            if (!isNaN(parsed) && item.number !== parsed) { 
+                // console.log('item.number',item.number)
+                item.number = parsed; 
+                // console.log('item.number',item.number)
+                refresh = true;
+            }
+        }
+
+        // console.log("onFinish", values);
+        // console.log("item", item);
+
+        saveCallback(item, refresh);
+    }
 
     const onOpen = () => {
         setTitle('FIELD - ' + item.key);
+
+        form.resetFields();
+        form.setFieldsValue(item);
     }
 
     // -------------------------------------------------------------------------------
@@ -39,7 +65,7 @@ const AnalysisFieldDrawer = ({ item, open, handleSave, handleClose }) => {
         <>      
             <Drawer
                 title={title}
-
+                width={500}
                 onClose={onClose}
                 open={open}
                 maskClosable={false}
@@ -50,14 +76,82 @@ const AnalysisFieldDrawer = ({ item, open, handleSave, handleClose }) => {
                 extra={
                     <Space>
                         <Button onClick={onClose}>Cancel</Button>
-                        <Button onClick={onClose} type="primary">Save</Button>
+                        <Button onClick={form.submit} type="primary">Save</Button>
                     </Space>
                 }>
-                <>
-                    <span>{item.title}</span><br/>
-                    <span>{item.type}</span><br/>
-                    <span>{item.dataType}</span><br/>
-                </>
+                <Form
+                    layout="vertical"
+                    requiredMark={true}
+                    form={form}
+                    onFinish={onFinish}>
+                    <Row gutter={16}>
+                        <Col span={16}>
+                            <Form.Item 
+                                name="title" 
+                                label="Title"
+                                rules={[
+                                    { required: true, message: 'Please enter title', },
+                                ]}>
+                                <Input placeholder="Title" />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item 
+                                name="type" 
+                                label="Type"
+                                rules={[]}>
+                                <Input readOnly={true} />
+                            </Form.Item>
+                        </Col>
+                    </Row>   
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item 
+                                name="dataType" 
+                                label="Data Type"
+                                rules={[]}>
+                                <Input readOnly={true} />
+                            </Form.Item>
+                        </Col>
+                    </Row>                  
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item
+                                name="orderBy"
+                                label="Order by"
+                                rules={[]}>
+                                <Select
+                                    options={[
+                                        { value: 'default', label: '(default)', },
+                                        { value: 'asc', label: 'Ascending', },
+                                        { value: 'desc', label: 'Descending', },    
+                                    ]}                                        
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col span={2}></Col>
+                        <Col span={8}>
+                            <Form.Item 
+                                name="number" 
+                                label="Order in Query"
+                                rules={[]}>
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row> 
+                    <Row gutter={16}>
+                        <Col span={24}>
+                            <Form.Item
+                                name="description"
+                                label="DESCRIPTION"
+                                rules={[]}>
+                                <Input.TextArea rows={4} />
+                            </Form.Item>
+                        </Col>
+                    </Row>             
+                </Form>                
             </Drawer>
         </>
     );
@@ -66,8 +160,8 @@ const AnalysisFieldDrawer = ({ item, open, handleSave, handleClose }) => {
 AnalysisFieldDrawer.propTypes = {
     item: PropTypes.any,
     open: PropTypes.bool,
-    handleSave: PropTypes.func,
-    handleClose: PropTypes.func
+    saveCallback: PropTypes.func,
+    closeCallback: PropTypes.func
 }
 
 export default AnalysisFieldDrawer

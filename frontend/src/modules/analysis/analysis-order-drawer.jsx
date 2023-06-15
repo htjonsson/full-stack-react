@@ -3,25 +3,32 @@ import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisOrderDrawer = ({ id, pid, open, handleSave, handleClose }) => {
-    const [caption, setCaption] = useState("");
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null);
-    const [metadata, setMetadata] = useState({});
-
-    // -------------------------------------------------------------------------------
-    //      FETCH 
-    // -------------------------------------------------------------------------------
+const AnalysisOrderDrawer = ({ item, open, saveCallback, closeCallback }) => {
+    const [form] = Form.useForm();
+    const [title, setTitle] = useState("");
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
     const onClose = () => {
-        handleClose();
+        closeCallback();
     };
 
+    const onFinish = (values) => {
+        if (values.orderBy) item.orderBy = values.orderBy;
+
+        console.log("onFinish", values);
+        console.log("item", item);
+
+        saveCallback(item);
+    }
+
     const onOpen = () => {
+        setTitle('ORDER - ' + item.key);
+
+        form.resetFields();
+        form.setFieldsValue(item);
     }
 
     // -------------------------------------------------------------------------------
@@ -29,7 +36,6 @@ const AnalysisOrderDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     // -------------------------------------------------------------------------------
 
     useEffect(() => { 
-        // fetchMetadata(); 
     }, []);
 
     useEffect(() => {
@@ -38,9 +44,6 @@ const AnalysisOrderDrawer = ({ id, pid, open, handleSave, handleClose }) => {
         }
     }, [open]);
 
-    useEffect(() => {
-    }, [error]);
-
     // -------------------------------------------------------------------------------
     //      VIEW
     // -------------------------------------------------------------------------------
@@ -48,7 +51,7 @@ const AnalysisOrderDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     return (
         <>      
             <Drawer
-                title={"ORDER"}
+                title={title}
                 width={720}
                 onClose={onClose}
                 open={open}
@@ -59,24 +62,51 @@ const AnalysisOrderDrawer = ({ id, pid, open, handleSave, handleClose }) => {
                 }}
                 extra={
                     <Space>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onClose} type="primary">Save</Button>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={form.submit} type="primary">Save</Button>
                     </Space>
                 }>
-
-                {loading && <Spin />}
-                {!loading && <Spin />}
+                <Form
+                    layout="vertical"
+                    requiredMark={true}
+                    form={form}
+                    onFinish={onFinish}>
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="orderBy"
+                                label="Order by"
+                                rules={[]}>
+                                <Select
+                                    options={[
+                                        {
+                                          value: 'default',
+                                          label: '(default)',
+                                        },
+                                        {
+                                            value: 'asc',
+                                            label: 'Ascending',
+                                        },
+                                        {
+                                            value: 'desc',
+                                            label: 'Descending',
+                                        }
+                                    ]}                                        
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>              
+                </Form>   
             </Drawer>
         </>
     );
 };
 
 AnalysisOrderDrawer.propTypes = {
-    id: PropTypes.string,
-    pid: PropTypes.string,
+    item: PropTypes.any,
     open: PropTypes.bool,
-    handleSave: PropTypes.func,
-    handleClose: PropTypes.func
+    saveCallback: PropTypes.func,
+    closeCallback: PropTypes.func
 }
 
 export default AnalysisOrderDrawer

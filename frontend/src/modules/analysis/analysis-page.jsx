@@ -95,14 +95,35 @@ function AnalysisPage() {
         console.log(JSON.stringify(reportModel));
     }
 
+    const handleEdit = (record) => {
+
+    }
+
+    const handleDelete = (record) => {
+
+    }
+
     const handleFieldClick = (id) => {
         console.log('handleFieldClick', id)
+        console.log('id', id)
+
         const item = analysisService_getByKey(dataModel.items, id);
         console.log('item', item)
         if (item) {
             setItem(item);
             setShowFieldDrawer(true);
         }
+    }
+
+    const handleFieldSave = (field, refresh) => {
+        console.log("handleFieldSave", field);
+        if (refresh) {
+            console.log("refresh");
+            console.log("items", dataModel.items);
+            // analysisService_setOrderNumbers(dataModel.items);
+            updateTableModel();
+        }
+        handleClose();
     }
 
     const handleFilterClick = (id) => {
@@ -113,9 +134,22 @@ function AnalysisPage() {
         setShowInfoDrawer(true);
     }
 
-    const handleOrderClick = () => {
-        setShowOrderDrawer(true);
+    const handleOrderClick = (id) => {
+        console.log('handleFieldClick', id)
+        const item = analysisService_getByKey(dataModel.items, id);
+        console.log('item', item)
+        if (item) {
+            setItem(item);
+            setShowOrderDrawer(true);
+        }
     }
+    
+    const handleSaveOrder = (field) => {
+        handleClose();
+    }    
+
+    // objs.sort((a,b) => (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0))
+    // objs.sort((a,b) => (a-b))
 
     // -------------------------------------------------------------------------------
     //      UTILITY 
@@ -123,6 +157,9 @@ function AnalysisPage() {
 
     const updateTableModel = () => {
         if (dataModel && dataModel.items) {
+            // reorder 
+            dataModel.items.sort((a,b) => a.number - b.number);
+
             setTableModel([...dataModel.items]);
         } 
         else {
@@ -164,27 +201,36 @@ function AnalysisPage() {
             dataIndex: 'number',
             key: 'number',
             width: 20,
-        },        
+        },
+        {
+            title: 'Id',
+            dataIndex: 'key',
+            key: 'key',
+            width: 120,
+            render: (text, record) => <Link><span onClick={() => handleFieldClick(record.key)}>{text}</span></Link>,
+        },                
         {
             title: 'TITLE',
             dataIndex: 'title',
             key: 'title',
-            render: (text, record) => <Link><span onClick={() => handleFieldClick(record.key)}>{text}</span></Link>,
+            width: 240,
         },
+        {
+            title: 'DESCRIPTION',
+            dataIndex: 'description',
+            key: 'description',
+        },          
         {
             title: 'TYPE',
             dataIndex: 'type',
             key: 'type',
+            width: 80,
         },        
-        {
-            title: 'KEY',
-            dataIndex: 'key',
-            key: 'key',
-        },
         {
             title: 'DATA TYPE',
             dataIndex: 'dataType',
             key: 'dataType',
+            width: 80,
         },
         {
             title: 'FILTERS',
@@ -195,10 +241,25 @@ function AnalysisPage() {
         },
         {
             title: 'ORDER',
-            dataIndex: 'order',
-            key: 'order',
+            dataIndex: 'orderBy',
+            key: 'orderBy',
             width: 60,
-            render: (text, record) => <Link><span onClick={() => handleOrderClick(record.key)}>{text}</span></Link>,
+        },
+        {
+            title: "",
+            width: 50,
+            render: (record) => {
+                return (
+                <>
+                    <DeleteOutlined
+                        onClick={() => {
+                            handleDelete(record);
+                        }}
+                        style={{ color: "red", marginLeft: 12 }}
+                    />
+                </>
+                );
+            },
         },              
     ];    
 
@@ -234,6 +295,7 @@ function AnalysisPage() {
                 </Button>
             </Space>
             <div style={{ marginBottom: 16, }}></div>
+            <div className={'c8-wrapper'}>
             <Table 
                 columns={columns} 
                 dataSource={tableModel} 
@@ -242,6 +304,7 @@ function AnalysisPage() {
                 rowKey={'key'}
                 loading={loading}
             />
+            </div>
             <AnalysisInfoDrawer             
                 open={showInfoDrawer}
                 dataSource={dataModel}
@@ -251,22 +314,21 @@ function AnalysisPage() {
             <AnalysisFieldDrawer 
                 item={item}
                 open={showFieldDrawer}
-                handleSave={handleSave} 
-                handleClose={handleClose} 
+                saveCallback={handleFieldSave} 
+                closeCallback={handleClose} 
             />
             <AnalysisFilterDrawer 
                 id={id}
                 pid={pId} 
                 open={showFilterDrawer}
-                handleSave={handleSave} 
-                handleClose={handleClose} 
+                saveCallback={handleSave} 
+                closeCallback={handleClose} 
             /> 
             <AnalysisOrderDrawer 
-                id={id}
-                pid={pId} 
+                item={item}
                 open={showOrderDrawer}
-                handleSave={handleSave} 
-                handleClose={handleClose} 
+                saveCallback={handleSaveOrder} 
+                closeCallback={handleClose} 
             />                      
         </>
   )

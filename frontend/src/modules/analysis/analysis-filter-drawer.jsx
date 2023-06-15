@@ -1,27 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisFilterDrawer = ({ id, pid, open, handleSave, handleClose }) => {
-    const [caption, setCaption] = useState("");
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null);
-    const [metadata, setMetadata] = useState({});
-
-    // -------------------------------------------------------------------------------
-    //      FETCH 
-    // -------------------------------------------------------------------------------
+const AnalysisFilterDrawer = ({ filterItem, open, saveCallback, closeCallback }) => {
+    const [title, setTitle] = useState("");
 
     // -------------------------------------------------------------------------------
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
     const onClose = () => {
-        handleClose();
+        closeCallback();
     };
 
-    const onOpen = () => {     
+    const onOpen = () => { 
+        setTitle("FILTER");  
     }
 
     // -------------------------------------------------------------------------------
@@ -29,7 +22,6 @@ const AnalysisFilterDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     // -------------------------------------------------------------------------------
 
     useEffect(() => { 
-        // fetchMetadata(); 
     }, []);
 
     useEffect(() => {
@@ -38,9 +30,6 @@ const AnalysisFilterDrawer = ({ id, pid, open, handleSave, handleClose }) => {
         }
     }, [open]);
 
-    useEffect(() => {
-    }, [error]);
-
     // -------------------------------------------------------------------------------
     //      VIEW
     // -------------------------------------------------------------------------------
@@ -48,7 +37,7 @@ const AnalysisFilterDrawer = ({ id, pid, open, handleSave, handleClose }) => {
     return (
         <>      
             <Drawer
-                title={"FILTER"}
+                title={title}
                 width={720}
                 onClose={onClose}
                 open={open}
@@ -59,24 +48,20 @@ const AnalysisFilterDrawer = ({ id, pid, open, handleSave, handleClose }) => {
                 }}
                 extra={
                     <Space>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onClose} type="primary">Save</Button>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onClose} type="primary">Save</Button>
                     </Space>
                 }>
-
-                {loading && <Spin />}
-                {!loading && <Spin />}
             </Drawer>
         </>
     );
 };
 
 AnalysisFilterDrawer.propTypes = {
-    id: PropTypes.string,
-    pid: PropTypes.string,
+    filterItem: PropTypes.any,
     open: PropTypes.bool,
-    handleSave: PropTypes.func,
-    handleClose: PropTypes.func
+    saveCallback: PropTypes.func,
+    closeCallback: PropTypes.func
 }
 
 export default AnalysisFilterDrawer;

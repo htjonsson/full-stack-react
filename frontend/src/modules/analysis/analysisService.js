@@ -73,10 +73,11 @@ export const analysisService_external_getItemData = () => {
     base.forEach(baseItem => {
         const item = {
             title : baseItem.title,
+            description : "",
             key : baseItem.key,
             type : baseItem.type.charAt(0).toUpperCase() + baseItem.type.slice(1),
             dataType : baseItem.dataType.charAt(0).toUpperCase() + baseItem.dataType.slice(1),
-            order : "(default)",
+            orderBy : "(default)",
             numberOfFilters : 0,
             number: num
         };
