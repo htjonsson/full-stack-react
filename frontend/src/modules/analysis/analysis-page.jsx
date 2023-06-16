@@ -130,6 +130,10 @@ function AnalysisPage() {
         setShowFilterDrawer(true);
     }
 
+    const handleFilterSave = (filter) => {
+        handleClose();
+    }
+
     const handleInfoClick = () => {
         setShowInfoDrawer(true);
     }
@@ -318,10 +322,9 @@ function AnalysisPage() {
                 closeCallback={handleClose} 
             />
             <AnalysisFilterDrawer 
-                id={id}
-                pid={pId} 
+                filterItem={item}
                 open={showFilterDrawer}
-                saveCallback={handleSave} 
+                saveCallback={handleFilterSave} 
                 closeCallback={handleClose} 
             /> 
             <AnalysisOrderDrawer 

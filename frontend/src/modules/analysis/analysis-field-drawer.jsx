@@ -124,9 +124,9 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
                                 rules={[]}>
                                 <Select
                                     options={[
-                                        { value: 'default', label: '(default)', },
-                                        { value: 'asc', label: 'Ascending', },
-                                        { value: 'desc', label: 'Descending', },    
+                                        { value: 'default', label: 'Don\'t sort', },
+                                        { value: 'asc', label: 'Ascending (A to Z)', },
+                                        { value: 'desc', label: 'Descending (Z to A)', },    
                                     ]}                                        
                                 />
                             </Form.Item>
