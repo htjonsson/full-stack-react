@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input, Tree, Skeleton, Row, Col } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, FilterFilled, FilterOutlined } from '@ant-design/icons';
 import AnalysisInfoDrawer from "./analysis-info-drawer";
 import AnalysisFilterDrawer from "./analysis-filter-drawer";
 import AnalysisFieldDrawer from "./analysis-field-drawer";
@@ -99,7 +99,7 @@ function AnalysisPage() {
 
     }
 
-    const handleDelete = (record) => {
+    const handleDeleteClick = (record) => {
 
     }
 
@@ -118,39 +118,27 @@ function AnalysisPage() {
     const handleFieldSave = (field, refresh) => {
         console.log("handleFieldSave", field);
         if (refresh) {
-            console.log("refresh");
-            console.log("items", dataModel.items);
-            // analysisService_setOrderNumbers(dataModel.items);
             updateTableModel();
         }
         handleClose();
     }
 
-    const handleFilterClick = (id) => {
-        setShowFilterDrawer(true);
+    const handleFilterClick = (record) => {
+        const item = analysisService_getByKey(dataModel.items, record.key);
+
+        if (item) {
+            setItem(item);
+            setShowFilterDrawer(true);
+        }
     }
 
-    const handleFilterSave = (filter) => {
+    const handleFilterSave = (item) => {
         handleClose();
     }
 
     const handleInfoClick = () => {
         setShowInfoDrawer(true);
     }
-
-    const handleOrderClick = (id) => {
-        console.log('handleFieldClick', id)
-        const item = analysisService_getByKey(dataModel.items, id);
-        console.log('item', item)
-        if (item) {
-            setItem(item);
-            setShowOrderDrawer(true);
-        }
-    }
-    
-    const handleSaveOrder = (field) => {
-        handleClose();
-    }    
 
     // objs.sort((a,b) => (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0))
     // objs.sort((a,b) => (a-b))
@@ -237,13 +225,6 @@ function AnalysisPage() {
             width: 80,
         },
         {
-            title: 'FILTERS',
-            dataIndex: 'numberOfFilters',
-            key: 'numberOfFilters',
-            width: 60,
-            render: (text, record) => <Link><span onClick={() => handleFilterClick(record.key)}>{text}</span></Link>,
-        },
-        {
             title: 'ORDER',
             dataIndex: 'orderBy',
             key: 'orderBy',
@@ -251,13 +232,19 @@ function AnalysisPage() {
         },
         {
             title: "",
-            width: 50,
+            width: 90,
             render: (record) => {
                 return (
                 <>
+                    <FilterOutlined
+                        onClick={() => {
+                            handleFilterClick(record);
+                        }}
+                        style={{ color: "black", marginLeft: 12 }}
+                    />
                     <DeleteOutlined
                         onClick={() => {
-                            handleDelete(record);
+                            handleDeleteClick(record);
                         }}
                         style={{ color: "red", marginLeft: 12 }}
                     />
@@ -322,17 +309,11 @@ function AnalysisPage() {
                 closeCallback={handleClose} 
             />
             <AnalysisFilterDrawer 
-                filterItem={item}
+                item={item}
                 open={showFilterDrawer}
                 saveCallback={handleFilterSave} 
                 closeCallback={handleClose} 
-            /> 
-            <AnalysisOrderDrawer 
-                item={item}
-                open={showOrderDrawer}
-                saveCallback={handleSaveOrder} 
-                closeCallback={handleClose} 
-            />                      
+            />                     
         </>
   )
 }

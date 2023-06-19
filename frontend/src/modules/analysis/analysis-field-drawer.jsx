@@ -24,16 +24,10 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
         if (values.number) {
             const parsed = parseInt(values.number, 0);
             if (!isNaN(parsed) && item.number !== parsed) { 
-                // console.log('item.number',item.number)
                 item.number = parsed; 
-                // console.log('item.number',item.number)
                 refresh = true;
             }
         }
-
-        // console.log("onFinish", values);
-        // console.log("item", item);
-
         saveCallback(item, refresh);
     }
 

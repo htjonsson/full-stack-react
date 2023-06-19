@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import dayjs from "dayjs";
 import { triggerFocus } from 'antd/es/input/Input';
 
-const AnalysisFilterDrawer = ({ filterItem, open, saveCallback, closeCallback }) => {
+const AnalysisFilterDrawer = ({ item, open, saveCallback, closeCallback }) => {
     const [form] = Form.useForm();
     const [title, setTitle] = useState("");
     const [isRange, setIsRange] = useState(false);
@@ -20,16 +20,75 @@ const AnalysisFilterDrawer = ({ filterItem, open, saveCallback, closeCallback })
         closeCallback();
     };
 
-    const onFinish = (values) => {
-        console.log("onFinish", values)
+    const getFilter = (values) => {
+        let _description = "";
+        if (values.description) { _description = values.description };
 
-        if (values.dateValue) { alert(dayjs(values.dateValue).format())}
-        if (values.fromDate) { alert(dayjs(values.fromDate).format())}
-        if (values.toDate) { alert(dayjs(values.toDate).format())}
+        let _range = {};
+        let _value = "";
+
+        if (isRange) {
+            if (isDate) {
+                _range = {
+                    from: dayjs(values.fromDate).format('YYYY-MM-DDT00:00:00Z[Z]'),
+                    to: dayjs(values.toDate).format('YYYY-MM-DDT00:00:00Z[Z]')
+                }
+            } 
+            else {
+                _range = {
+                    from: values.fromValue,
+                    to: values.toValue
+                }
+            }
+        } else {
+            if (isDate) {
+                _value = dayjs(values.dateValue).format('YYYY-MM-DDT00:00:00Z[Z]')
+            }
+            else {
+                _value = values.textValue
+            }
+        }
+
+        let _filter = {};
+
+        if (isRange) {
+            _filter = {
+                key: item.key,
+                condition: values.condition,
+                operation: values.operation,
+                missing: values.missing,
+                description: _description,
+                range: _range
+            }
+        }
+        else {
+            _filter = {
+                key: item.key,
+                condition: values.condition,
+                operation: values.operation,
+                missing: values.missing,
+                description: _description,
+                value: _value
+            }          
+        }
+
+        return _filter;
+    } 
+
+    const onFinish = (values) => {
+        const filter = getFilter(values);
+
+        console.log("NEW FILTER", filter);
+
+        item.filterBy = filter;
+
+        saveCallback(item);
     }
 
     const onOpen = () => { 
         setTitle("FILTER");
+
+        console.log('oOpen', item);
 
         setIsDate(true);
         setIsNumber(false);
@@ -263,7 +322,7 @@ const AnalysisFilterDrawer = ({ filterItem, open, saveCallback, closeCallback })
 };
 
 AnalysisFilterDrawer.propTypes = {
-    filterItem: PropTypes.any,
+    item: PropTypes.any,
     open: PropTypes.bool,
     saveCallback: PropTypes.func,
     closeCallback: PropTypes.func
