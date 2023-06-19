@@ -24,6 +24,8 @@ const AnalysisFilterDrawer = ({ filterItem, open, saveCallback, closeCallback })
         console.log("onFinish", values)
 
         if (values.dateValue) { alert(dayjs(values.dateValue).format())}
+        if (values.fromDate) { alert(dayjs(values.fromDate).format())}
+        if (values.toDate) { alert(dayjs(values.toDate).format())}
     }
 
     const onOpen = () => { 
