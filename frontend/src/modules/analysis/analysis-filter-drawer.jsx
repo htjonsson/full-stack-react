@@ -51,9 +51,19 @@ const AnalysisFilterDrawer = ({ item, open, saveCallback, closeCallback }) => {
 
         let _filter = {};
 
+        let type = "text";
+        if (isDate) {
+            type = "date";
+        }
+        else if (isNumber) {
+            type = "number";
+        }
+
         if (isRange) {
             _filter = {
                 key: item.key,
+                type: type,
+                isRange: isRange,
                 condition: values.condition,
                 operation: values.operation,
                 missing: values.missing,
@@ -64,6 +74,8 @@ const AnalysisFilterDrawer = ({ item, open, saveCallback, closeCallback }) => {
         else {
             _filter = {
                 key: item.key,
+                type: type,
+                isRange: isRange,
                 condition: values.condition,
                 operation: values.operation,
                 missing: values.missing,
@@ -74,6 +86,77 @@ const AnalysisFilterDrawer = ({ item, open, saveCallback, closeCallback }) => {
 
         return _filter;
     } 
+
+    const getValues = (filter) => {
+        // Find the type of filter
+        if (filter.type === 'date') {
+            setIsDate(true);
+            setIsNumber(false);
+        }
+        else if (filter.type === "number") {
+            setIsDate(false);
+            setIsNumber(true);
+        }
+        else {
+            setIsDate(false);
+            setIsNumber(false);
+        }
+
+        // Get values of filter
+        let _fromDate = null;
+        let _toDate = null;
+        let _dateValue = null;
+        let _fromValue = "";
+        let _toValue = "";
+        let _textValue = "";
+
+        if (filter.type === 'date') {
+            if (filter.isRange) {
+                _fromDate = dayjs(filter.range.fromDate);
+                _toDate = dayjs(filter.range.toDate);
+            }
+            else {
+                _dateValue = dayjs(filter.value);
+            }
+        }
+        else {
+            if (filter.isRange) {
+                _fromValue = filter.range.fromValue;
+                _toValue = filter.range.toValue;
+            }
+            else {
+                _textValue = filter.value;
+            }
+        }
+
+        const values = {
+            condition : filter.condition,
+            missing: filter.missing,
+            operation: filter.operation,
+            description: filter.description,
+            textValue: _textValue,
+            fromValue: _fromValue,
+            toValue: _toValue,
+            dateValue: _dateValue,
+            fromDate: _fromDate,
+            toDate: _toDate,
+        };      
+
+        return values;
+    }
+
+    const getDefault = () => {  
+        setIsDate(true);
+        setIsNumber(false);
+
+        return {
+            condition : "show",
+            missing: "default",
+            operation: "exactlyMatches",
+            description: ""
+        };  
+        
+    }
 
     const onFinish = (values) => {
         const filter = getFilter(values);
@@ -88,20 +171,8 @@ const AnalysisFilterDrawer = ({ item, open, saveCallback, closeCallback }) => {
     const onOpen = () => { 
         setTitle("FILTER");
 
-        console.log('oOpen', item);
-
-        setIsDate(true);
-        setIsNumber(false);
-        setIsRange(false);
-        
-        const defaults = {
-            condition : "show",
-            missing: "default", 
-            operation: "exactlyMatches"
-        };
-
         form.resetFields();
-        form.setFieldsValue(defaults);
+        form.setFieldsValue(getDefault());
     }
 
     const onSelect = (value) => {

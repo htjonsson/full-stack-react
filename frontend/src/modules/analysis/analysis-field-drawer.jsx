@@ -32,7 +32,7 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
     }
 
     const onOpen = () => {
-        setTitle('FIELD - ' + item.key);
+        setTitle('FIELD - ' + item.name);
 
         form.resetFields();
         form.setFieldsValue(item);

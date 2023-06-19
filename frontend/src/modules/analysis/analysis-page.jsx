@@ -133,6 +133,8 @@ function AnalysisPage() {
     }
 
     const handleFilterSave = (item) => {
+        console.log("handleFilterSave", JSON.stringify(item));
+        console.log("items", JSON.stringify(dataModel.items));
         handleClose();
     }
 
