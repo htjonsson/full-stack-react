@@ -79,7 +79,7 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
                     form={form}
                     onFinish={onFinish}>
                     <Row gutter={16}>
-                        <Col span={16}>
+                        <Col span={24}>
                             <Form.Item 
                                 name="title" 
                                 label="Title"
@@ -91,7 +91,7 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col span={8}>
+                        <Col span={24}>
                             <Form.Item 
                                 name="type" 
                                 label="Type"
@@ -111,7 +111,7 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
                         </Col>
                     </Row>                  
                     <Row gutter={16}>
-                        <Col span={8}>
+                        <Col span={11}>
                             <Form.Item
                                 name="orderBy"
                                 label="Order by"
@@ -126,7 +126,7 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
                             </Form.Item>
                         </Col>
                         <Col span={2}></Col>
-                        <Col span={8}>
+                        <Col span={11}>
                             <Form.Item 
                                 name="number" 
                                 label="Order in Query"

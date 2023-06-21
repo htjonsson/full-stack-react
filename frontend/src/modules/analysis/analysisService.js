@@ -25,12 +25,46 @@ export const analysisService_getItemDataByKeys = (dataModel, keys) => {
     return result;
 }
 
+export const analysisService_upsertFilter = (model, filter) => {
+    if (!model.filter) {
+        model.filter = [];
+        model.filter.push(filter);
+    }
+    else {
+        const idx = model.filter.findIndex((element, index) => {
+            if (element.key === key) {
+                return true;
+            }
+        });
+
+        if (idx === -1) {
+            model.filter.push(filter);
+        } 
+        else {
+            model.filter[idx] = filter;
+        }
+    }
+    return model;
+}
+
 export const analysisService_indexOf = (array, key) => {
     return array.findIndex((element, index) => {
         if (element.key === key) {
             return true;
         }
     });
+}
+
+export const analysisService_getFilterByKey = (model, key) => {
+    if (!model.filter) {
+        return null;
+    }
+
+    const idx = analysisService_indexOf(model.filter, key);
+    if (idx != -1) {
+        return model.filter[idx];
+    }
+    return null;
 }
 
 export const analysisService_getByKey = (items, key) => {

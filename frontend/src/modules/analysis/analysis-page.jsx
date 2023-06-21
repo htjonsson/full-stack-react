@@ -1,33 +1,28 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { message, Modal, Typography, Space, Table, Button, Input, Tree, Skeleton, Row, Col } from 'antd';
+import { message, Modal, Typography, Space, Table, Button, Input, Tabs, Tree, Skeleton, Row, Col } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, FilterFilled, FilterOutlined } from '@ant-design/icons';
-import AnalysisInfoDrawer from "./analysis-info-drawer";
+import AnalysisSourceDrawer from "./analysis-source-drawer";
 import AnalysisFilterDrawer from "./analysis-filter-drawer";
 import AnalysisFieldDrawer from "./analysis-field-drawer";
-import AnalysisOrderDrawer from "./analysis-order-drawer";
+import AnalysisFilterTab from "./analysis-filter-tab";
 import './analysis.css'
 import './analysisService.js'
 import { analysisService_external_getItemData, analysisService_external_getTreeData, analysisService_getItemDataByKeys, analysisService_getByKey, analysisService_setOrderNumbers, analysisService_fetchData } from './analysisService.js';
-
-const { Search } = Input;
 
 function AnalysisPage() {
     // -------------------------------------------------------------------------------
     //      DRAWERS
     // -------------------------------------------------------------------------------
 
-    const [showInfoDrawer, setShowInfoDrawer] = useState(false);
+    const [showSourceDrawer, setShowSourceDrawer] = useState(false);
     const [showFieldDrawer, setShowFieldDrawer] = useState(false);
     const [showFilterDrawer, setShowFilterDrawer] = useState(false);
-    const [showOrderDrawer, setShowOrderDrawer] = useState(false);
-    const [showQueryDrawer, setShowQueryDrawer] = useState(false);
 
     // -------------------------------------------------------------------------------
     //      DATA MODELS
     // -------------------------------------------------------------------------------
     
-    const [viewModel, setViewModel] = useState(null);
     const [tableModel, setTableModel] = useState([]);
     const [dataModel, setDataModel] = useState(null);
 
@@ -36,17 +31,13 @@ function AnalysisPage() {
     // -------------------------------------------------------------------------------
     
     const [loading, setLoading] = useState(true);
+    const [tabState, setTabState] = useState("columns")
 
     // -------------------------------------------------------------------------------
     //      
     // -------------------------------------------------------------------------------
     
     const [item, setItem] = useState(null);
-    const [id, setId] = useState(null);
-    const [pId, setPId] = useState(null);
-    const [reload, setReload] = useState(false);
-    const [error, setError] = useState(null);
-    const [reportModel, setReportModel] = useState([]);
        
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
@@ -67,36 +58,10 @@ function AnalysisPage() {
     //      HANDLE ACTIONS
     // -------------------------------------------------------------------------------
 
-    const handleSave = (data) => {
-        dataModel.external.tree.selected = [...data];
-        dataModel.items = analysisService_getItemDataByKeys(dataModel.external.items, dataModel.external.tree.selected);
-        
-        updateTableModel();
-
-        handleClose();
-    }
-
     const handleClose = () => {
-        setShowInfoDrawer(false);
+        setShowSourceDrawer(false);
         setShowFieldDrawer(false);
         setShowFilterDrawer(false);
-        setShowQueryDrawer(false);
-        setShowOrderDrawer(false);
-    }
-
-    const handleSelect = (selectedKeys, info) => {
-        console.log('selected', selectedKeys, info);
-    }
-
-    const handleCheck = (checkedKeys, info) => {
-        console.log('onCheck', checkedKeys, info);
-        setReportModel([...checkedKeys]);
-        console.log(JSON.stringify(viewModel));
-        console.log(JSON.stringify(reportModel));
-    }
-
-    const handleEdit = (record) => {
-
     }
 
     const handleDeleteClick = (record) => {
@@ -132,14 +97,27 @@ function AnalysisPage() {
         }
     }
 
-    const handleFilterSave = (item) => {
-        console.log("handleFilterSave", JSON.stringify(item));
-        console.log("items", JSON.stringify(dataModel.items));
+    const handleFilterSave = (filter) => {
+        analysisService_upsertFilter(dataModel, filter);
+
         handleClose();
     }
 
-    const handleInfoClick = () => {
-        setShowInfoDrawer(true);
+    const handleSourceClick = () => {
+        setShowSourceDrawer(true);
+    }
+
+    const handleSourceSave = (data) => {
+        dataModel.external.tree.selected = [...data];
+        dataModel.items = analysisService_getItemDataByKeys(dataModel.external.items, dataModel.external.tree.selected);
+        
+        updateTableModel();
+
+        handleClose();
+    }
+
+    const handleTabChange = (key) => {
+        setTabState(key);
     }
 
     // objs.sort((a,b) => (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0))
@@ -167,23 +145,31 @@ function AnalysisPage() {
 
     useEffect(() => {
         fetchData();
-        setShowInfoDrawer(true);
+        setShowSourceDrawer(true);
     }, []);
 
     useEffect(() => {
-        fetchData();
-    }, [reload])
+        console.log("tab change", tabState);
+    }, [tabState]);
 
-    useEffect(() => {
+    // -------------------------------------------------------------------------------
+    //      TABS
+    // -------------------------------------------------------------------------------
 
-    }, [reportModel]);
-
-    useEffect(() => {
-        if (error !== null) {
-            message.error("Network error");
-            console.log(JSON.stringify(error));
-        }
-    }, [error])
+    const tabs = [
+        {
+            key: 'columns',
+            label: `COLUMNS`,
+        },
+        {
+            key: 'filters',
+            label: `FILTERS`,
+        },
+        {
+            key: 'configuration',
+            label: `CONFIGURATION`,
+        },
+      ];
 
     // -------------------------------------------------------------------------------
     //      COLUMNS
@@ -276,32 +262,44 @@ function AnalysisPage() {
 
     return (
         <>
-            <Typography.Title level={2} style={{ margin: 0 }}>
-                ANALYSIS
-            </Typography.Title>
             <div style={{ marginBottom: 16, }}></div>
-            <Space>
-                <Button 
-                    type="primary" 
-                    onClick={() => handleInfoClick()}>
-                        SETUP
-                </Button>
-            </Space>
-            <div style={{ marginBottom: 16, }}></div>
-            <div className={'c8-wrapper'}>
-            <Table 
-                columns={columns} 
-                dataSource={tableModel} 
-                pagination={false} 
-                bordered={true} 
-                rowKey={'key'}
-                loading={loading}
+            <Tabs 
+                defaultActiveKey={tabState}
+                items={tabs}
+                onChange={handleTabChange}
             />
-            </div>
-            <AnalysisInfoDrawer             
-                open={showInfoDrawer}
+            {tabState == 'columns' && <>
+                <Space>
+                    <Button 
+                        type="primary" 
+                        icon={<PlusOutlined />}
+                        onClick={() => handleSourceClick()}>
+                            SOURCE
+                    </Button>
+                </Space>
+                <div style={{ marginBottom: 16, }}></div>
+                <div className={'c8-wrapper'}>
+                    <Table 
+                        columns={columns} 
+                        dataSource={tableModel} 
+                        pagination={false} 
+                        bordered={true} 
+                        rowKey={'key'}
+                        loading={loading}
+                    />
+                </div>
+            </>}
+
+            {tabState == 'filters' &&
+                <AnalysisFilterTab
+                    dataSource={dataModel}
+                />
+            }
+
+            <AnalysisSourceDrawer             
+                open={showSourceDrawer}
                 dataSource={dataModel}
-                handleSave={handleSave} 
+                handleSave={handleSourceSave} 
                 handleClose={handleClose} 
             />
             <AnalysisFieldDrawer 

@@ -3,7 +3,7 @@ import { Button, Col, Drawer, Tree, Input, Row, Select, Space, Spin } from 'antd
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisInfoDrawer = ({ dataSource, open, handleSave, handleClose }) => {
+const AnalysisSourceDrawer = ({ dataSource, open, handleSave, handleClose }) => {
     const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
@@ -56,7 +56,7 @@ const AnalysisInfoDrawer = ({ dataSource, open, handleSave, handleClose }) => {
     return (
         <>      
             <Drawer
-                title={"INFO"}
+                title={"SOURCE"}
                 width={720}
                 onClose={onClose}
                 open={open}
@@ -67,8 +67,8 @@ const AnalysisInfoDrawer = ({ dataSource, open, handleSave, handleClose }) => {
                 }}
                 extra={
                     <Space>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onSave} type="primary">Save</Button>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onSave} type="primary">Save</Button>
                     </Space>
                 }>
 
@@ -87,11 +87,11 @@ const AnalysisInfoDrawer = ({ dataSource, open, handleSave, handleClose }) => {
     );
 };
 
-AnalysisInfoDrawer.propTypes = {
+AnalysisSourceDrawer.propTypes = {
     dataSource: PropTypes.any,  
     open: PropTypes.bool,
     handleSave: PropTypes.func,
     handleClose: PropTypes.func
 }
 
-export default AnalysisInfoDrawer;
+export default AnalysisSourceDrawer;
