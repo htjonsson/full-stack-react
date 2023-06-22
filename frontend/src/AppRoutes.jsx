@@ -5,11 +5,13 @@ import ProductGroupPage from './modules/finance-business-entity/components/produ
 import PaymentGatewayPage from './modules/finance-business-entity/components/payment-gateway/payment-gateway-page';
 import BankAccountPage from './modules/finance-business-entity/components/bank-account/bank-account-page';
 import AnalysisPage from './modules/analysis/analysis-page';
+import QueryPage from './modules/query/query-page';
 
 function AppRoutes () {  
     return (
         <Routes>
             <Route path="/analysis" element={<AnalysisPage/>} />
+            <Route path="/query" element={<QueryPage/>} />
             <Route path="/business-entity" element={<BusinessEntityPage/>} />
             <Route path="/product-group/:id" element={<ProductGroupPage/>} />
             <Route path="/bank-account/:id" element={<BankAccountPage/>} />

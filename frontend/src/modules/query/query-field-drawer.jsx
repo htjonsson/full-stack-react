@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Drawer, Form, Input, Row, Space, Select } from 'antd';
 import PropTypes from 'prop-types';
 
-const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
+const QueryFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
     const [form] = Form.useForm();
     const [title, setTitle] = useState("");
 
@@ -82,11 +82,11 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
                         <Col span={24}>
                             <Form.Item 
                                 name="title" 
-                                label="Title"
+                                label="Name"
                                 rules={[
-                                    { required: true, message: 'Please enter title', },
+                                    { required: true, message: 'Please enter name', },
                                 ]}>
-                                <Input placeholder="Title" />
+                                <Input placeholder="Name of field" />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -151,11 +151,11 @@ const AnalysisFieldDrawer = ({ item, open, saveCallback, closeCallback }) => {
     );
 };
 
-AnalysisFieldDrawer.propTypes = {
+QueryFieldDrawer.propTypes = {
     item: PropTypes.any,
     open: PropTypes.bool,
     saveCallback: PropTypes.func,
     closeCallback: PropTypes.func
 }
 
-export default AnalysisFieldDrawer
+export default QueryFieldDrawer

@@ -30,7 +30,7 @@ const items = [
     getItem('Reports', 'report', <SettingOutlined />, null),
     getItem('XMLports', 'xml-port', <SettingOutlined />, null),
     getItem('CodeUnit', 'code-unit', <SettingOutlined />, null),
-    getItem('Queries', 'query', <SettingOutlined />, null),
+    getItem('Queries', '/query', <SettingOutlined />, null),
   ]),
   getItem('Navigation Three', 'sub4', <AppstoreOutlined />, null),
 ];

@@ -1,4 +1,7 @@
-export const analysisService_setOrderNumbers = (items) => {
+import dayjs from "dayjs";
+import { v4 as uuidv4 } from 'uuid';
+
+const analysisService_setOrderNumbers = (items) => {
     var num = 1;
 
     items.forEach(item => {
@@ -9,9 +12,9 @@ export const analysisService_setOrderNumbers = (items) => {
     return items;
 }
 
-export const analysisService_getItemDataByKeys = (dataModel, keys) => {
+export const query_getItemDataByKeys = (dataModel, keys) => {
     const result = new Array();
-    const base = analysisService_external_getItemData();
+    const base = getExternalItemData();
 
     keys.forEach(key => {
         const found = base.find(x => x.key === key);
@@ -25,29 +28,29 @@ export const analysisService_getItemDataByKeys = (dataModel, keys) => {
     return result;
 }
 
-export const analysisService_upsertFilter = (model, filter) => {
-    if (!model.filter) {
-        model.filter = [];
-        model.filter.push(filter);
+export const query_saveFilter = (model, filter) => {
+    if (!model.filters) {
+        model.filters = [];
+        model.filters.push(filter);
     }
     else {
-        const idx = model.filter.findIndex((element, index) => {
-            if (element.key === key) {
+        const idx = model.filters.findIndex((element, index) => {
+            if (element.id === filter.id) {
                 return true;
             }
         });
-
+        console.log('idx', idx);
         if (idx === -1) {
-            model.filter.push(filter);
+            model.filters.push(filter);
         } 
         else {
-            model.filter[idx] = filter;
+            model.filters[idx] = filter;
         }
     }
     return model;
 }
 
-export const analysisService_indexOf = (array, key) => {
+const getIndexOf = (array, key) => {
     return array.findIndex((element, index) => {
         if (element.key === key) {
             return true;
@@ -55,28 +58,32 @@ export const analysisService_indexOf = (array, key) => {
     });
 }
 
-export const analysisService_getFilterByKey = (model, key) => {
+const analysisService_getFilterByKey = (model, key) => {
     if (!model.filter) {
         return null;
     }
 
-    const idx = analysisService_indexOf(model.filter, key);
+    const idx = getIndexOf(model.filter, key);
     if (idx != -1) {
         return model.filter[idx];
     }
     return null;
 }
 
-export const analysisService_getByKey = (items, key) => {
-    const idx = analysisService_indexOf(items, key);
+export const query_getItemByKey = (model, key) => {
+    if (!model.items) {
+        return null;
+    }
+
+    const idx = getIndexOf(model.items, key);
     console.log('analysisService_getByKey', idx)
     if (idx != -1) {
-        return items[idx];
+        return model.items[idx];
     }
     return null;
 }
 
-export const analysisService_getArrayKey = (items) => {
+const analysisService_getArrayKey = (items) => {
     const result = new Array();
     
     items.forEach(item => {
@@ -84,21 +91,103 @@ export const analysisService_getArrayKey = (items) => {
     });
 }
 
-export const analysisService_fetchData = (id) => {
+export const query_fetchData = (id) => {
     return {
-        title: analysisService_external_getTitle(),
+        title: getExternalTitle(),
         external: {
-            items: analysisService_external_getItemData(),
+            items: getExternalItemData(),
             tree: {
-                nodes: analysisService_external_getTreeData(),
-                selected: ['Products.ProductID'] 
+                nodes: getExternalTreeData(),
+                selected: [] 
             }
         },
         items: [] 
     };
 } 
 
-export const analysisService_external_getFilterData = () => {
+export const query_createFilterItem = (uuid, key, dataType) => {
+    let type = "number";
+    // Data type of filter
+    if (dataType === "String") {
+        type = "string";
+    } 
+    else if (dataType === "Date") {
+        type = "date";
+    }
+
+    return {
+        id: uuid,
+        key: key,
+        type: type,
+        condition: "show",
+        missing: "default",
+        operation: "exactlyMatches",
+        description: ""
+    }
+}
+
+export const query_createFilterItemByData = (original, values) => {
+    console.log('query_createFilterItemByData', values)
+
+    let _description = "";
+    if (values.description) { _description = values.description };
+
+    let _range = {};
+    let _value = "";
+
+    if (values.condition === "range") {
+        if (values.type === "date") {
+            _range = {
+                from: dayjs(values.fromDate).format('YYYY-MM-DDT00:00:00Z[Z]'),
+                to: dayjs(values.toDate).format('YYYY-MM-DDT00:00:00Z[Z]')
+            }
+        } 
+        else {
+            _range = {
+                from: values.fromValue,
+                to: values.toValue
+            }
+        }
+    } else {
+        if (values.type === "date") {
+            _value = dayjs(values.dateValue).format('YYYY-MM-DDT00:00:00Z[Z]')
+        }
+        else {
+            _value = values.textValue
+        }
+    }
+
+    let _filter = {};
+
+    if (values.condition === "range") {
+        _filter = {
+            id: original.id,
+            key: original.key,
+            type: values.type,
+            condition: values.condition,
+            operation: values.operation,
+            missing: values.missing,
+            description: _description,
+            range: _range
+        }
+    }
+    else {
+        _filter = {
+            id: original.id,
+            key: original.key,
+            type: values.type,
+            condition: values.condition,
+            operation: values.operation,
+            missing: values.missing,
+            description: _description,
+            value: _value
+        }          
+    }
+
+    return _filter;
+}
+
+const getExternalFilterData = () => {
     return [
         {
             "id": "",
@@ -108,10 +197,10 @@ export const analysisService_external_getFilterData = () => {
     ]
 }
 
-export const analysisService_external_getItemData = () => {
+const getExternalItemData = () => {
     const items = new Array();
 
-    const base = analysisService_external_getBaseItemData();
+    const base = getExternalBaseItemData();
     var num = 1;
 
     base.forEach(baseItem => {
@@ -132,7 +221,7 @@ export const analysisService_external_getItemData = () => {
     return items;
 }
 
-export const analysisService_external_getBaseItemData = () => {
+const getExternalBaseItemData = () => {
     return [
         {
             "title": "ProductID",
@@ -180,7 +269,7 @@ export const analysisService_external_getBaseItemData = () => {
             "title": "UnitInStock",
             "key": "Products.UnitInStock",
             "value": "Products.UnitInStock",
-            "dataType": "int",
+            "dataType": "date",
             "type": "attribute",
         },
         {
@@ -292,7 +381,7 @@ export const analysisService_external_getBaseItemData = () => {
     ];
 }
 
-export const analysisService_external_getTitle = () => {
+const getExternalTitle = () => {
     return {
         "title": "Generic Report",
         "subtitle": "Test data structure",
@@ -301,7 +390,7 @@ export const analysisService_external_getTitle = () => {
     };
 }
 
-export const analysisService_external_getTreeData = () => {
+const getExternalTreeData = () => {
     return  [  
         {
           "title": "Products",

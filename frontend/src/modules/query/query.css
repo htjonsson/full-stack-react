@@ -1,0 +1,87 @@
+.c8-wrapper {
+    display: flex;
+    width: 95vw;
+    height: 85vh;
+    overflow-y: auto; 
+}
+
+.c8-table {
+    border: 1px solid #99AACC;
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+.c8-title {
+    font-family: verdana,arial;
+    font-size: 9pt;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 4px 10px;
+    background-color: #BEC8DC;
+    color: black;
+    border: 1px solid #99AACC;
+    cursor: pointer;
+}
+
+.c8-title-alignleft {
+    font-family: verdana,arial;
+    font-size: 9pt;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 4px 10px;
+    background-color: #BEC8DC;
+    color: black;
+    border: 1px solid #99AACC;
+    text-align: center;
+}
+
+.c8-text {
+    font-family: verdana,arial;
+    font-size: 9pt;
+    font-weight: normal;
+    border: 1px solid black;
+    padding: 4px 4px;
+    color: black;
+    border: 1px solid #99AACC;
+    background-color: white;
+    text-align: center;
+}
+
+.c8-text-alignleft {
+    font-family: verdana,arial;
+    font-size: 9pt;
+    font-weight: normal;
+    border: 1px solid black;
+    padding: 4px 10px;
+    color: black;
+    border: 1px solid #99AACC;
+    background-color: white;
+    text-align: left;
+}
+
+.c8-number {
+    font-family: verdana,arial;
+    font-size: 9pt;
+    font-weight: normal;
+    border: 1px solid black;
+    padding: 4px 4px;
+    color: black;
+    border: 1px solid #99AACC;
+    background-color: white;
+    text-align: right;
+}
+
+a.c8-link {
+    font-family: verdana,arial;
+    font-size: 9pt;
+    font-weight: bold;
+    text-decoration: none;
+    color: #0055FF;
+}
+
+.c8-group {
+    background-color: #efefef;
+    font-weight: bold;
+}

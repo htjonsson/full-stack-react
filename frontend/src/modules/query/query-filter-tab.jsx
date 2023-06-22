@@ -3,7 +3,7 @@ import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin, Table } fro
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const AnalysisFilterTab = ({ dataSource }) => {
+const QueryFilterTab = ({ dataSource }) => {
     const [tableModel, setTableModel] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -84,8 +84,8 @@ const AnalysisFilterTab = ({ dataSource }) => {
     );
 };
 
-AnalysisFilterTab.propTypes = {
+QueryFilterTab.propTypes = {
     dataSource: PropTypes.any
 }
 
-export default AnalysisFilterTab
+export default QueryFilterTab

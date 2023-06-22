@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input, Tabs, Tree, Skeleton, Row, Col } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, FilterFilled, FilterOutlined } from '@ant-design/icons';
-import AnalysisSourceDrawer from "./analysis-source-drawer";
-import AnalysisFilterDrawer from "./analysis-filter-drawer";
-import AnalysisFieldDrawer from "./analysis-field-drawer";
-import AnalysisFilterTab from "./analysis-filter-tab";
-import './analysis.css'
-import './analysisService.js'
-import { analysisService_external_getItemData, analysisService_external_getTreeData, analysisService_getItemDataByKeys, analysisService_getByKey, analysisService_setOrderNumbers, analysisService_fetchData } from './analysisService.js';
+import QuerySourceDrawer from "./query-source-drawer";
+import QueryFilterDrawer from "./query-filter-drawer";
+import QueryFieldDrawer from "./query-field-drawer";
+import QueryFilterTab from "./query-filter-tab";
+import { query_getItemDataByKeys, query_getItemByKey, query_saveFilter, query_fetchData, query_createFilterItem } from './query.js';
+import { v4 as uuidv4 } from 'uuid';
+import './query.css'
 
-function AnalysisPage() {
+function QueryPage() {
     // -------------------------------------------------------------------------------
     //      DRAWERS
     // -------------------------------------------------------------------------------
@@ -38,15 +38,16 @@ function AnalysisPage() {
     // -------------------------------------------------------------------------------
     
     const [item, setItem] = useState(null);
+    const [filterItem, setFilterItem] = useState(null);
        
     // -------------------------------------------------------------------------------
     //      FETCH SERVICE
     // -------------------------------------------------------------------------------
 
     const fetchData = () => {
-        const data = analysisService_fetchData();
+        const data = query_fetchData();
 
-        data.items = analysisService_getItemDataByKeys(data.external.items, data.external.tree.selected);
+        data.items = query_getItemDataByKeys(data.external.items, data.external.tree.selected);
 
         setDataModel(data);
         updateTableModel();
@@ -72,7 +73,7 @@ function AnalysisPage() {
         console.log('handleFieldClick', id)
         console.log('id', id)
 
-        const item = analysisService_getByKey(dataModel.items, id);
+        const item = query_getItemByKey(dataModel, id);
         console.log('item', item)
         if (item) {
             setItem(item);
@@ -90,16 +91,19 @@ function AnalysisPage() {
     }
 
     const handleFilterClick = (record) => {
-        const item = analysisService_getByKey(dataModel.items, record.key);
+        const item = query_getItemByKey(dataModel, record.key);
 
         if (item) {
             setItem(item);
+            setFilterItem(query_createFilterItem(uuidv4(), item.key, item.dataType));
             setShowFilterDrawer(true);
         }
     }
 
     const handleFilterSave = (filter) => {
-        analysisService_upsertFilter(dataModel, filter);
+        query_saveFilter(dataModel, filter);
+
+        console.log('handleFilterSave', dataModel);
 
         handleClose();
     }
@@ -110,7 +114,7 @@ function AnalysisPage() {
 
     const handleSourceSave = (data) => {
         dataModel.external.tree.selected = [...data];
-        dataModel.items = analysisService_getItemDataByKeys(dataModel.external.items, dataModel.external.tree.selected);
+        dataModel.items = query_getItemDataByKeys(dataModel.external.items, dataModel.external.tree.selected);
         
         updateTableModel();
 
@@ -146,7 +150,6 @@ function AnalysisPage() {
 
     useEffect(() => {
         fetchData();
-        setShowSourceDrawer(true);
     }, []);
 
     useEffect(() => {
@@ -170,7 +173,7 @@ function AnalysisPage() {
             key: 'configuration',
             label: `CONFIGURATION`,
         },
-      ];
+    ];
 
     // -------------------------------------------------------------------------------
     //      COLUMNS
@@ -182,19 +185,13 @@ function AnalysisPage() {
             dataIndex: 'number',
             key: 'number',
             width: 20,
-        },
+        },             
         {
-            title: 'Id',
-            dataIndex: 'key',
-            key: 'key',
-            width: 120,
-            render: (text, record) => <Link><span onClick={() => handleFieldClick(record.key)}>{text}</span></Link>,
-        },                
-        {
-            title: 'TITLE',
+            title: 'NAME',
             dataIndex: 'title',
             key: 'title',
             width: 240,
+            render: (text, record) => <Link><span onClick={() => handleFieldClick(record.key)}>{text}</span></Link>,
         },
         {
             title: 'DESCRIPTION',
@@ -296,25 +293,26 @@ function AnalysisPage() {
             </>}
 
             {tabState == 'filters' &&
-                <AnalysisFilterTab
+                <QueryFilterTab
                     dataSource={dataModel}
                 />
             }
 
-            <AnalysisSourceDrawer             
+            <QuerySourceDrawer             
                 open={showSourceDrawer}
                 dataSource={dataModel}
                 handleSave={handleSourceSave} 
                 handleClose={handleClose} 
             />
-            <AnalysisFieldDrawer 
+            <QueryFieldDrawer 
                 item={item}
                 open={showFieldDrawer}
                 saveCallback={handleFieldSave} 
                 closeCallback={handleClose} 
             />
-            <AnalysisFilterDrawer 
+            <QueryFilterDrawer 
                 item={item}
+                filterItem={filterItem}
                 open={showFilterDrawer}
                 saveCallback={handleFilterSave} 
                 closeCallback={handleClose} 
@@ -323,4 +321,4 @@ function AnalysisPage() {
   )
 }
 
-export default AnalysisPage
+export default QueryPage
