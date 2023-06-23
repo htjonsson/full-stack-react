@@ -6,7 +6,7 @@ import QuerySourceDrawer from "./query-source-drawer";
 import QueryFilterDrawer from "./query-filter-drawer";
 import QueryFieldDrawer from "./query-field-drawer";
 import QueryFilterTab from "./query-filter-tab";
-import { query_getItemDataByKeys, query_getItemByKey, query_saveFilter, query_fetchData, query_createFilterItem } from './query.js';
+import { query_getItemDataByKeys, query_getItemByKey, query_saveFilter, query_fetchData, query_createFilterItem, query_removeItem } from './query.js';
 import { v4 as uuidv4 } from 'uuid';
 import './query.css'
 
@@ -24,6 +24,7 @@ function QueryPage() {
     // -------------------------------------------------------------------------------
     
     const [tableModel, setTableModel] = useState([]);
+    const [filterTableModel, setFilterTableModel] = useState([]);
     const [dataModel, setDataModel] = useState(null);
 
     // -------------------------------------------------------------------------------
@@ -66,15 +67,12 @@ function QueryPage() {
     }
 
     const handleDeleteClick = (record) => {
-
+        query_removeItem(dataModel.items, record.key);
+        updateTableModel(); 
     }
 
     const handleFieldClick = (id) => {
-        console.log('handleFieldClick', id)
-        console.log('id', id)
-
         const item = query_getItemByKey(dataModel, id);
-        console.log('item', item)
         if (item) {
             setItem(item);
             setShowFieldDrawer(true);
@@ -82,8 +80,6 @@ function QueryPage() {
     }
 
     const handleFieldSave = (field, refresh) => {
-        console.log("handleFieldSave", field);
-        console.log("refresh", refresh);
         if (refresh) {
             updateTableModel();
         }
@@ -102,8 +98,7 @@ function QueryPage() {
 
     const handleFilterSave = (filter) => {
         query_saveFilter(dataModel, filter);
-
-        console.log('handleFilterSave', dataModel);
+        updateFilterTableModel();
 
         handleClose();
     }
@@ -125,9 +120,6 @@ function QueryPage() {
         setTabState(key);
     }
 
-    // objs.sort((a,b) => (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0))
-    // objs.sort((a,b) => (a-b))
-
     // -------------------------------------------------------------------------------
     //      UTILITY 
     // -------------------------------------------------------------------------------
@@ -144,6 +136,15 @@ function QueryPage() {
         }
     }
 
+    const updateFilterTableModel = () => {
+        if (dataModel && dataModel.filters) {
+            setFilterTableModel([...dataModel.filters]);
+        } 
+        else {
+            setFilterTableModel([]);
+        }
+    }    
+
     // -------------------------------------------------------------------------------
     //      HOOKS
     // -------------------------------------------------------------------------------
@@ -153,7 +154,6 @@ function QueryPage() {
     }, []);
 
     useEffect(() => {
-        console.log("tab change", tabState);
     }, [tabState]);
 
     // -------------------------------------------------------------------------------
@@ -246,24 +246,6 @@ function QueryPage() {
         },              
     ];    
 
-    // -------------------------------------------------------------------------------
-    //      VIEW
-    // -------------------------------------------------------------------------------
-
-    /*
-    const titleList = () => {
-        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFieldClick(key)}>{key}</td>)
-    }
-
-    const filterList = () => {
-        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFilterClick(key)}>FILTER</td>)
-    }   
-
-    const dataList = () => {
-        return reportModel.map((key) => <td key={key} className="c8-text">XXXX-XXXX-XXXX</td>)
-    } 
-    */   
-
     return (
         <>
             <div style={{ marginBottom: 16, }}></div>
@@ -294,7 +276,7 @@ function QueryPage() {
 
             {tabState == 'filters' &&
                 <QueryFilterTab
-                    dataSource={dataModel}
+                    dataSource={filterTableModel}
                 />
             }
 

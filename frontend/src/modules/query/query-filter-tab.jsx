@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Col, Drawer, Form, Input, Row, Select, Space, Spin, Table } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, FilterFilled, FilterOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 const QueryFilterTab = ({ dataSource }) => {
-    const [tableModel, setTableModel] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // -------------------------------------------------------------------------------
@@ -16,6 +17,7 @@ const QueryFilterTab = ({ dataSource }) => {
     // -------------------------------------------------------------------------------
 
     useEffect(() => { 
+        setLoading(false);
     }, [dataSource]);
 
     // -------------------------------------------------------------------------------
@@ -27,7 +29,6 @@ const QueryFilterTab = ({ dataSource }) => {
             title: 'EXPRESSION',
             dataIndex: 'expression',
             key: 'expression',
-            width: 120,
             render: (text, record) => <Link><span onClick={() => handleFieldClick(record.key)}>{text}</span></Link>,
         },                
         {
@@ -42,17 +43,11 @@ const QueryFilterTab = ({ dataSource }) => {
             width: 80,
         },        
         {
-            title: "",
+            title: "ACTIONS",
             width: 90,
             render: (record) => {
                 return (
                 <>
-                    <FilterOutlined
-                        onClick={() => {
-                            handleFilterClick(record);
-                        }}
-                        style={{ color: "black", marginLeft: 12 }}
-                    />
                     <DeleteOutlined
                         onClick={() => {
                             handleDeleteClick(record);
@@ -74,7 +69,7 @@ const QueryFilterTab = ({ dataSource }) => {
             <div style={{ marginBottom: 16, }}></div>
             <Table 
                 columns={columns} 
-                dataSource={tableModel} 
+                dataSource={dataSource} 
                 pagination={false} 
                 bordered={true} 
                 rowKey={'id'}

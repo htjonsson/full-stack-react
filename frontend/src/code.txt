@@ -30,3 +30,26 @@
                 "staff"
             ], 
             "type" : "moto-card"            
+
+    // objs.sort((a,b) => (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0))
+    // objs.sort((a,b) => (a-b))
+
+
+
+                // -------------------------------------------------------------------------------
+    //      VIEW
+    // -------------------------------------------------------------------------------
+
+    /*
+    const titleList = () => {
+        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFieldClick(key)}>{key}</td>)
+    }
+
+    const filterList = () => {
+        return reportModel.map((key) => <td key={key} className="c8-title" onClick={() => handleFilterClick(key)}>FILTER</td>)
+    }   
+
+    const dataList = () => {
+        return reportModel.map((key) => <td key={key} className="c8-text">XXXX-XXXX-XXXX</td>)
+    } 
+    */   

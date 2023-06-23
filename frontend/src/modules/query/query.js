@@ -39,7 +39,6 @@ export const query_saveFilter = (model, filter) => {
                 return true;
             }
         });
-        console.log('idx', idx);
         if (idx === -1) {
             model.filters.push(filter);
         } 
@@ -76,7 +75,6 @@ export const query_getItemByKey = (model, key) => {
     }
 
     const idx = getIndexOf(model.items, key);
-    console.log('analysisService_getByKey', idx)
     if (idx != -1) {
         return model.items[idx];
     }
@@ -127,8 +125,6 @@ export const query_createFilterItem = (uuid, key, dataType) => {
 }
 
 export const query_createFilterItemByData = (original, values) => {
-    console.log('query_createFilterItemByData', values)
-
     let _description = "";
     if (values.description) { _description = values.description };
 
@@ -168,7 +164,9 @@ export const query_createFilterItemByData = (original, values) => {
             operation: values.operation,
             missing: values.missing,
             description: _description,
-            range: _range
+            range: _range,
+            expression: "here comes an expression example",
+            enabled: true
         }
     }
     else {
@@ -180,11 +178,21 @@ export const query_createFilterItemByData = (original, values) => {
             operation: values.operation,
             missing: values.missing,
             description: _description,
-            value: _value
+            value: _value,
+            expression: "here comes an expression example",
+            enabled: true
         }          
     }
 
     return _filter;
+}
+
+export const query_removeItem = (array, key) => {
+    const index = getIndexOf(array, key);
+
+    if (index > -1) {       
+        array.splice(index, 1); 
+    }
 }
 
 const getExternalFilterData = () => {
