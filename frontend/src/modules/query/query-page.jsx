@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { message, Modal, Typography, Space, Table, Button, Input, Tabs, Tree, Skeleton, Row, Col } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, FilterFilled, FilterOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, FilterFilled, FilterOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import QuerySourceDrawer from "./query-source-drawer";
 import QueryFilterDrawer from "./query-filter-drawer";
 import QueryFieldDrawer from "./query-field-drawer";
 import QueryFilterTab from "./query-filter-tab";
-import { query_getItemDataByKeys, query_getItemByKey, query_saveFilter, query_fetchData, query_createFilterItem, query_removeItem } from './query.js';
+import { query_getItemDataByKeys, query_getItemByKey, query_saveFilter, query_fetchData, query_createFilterItem, query_removeItem, query_moveUp, query_moveDown } from './query.js';
 import { v4 as uuidv4 } from 'uuid';
 import './query.css'
 
@@ -64,6 +64,16 @@ function QueryPage() {
         setShowSourceDrawer(false);
         setShowFieldDrawer(false);
         setShowFilterDrawer(false);
+    }
+
+    const handleMoveUpClick = (record) => {
+        query_moveUp(dataModel.items, record.key);
+        updateTableModel();
+    }
+
+    const handleMoveDownClick = (record) => {
+        query_moveDown(dataModel.items, record.key);
+        updateTableModel();    
     }
 
     const handleDeleteClick = (record) => {
@@ -224,10 +234,23 @@ function QueryPage() {
         },
         {
             title: "ACTIONS",
-            width: 90,
+            width: 180,
             render: (record) => {
                 return (
                 <>
+                    <CaretUpOutlined
+                        onClick={() => {
+                            console.log('handleMoveUpClick', record);
+                            handleMoveUpClick(record);
+                        }}
+                        style={{ color: "black", marginLeft: 12 }}
+                    />
+                    <CaretDownOutlined
+                        onClick={() => {
+                            handleMoveDownClick(record);
+                        }}
+                        style={{ color: "black", marginLeft: 12 }}
+                    />                                        
                     <FilterOutlined
                         onClick={() => {
                             handleFilterClick(record);

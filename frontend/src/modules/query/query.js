@@ -89,6 +89,34 @@ const analysisService_getArrayKey = (items) => {
     });
 }
 
+const moveUp = (original, index) => {
+    if (index === 0) {
+        return;
+    }
+    const arrayCopy = [...original];
+    var element = arrayCopy[index];
+
+    arrayCopy.splice(index, 1);
+    console.log('arrayCopy', arrayCopy)
+    // arrayCopy.splice(index-1, 0, element);
+    console.log('arrayCopy', arrayCopy)
+
+    console.log('original', original)
+    console.log('arrayCopy', arrayCopy)
+
+    return arrayCopy;
+
+    // array.splice(index - 1, 0, array.splice(index, 1)[0]);
+    // console.log(array);
+};
+
+const moveDown = (array, index) => {
+    if (index === index.length - 1) {
+        return;
+    }
+    array.splice(index + 1, 0, array.splice(index, 1)[0]);
+};
+
 export const query_fetchData = (id) => {
     return {
         title: getExternalTitle(),
@@ -185,6 +213,17 @@ export const query_createFilterItemByData = (original, values) => {
     }
 
     return _filter;
+}
+
+export const query_moveUp = (array, key) => {
+    const index = getIndexOf(array, key);
+    console.log('index', index);
+    moveUp(array, index);
+} 
+
+export const query_moveDown = (array, key) => {
+    const index = getIndexOf(array, key);
+    moveDown(array, index);
 }
 
 export const query_removeItem = (array, key) => {

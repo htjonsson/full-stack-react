@@ -151,15 +151,8 @@ const QueryFilterDrawer = ({ item, filterItem, open, saveCallback, closeCallback
     }
 
     const onFinish = (values) => {
-        console.log('onFinish', values); 
         values.type = dataType;
-        console.log('onFinish', values); 
-
         const filter = query_createFilterItemByData(filterItem, values);
-
-        console.log("NEW FILTER", filter);
-        console.log('saveCallback')
-
         saveCallback(filter);
     }
 
