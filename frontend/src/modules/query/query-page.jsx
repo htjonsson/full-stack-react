@@ -67,26 +67,36 @@ function QueryPage() {
     }
 
     const handleMoveUpClick = (record) => {
-        const result = query_moveUp(dataModel.items, record.key);
-        console.log('handleMoveUpClick', result);
-        dataModel.items = result;
-        updateTableModel();
+        const index = getIndexOf(tableModel, record.key); 
+        if (index > 0) {
+            const modified = [...tableModel];
+            const element = modified[index-1];
+            modified[index-1] = modified[index];
+            modified[index] = element;
+            setTableModel(modified);
+        }
     }
 
     const handleMoveDownClick = (record) => {
-        query_moveDown(dataModel.items, record.key);
-        updateTableModel();    
+        const index = getIndexOf(tableModel, record.key); 
+        if (index < tableModel.length-1) {
+            const modified = [...tableModel];
+            const element = modified[index+1];
+            modified[index+1] = modified[index];
+            modified[index] = element;
+            setTableModel(modified);
+        }        
     }
 
     const handleDeleteClick = (record) => {
-        query_removeItem(dataModel.items, record.key);
-        updateTableModel(); 
+        var modified = tableModel.filter((value) => value.key !== record.key );
+        setTableModel(modified);
     }
 
     const handleFieldClick = (id) => {
-        const item = query_getItemByKey(dataModel, id);
-        if (item) {
-            setItem(item);
+        const index = getIndexOf(tableModel, id);
+        if (index !== -1) {
+            setItem(tableModel[index]);
             setShowFieldDrawer(true);
         }
     }
@@ -135,6 +145,14 @@ function QueryPage() {
     // -------------------------------------------------------------------------------
     //      UTILITY 
     // -------------------------------------------------------------------------------
+
+    const getIndexOf = (array, key) => {
+        return array.findIndex((element) => {
+            if (element.key === key) {
+                return true;
+            }
+        });
+    }
 
     const updateTableModel = () => {
         if (dataModel && dataModel.items) {
