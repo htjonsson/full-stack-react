@@ -93,18 +93,52 @@ const moveUp = (original, index) => {
     if (index === 0) {
         return;
     }
+
+    var modified = [];
+
+    console.log('original', original);
+
+    let el = original[index];
+    var modified = [...original];
+
+    modified[index] = original[index - 1];
+    modified[index - 1] = el;
+
+    console.log('modified', modified);
+
+    return modified;
+
+    console.log('original', original);
+
+    original.splice(index - 1, 0, );
+
+    var element = original.splice(index, 1)[0];
+    console.log('element', element);
+
+    original.push(element);
+
+    console.log('modified', original);
+
+    return original;
+
     const arrayCopy = [...original];
     var element = arrayCopy[index];
 
     arrayCopy.splice(index, 1);
-    console.log('arrayCopy', arrayCopy)
-    // arrayCopy.splice(index-1, 0, element);
-    console.log('arrayCopy', arrayCopy)
+    console.log('arrayCopy - deleted', arrayCopy)
+    
+    const deletedCopy = [...arrayCopy];
+    console.log('deletedCopy', deletedCopy);
 
-    console.log('original', original)
-    console.log('arrayCopy', arrayCopy)
+    deletedCopy.push(element);
+    console.log('deletedCopy - pushed', deletedCopy);
+    // arrayCopy.splice(index-2, 0, element);
+    // console.log('arrayCopy', arrayCopy)
 
-    return arrayCopy;
+    // console.log('original', original)
+    // console.log('arrayCopy - returned', arrayCopy)
+
+    return deletedCopy;
 
     // array.splice(index - 1, 0, array.splice(index, 1)[0]);
     // console.log(array);
@@ -218,7 +252,16 @@ export const query_createFilterItemByData = (original, values) => {
 export const query_moveUp = (array, key) => {
     const index = getIndexOf(array, key);
     console.log('index', index);
-    moveUp(array, index);
+    
+    const rest = new Array();
+    // console.log('result', moveUp(array, index));
+    moveUp(array, index).forEach(e => {
+        rest.push(e);
+    });
+
+    console.log('result', rest);
+
+    return rest;
 } 
 
 export const query_moveDown = (array, key) => {

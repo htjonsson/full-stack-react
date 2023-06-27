@@ -67,7 +67,9 @@ function QueryPage() {
     }
 
     const handleMoveUpClick = (record) => {
-        query_moveUp(dataModel.items, record.key);
+        const result = query_moveUp(dataModel.items, record.key);
+        console.log('handleMoveUpClick', result);
+        dataModel.items = result;
         updateTableModel();
     }
 
