@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">
+    <defs>
+        <style>
+            @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i");
+        </style>
+    </defs>
+    <style><![CDATA[svg text{stroke:none}]]></style>
+
+    <rect x="50" y="300" width="250" height="17" style="fill:rgb(254,255,179);stroke:rgb(74,70,131);stroke-width:2;" />
+    <!-- Primary Key -->
+    <text x="54" y="312" font-family="Roboto" font-size="7pt">P</text>
+    <!-- Foreign Key -->
+    <text x="62" y="312" font-family="Roboto" font-size="7pt">F</text>
+    <!-- Required -->
+    <text x="70" y="312" fill="red" font-family="Roboto" font-size="8pt">*</text>   
+    <!-- Name -->
+    <text x="80" y="312" font-family="Roboto" font-size="7pt">EMPLOYEE</text> 
+    <!-- Data Type -->
+    <text x="170" y="312" fill="green" font-family="Roboto" font-size="7pt">NUMBER (6)</text> 
+
+    <rect x="50" y="340" width="250" height="16" style="fill:rgb(254,255,179);stroke:rgb(74,70,131);stroke-width:2;" />
+    <!-- Primary Key -->
+    <text x="175" y="352" font-family="Roboto" font-size="7pt" font-weight="bold" text-anchor="middle">EMPLOYEE</text> 
+    
+    <rect x="50" y="380" width="250" height="104" style="fill:rgb(254,255,179);stroke:rgb(74,70,131);stroke-width:2;" />
+    <!-- Primary Key -->
+    <text x="70" y="392" font-family="Roboto" font-size="7pt">EMP_EMAIL_UK</text>     
+    <text x="70" y="409" font-family="Roboto" font-size="7pt">EMP_EMP_ID_PK</text>
+    <text x="70" y="426" font-family="Roboto" font-size="7pt">EMP_DEPARTMENT_IX</text>
+    <text x="70" y="443" font-family="Roboto" font-size="7pt">EMP_JOB_IX</text>
+    <text x="70" y="460" font-family="Roboto" font-size="7pt">EMP_MANAGER_IX</text>
+    <text x="70" y="477" font-family="Roboto" font-size="7pt">EMP_NAME_IX</text>
+
+
+    <!-- https://stackoverflow.com/questions/5546346/how-to-place-and-center-text-in-an-svg-rectangle -->
+
+    <!-- Blue Frame -->
+    <rect x="47" y="97" width="386" height="143" style="fill:white;stroke:rgb(48,159,219);stroke-width:1;" />
+
+    <rect x="50" y="100" width="380" height="16" style="fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;" />
+    <!-- Primary Key -->
+    <text x="215" y="112" font-family="Roboto" font-size="7pt" font-weight="bold" text-anchor="middle">EMPLOYEE</text> 
+
+    <rect x="50" y="116" width="380" height="17" style="fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;" />
+    <!-- Primary Key -->
+    <text x="54" y="128" font-family="Roboto" font-size="7pt">P</text>
+    <!-- Foreign Key -->
+    <text x="62" y="128" font-family="Roboto" font-size="7pt">F</text>
+    <!-- Required -->
+    <text x="70" y="128" fill="red" font-family="Roboto" font-size="8pt">*</text>   
+    <!-- Name -->
+    <text x="84" y="128" font-family="Roboto" font-size="7pt">EMPLOYEE</text> 
+    <!-- Data Type -->
+    <text x="320" y="128" fill="rgb(152,147,160)" font-family="Roboto" font-size="7pt">NUMBER (6)</text>     
+
+    <rect x="50" y="133" width="380" height="104" style="fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;" />
+    <!-- Primary Key -->
+    <text x="80" y="145" font-family="Roboto" font-size="7pt">EMP_EMAIL_UK</text>     
+    <text x="80" y="162" font-family="Roboto" font-size="7pt">EMP_EMP_ID_PK</text>
+    <text x="80" y="179" font-family="Roboto" font-size="7pt">EMP_DEPARTMENT_IX</text>
+    <text x="80" y="196" font-family="Roboto" font-size="7pt">EMP_JOB_IX</text>
+    <text x="80" y="213" font-family="Roboto" font-size="7pt">EMP_MANAGER_IX</text>
+    <text x="80" y="230" font-family="Roboto" font-size="7pt">EMP_NAME_IX</text>
+
+    <!-- Diamond -->
+    <polygon points="50,20 80,50 50,80 20,50" style="fill:rgb(254,155,73);opacity:1.0;" />
+    
+    <!-- Box -->
+    <rect x="100" y="30" rx="5" ry="5" width="48" height="48" style="fill:rgb(254,155,73);opacity:1.0;" />
+
+    <!-- Arrow Head 14x8 -->
+    <polygon points="160,60 153,53, 153,67" style="fill:rgb(145,146,151);opacity:1.0;" />
+
+    <!-- Circle -->
+    <circle cx="50" cy="75" r="10" fill="white"/>
+    <circle cx="50" cy="75" r="8" stroke="rgb(145,146,151)" stroke-width="2" fill="white"/>
+
+</svg>
+
+<!-- 
+    Triangle    Box
+    60x60       48x48
+
+    300x300
+
+    <polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;" />
+-->
+
+
+<!--
+backgroundColor rgb(254,245,219)
+borderColor     rgb(228,220,197)
+secondaryColor  rgb(152,147,160)
+keyColor        rgb(48,159,219)
+redColor        rgb(234,125,114)
+
+width           380
+toName          34
+toDataType      270
+-->

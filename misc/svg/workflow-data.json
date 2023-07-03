@@ -1,0 +1,170 @@
+{
+    "title": "Start",
+    "subtitle": "Schedule-Triggered Flow",
+    "flow": {
+        "startDate": "Thu, Jun 25, 2020 12:00:00",
+        "freqency": "daily"
+    },
+    "misc": {
+        "object": "Account",
+        "recordConditions": "2 applied"
+    },
+    "nodes": [
+        {
+            "id": "1",
+            "title": "Decision",
+            "subtitle": [
+                "Contains Valid",
+                "Picklist Values"
+            ]
+        },
+        {
+            "id": "2",
+            "title": "Assignment",
+            "subtitle": [
+                "Assign Initial Owner",
+                "Id"
+            ]
+        },
+        {
+            "id": "3",
+            "title": "Decision",
+            "subtitle": [
+                "Is Bakcup Populated"
+            ]
+        },
+        {
+            "id": "4",
+            "title": "Apex Action",
+            "subtitle": [
+                "GetRandomInitials"
+            ]
+        },
+        {
+            "id": "5",
+            "title": "Decision",
+            "subtitle": [
+                "Is Account Medium"
+            ]
+        },
+        {
+            "id": "6",
+            "title": "Decision",
+            "subtitle": [
+                "Is Account Hot"
+            ]
+        },
+        {
+            "id": "7",
+            "title": "Assignment",
+            "subtitle": [
+                "Assign User Initials",
+                "From Account"
+            ]
+        },
+        {
+            "id": "8",
+            "title": "Get Records",
+            "subtitle": [
+                "Get Backup User"
+            ]
+        },
+        {
+            "id": "9",
+            "title": "Assignment",
+            "subtitle": [
+                "Assign Account",
+                "Owner"
+            ]
+        },
+        {
+            "id": "10",
+            "title": "Update Records",
+            "subtitle": [
+                "Update Account"
+            ]
+        },
+        {
+            "id": "11",
+            "title": "Action",
+            "subtitle": [
+                "Alert Owner"
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "state": "all",
+            "title": "Is Valid",
+            "from": ["1"],
+            "to": ["2"]   
+        },
+        {
+            "state": "all",
+            "from": ["2"],
+            "to": ["3"]   
+        },
+        {
+            "state": "all",
+            "title": "Backup Empty",
+            "from": ["3"],
+            "to": ["4"]   
+        },
+        {
+            "state": "all",
+            "title": "Bacup Populated",
+            "from": ["3"],
+            "to": ["5"]   
+        },
+        {
+            "state": "all",
+            "title": "Check if Hot",
+            "from": ["5"],
+            "to": ["6"]   
+        },                        
+        {
+            "state": "all",
+            "title": "Medium",
+            "from": ["5"],
+            "to": ["7"]   
+        },  
+        {
+            "state": "all",
+            "title": "Hot",
+            "from": ["6"],
+            "to": ["7"]   
+        },
+        {
+            "state": "all",
+            "from": ["7"],
+            "to": ["8"]   
+        },        
+        {
+            "status": "all",
+            "from": ["8"],
+            "to": ["9"]            
+        },
+        {
+            "status": "all",
+            "from": ["9"],
+            "to": ["10"]            
+        },
+        {
+            "state": "all",
+            "from": ["10"],
+            "to": ["11"]
+        },
+        {
+            "state": "fault",
+            "title": "Fault",
+            "from": ["4"],
+            "to": ["8"]
+        },
+        {
+            "state": "fault",
+            "title": "Fault",
+            "from": ["4"],
+            "to": ["10"]
+        }               
+    ]
+}

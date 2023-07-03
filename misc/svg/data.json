@@ -1,0 +1,325 @@
+[
+    {
+        "id" : "HR_JOB_HISTORY",
+        "name" : "HR_JOB_HISTORY",
+        "columns" : [
+            {
+                "name" : "EMPLOYEE_ID",
+                "dataType" : "NUMBER (6)",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "START_DATE",
+                "dataType" : "DATE",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "END_DATE",
+                "dataType" : "DATE",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "JOB_ID",
+                "dataType" : "VARCHAR2 (10 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "DEPARTMENT_ID",
+                "dataType" : "NUMBER (4)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : true
+            }
+        ],
+        "foreignKeyNames" : [
+            "JHIST_EMP_ID_ST_DATE_PK",
+            "JHIST_JOB_IX",
+            "JHIST_EMPLOYEE_IX",
+            "JHIST_DEPARTMENT_IX"
+        ]
+    },
+    {
+        "id" : "HR_JOBS",
+        "name" : "HR_JOBS",
+        "columns" : [
+            {
+                "name" : "JOB_ID",
+                "dataType" : "VARCHAR2 (10 BYTE)",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "JOB_TITLE",
+                "dataType" : "VARCHAR2 (35 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "MIN_SALARY",
+                "dataType" : "NUMBER (6)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "MAX_SALARY",
+                "dataType" : "NUMBER (6)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            }
+        ],
+        "indexes" : [
+            "JOB_ID_PK"
+        ]
+    },
+    {
+        "id" : "HR_EMPLOYEES",
+        "name" : "HR_EMPLOYEES",
+        "columns" : [
+            {
+                "name" : "EMPLOYEE_ID",
+                "dataType" : "NUMBER (6)",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "FIRST_NAME",
+                "dataType" : "VARCHAR2 (20 BYTE)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "LAST_NAME",
+                "dataType" : "VARCHAR2 (25 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "EMAIL",
+                "dataType" : "VARCHAR2 (25 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "PHONE_NUMBER",
+                "dataType" : "VARCHAR2 (20 BYTE)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "HIRE_DATE",
+                "dataType" : "DATE",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "JOB_ID",
+                "dataType" : "VARCHAR2 (10 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : true
+            },
+            {
+                "name" : "SALARY",
+                "dataType" : "NUMBER (8,2)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "COMMISSION_PCT",
+                "dataType" : "NUMBER (2,2)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "MANAGER_ID",
+                "dataType" : "NUMBER (6)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : true
+            },
+            {
+                "name" : "PEPARTMENT_ID",
+                "dataType" : "NUMBER (4)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : true
+            }
+        ],
+        "indexes" : [
+            "EMP_EMAIL_UK",
+            "EMP_EMP_ID_PK",
+            "EMP_DEPARTMENT_IX",
+            "EMP_JOB_IX",
+            "EMP_MANAGER_IX",
+            "EMP_NAME_IX"
+        ]
+    },
+    {
+        "id" : "HR_DEPARTMENTS",
+        "name" : "HR_DEPARTMENTS",
+        "columns" : [
+            {
+                "name" : "DEPARTMENT_ID",
+                "dataType" : "NUMBER (4)",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "DEPARTMENT_NAME",
+                "dataType" : "VARCHAR2 (30 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "MANAGER_ID",
+                "dataType" : "NUMBER (4)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            }
+        ],
+        "indexes" : [
+            "DEPT_ID_PK",
+            "DEPT_LOCATION_IX"
+        ]
+    },
+    {
+        "id" : "HR_LOCATIONS",
+        "name" : "HR_LOCATIONS",
+        "columns" : [
+            {
+                "name" : "LOCATION_ID",
+                "dataType" : "NUMBER (4)",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "STREET_ADDRESS",
+                "dataType" : "VARCHAR2 (40 BYTE)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "POSTAL_CODE",
+                "dataType" : "VARCHAR2 (12 BYTE)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "CITY",
+                "dataType" : "VARCHAR2 (30 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "STATE_PROVINCE",
+                "dataType" : "VARCHAR2 (25 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "COUNTRY_ID",
+                "dataType" : "CHAR2 (2 BYTE)",
+                "required" : true,
+                "primary" : false,
+                "foreign" : false
+            }                       
+        ],
+        "indexes" : [
+            "LOC_ID_PK",
+            "LOC_CITY_IX",
+            "LOC_STATE_PROVINCE_IX",
+            "LOC_COUNTRY_IX"
+        ]
+    },
+    {
+        "id" : "HR_REGIONS",
+        "name" : "HR_REGIONS",
+        "columns" : [
+            {
+                "name" : "REGION_ID",
+                "dataType" : "NUMBER",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "REGION_NAME",
+                "dataType" : "VARCHAR2 (25 BYTE)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            }                       
+        ],
+        "indexes" : [
+            "REG_ID_PK"
+        ]
+    },
+    {
+        "id" : "HR_COUNTRIES",
+        "name" : "HR_COUNTRIES",
+        "columns" : [
+            {
+                "name" : "COUNTRY_ID",
+                "dataType" : "CHAR (2 BYTE)",
+                "required" : true,
+                "primary" : true,
+                "foreign" : false
+            },
+            {
+                "name" : "COUNTRY_NAME",
+                "dataType" : "VARCHAR2 (40 BYTE)",
+                "required" : false,
+                "primary" : false,
+                "foreign" : false
+            },
+            {
+                "name" : "REGION_ID",
+                "dataType" : "NUMBER",
+                "required" : false,
+                "primary" : false,
+                "foreign" : true
+            }                                   
+        ],
+        "indexes" : [
+            "COUNTRY_C_ID_PK"
+        ]
+    }                 
+]
+
+DrawNode 
+{
+    void DrawBackground(x, y, width, height)
+    void DrawHorizonalLine(x, y, width);
+    void DrawVericalLine(x, y, height);
+    void DrawText(x, y, text);
+
+    (x, y) GetPosition(enum, )
+}
