@@ -1,4 +1,4 @@
-namespace MorthCore.CodeGenerator;
+namespace MorphCore.CodeGenerator;
 
 public static class FileUtils 
 {

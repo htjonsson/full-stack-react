@@ -6,3 +6,4 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Logging.Configuration;
 global using Microsoft.Extensions.Logging.Console;
 global using Newtonsoft.Json;
+global using System.Data.SQLite;
