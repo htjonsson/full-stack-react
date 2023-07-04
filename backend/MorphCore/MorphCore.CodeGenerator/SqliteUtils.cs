@@ -60,6 +60,37 @@ public static class SqliteUtils
         } 
         return result;      
     }
+
+    public static List<SqliteTableDef> GetTables(string connectionString)
+    {
+        var result = new List<SqliteTableDef>();
+
+        var tableNames = SqliteUtils.GetTableNames(connectionString);
+
+        tableNames.ForEach(tableName => {
+            var tableDef = new SqliteTableDef()
+            {
+                Name = tableName.ToUpper()
+            };
+
+            var columns = SqliteUtils.GetColumns(connectionString, $"{tableName}");
+
+            if (columns != null)
+            {
+                tableDef.Columns.AddRange(columns);
+            }
+
+            result.Add(tableDef);
+        });
+        
+        return result;
+    }
+}
+
+public class SqliteTableDef
+{
+    public string Name { get; set; } = String.Empty;
+    public List<SqliteColumnDef> Columns { get; set; } = new List<SqliteColumnDef>();
 }
 
 public class SqliteColumnDef 

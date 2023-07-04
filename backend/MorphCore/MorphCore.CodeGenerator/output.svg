@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">
+<defs><style>@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i");</style></defs>
+<style><![CDATA[svg text{stroke:none}]]></style>
+<rect x="47" y="97" width="386" height="194" style="fill:white;stroke:rgb(48,159,219);stroke-width:1;" />
+<rect x="50" y="100" width="380" height="188" style="fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;" />
+<rect x="50" y="100" width="380" height="20" style="fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;"/>
+<text x="240" y="112" font-family="Roboto" font-size="7pt" font-weight="bold" text-anchor="middle">EMPLOYEE</text>
+<text x="54" y="136" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="136" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="136" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="136" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="136" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="152" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="152" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="152" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="152" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="152" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="168" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="168" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="168" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="168" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="168" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="184" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="184" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="184" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="184" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="184" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="200" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="200" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="200" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="200" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="200" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="216" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="216" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="216" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="216" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="216" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="232" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="232" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="232" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="232" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="232" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="248" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="248" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="248" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="248" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="248" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="264" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="264" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="264" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="264" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="264" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+<text x="54" y="280" font-family="Roboto" font-size="7pt" >P</text>
+<text x="62" y="280" font-family="Roboto" font-size="7pt" >F</text>
+<text x="70" y="280" fill="red" font-family="Roboto" font-size="7pt" >*</text>
+<text x="88" y="280" font-family="Roboto" font-size="7pt" >EMPLOYEE</text>
+<text x="298" y="280" font-family="Roboto" font-size="7pt" fill="rgb(152,147,160)" >NUMBER (6)</text>
+</svg>

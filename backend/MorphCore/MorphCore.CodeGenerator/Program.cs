@@ -43,14 +43,30 @@ string connectionString = @"URI=file:northwind.sqlite3";
 string version = SqliteUtils.GetVersion(connectionString) ?? String.Empty;
 Console.WriteLine($"SQLite version: {version}");
 
+
+
 var tables = SqliteUtils.GetTableNames(connectionString);
-tables.ForEach(x => {
-    Console.WriteLine($"{x.ToUpper()}");
+tables.ForEach(t => {
+    Console.WriteLine($"{t.ToUpper()}");
     Console.WriteLine("---COLUMNS---");
+
+    var table = new SvgTable()
+    {
+        Title = t
+    };
 
     var columns = SqliteUtils.GetColumns(connectionString, $"{x}");
     columns.ForEach(c => {
         Console.WriteLine($"{c.Name.ToUpper()} {c.Type} {c.Defaults}");
+
+        var column = new SvgColumn()
+        {
+            Name = c.Name,
+            DataType = c.Type,
+            IsPrimary = (c.Key > 0 ? true : false),
+            isRequired = (c.IsNull ? false : true)
+        };
+        table.Columns.Add(column);
     });
     Console.WriteLine("--------------------------------------------------");
 });
@@ -59,60 +75,12 @@ tables.ForEach(x => {
 //      SVG
 // ----------------------------------------------------------------------------------------------------------------
 
-int GetWidthToType(int charCount)
-{
-    return 34 + (charCount * 5);
-}
+var builder = new ImageBuilder();
 
-int GetWidth(int charCount)
-{
-    return (GetWidthToType(charCount) + 60);
-}
+string path = "output.svg";
 
-int GetHeight(int lineCount)
-{
-    return (lineCount * 17) + 16;
-}
-
-int x, y, width, height;
-string text = string.Empty;
-
-var builder = new System.Text.StringBuilder();
-
-builder.AppendLine("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1000\" height=\"1000\">");
-
-builder.AppendLine("<defs><style>@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i\");</style></defs>");
-builder.AppendLine("<style><![CDATA[svg text{stroke:none}]]></style>");
-
-x = 47; y = 97; width = 386; height = 143;
-// Blue Frame
-builder.AppendLine($"<rect x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\" style=\"fill:white;stroke:rgb(48,159,219);stroke-width:1;\" />");
-
-// Title
-x = 50; y = 100; width = 380; height = 16;
-builder.AppendLine($"<rect x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\" style=\"fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;\"/>");
-x = 215; y = 112; text = "EMPLOYEE";
-builder.AppendLine($"<text x=\"{x}\" y=\"{y}\" font-family=\"Roboto\" font-size=\"7pt\" font-weight=\"bold\" text-anchor=\"middle\">{text}</text>"); 
-
-x = 50; y = 116; width = 380; height = 17;
-builder.AppendLine($"<rect x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\" style=\"fill:rgb(254,245,219);stroke:rgb(228,220,197);stroke-width:1;\"/>");
-// Primary Key
-x = 54; y = 128; text = "P";
-builder.AppendLine($"<text x=\"{x}\" y=\"{y}\" font-family=\"Roboto\" font-size=\"7pt\" >{text}</text>"); 
-// Foreign Key
-x = 62; text = "P";
-builder.AppendLine($"<text x=\"{x}\" y=\"{y}\" font-family=\"Roboto\" font-size=\"7pt\" >{text}</text>"); 
-// Required
-x = 70; text = "*";
-builder.AppendLine($"<text x=\"{x}\" y=\"{y}\" fill=\"red\" font-family=\"Roboto\" font-size=\"7pt\" >{text}</text>"); 
-// Name
-x = 84; text = "EMPLOYEE";
-builder.AppendLine($"<text x=\"{x}\" y=\"{y}\" font-family=\"Roboto\" font-size=\"7pt\" >{text}</text>"); 
-// Type
-x = 320; text = "NUMBER (6)";
-builder.AppendLine($"<text x=\"{x}\" y=\"{y}\" font-family=\"Roboto\" font-size=\"7pt\" fill=\"rgb(152,147,160)\" >{text}</text>"); 
-
-builder.AppendLine("</svg>");
+File.Delete(path);
+File.WriteAllText(path, builder.ToString());
 
 // ---------------------------------------------------------------------------------------------------------------- 
 //      END OF CONSOLE APPLICATION
