@@ -2,6 +2,16 @@ namespace MorphCore.CodeGenerator;
 
 public static class FileUtils 
 {
+    public static void WriteToFile(ILogger logger, string path, string databaseName, string collectionName, string name, string extension, string text)
+    {
+        var folder = System.IO.Path.Combine(path, databaseName, collectionName);
+        
+        if (CreateFolder(logger, folder)) 
+        {
+            System.IO.File.WriteAllText(System.IO.Path.Combine(path, databaseName, collectionName, name) + "." + extension, text);
+        }  
+    }
+
     public static bool CreateFile(ILogger logger, string filename)
     {
         try 
@@ -54,5 +64,33 @@ public static class FileUtils
 
         logger.LogCritical($"Folder not found {foldername}");
         return false;
+    }
+
+    public static void DeleteAll(ILogger logger, string path, string databaseName, string collectionName)
+    {
+        var folder = System.IO.Path.Combine(path, databaseName, collectionName);
+
+        if (Directory.Exists(folder))
+        {
+            System.Console.WriteLine($"DeleteAll - {folder}");
+
+            DeleteAll(logger, folder);
+        }
+    }
+
+    public static void DeleteAll(ILogger logger, string folder)
+    {
+        System.IO.DirectoryInfo di = new DirectoryInfo(folder);
+
+        foreach (FileInfo file in di.GetFiles())
+        {
+            System.Console.WriteLine($"Delete file - {file.Name}");
+
+            file.Delete(); 
+        }
+        foreach (DirectoryInfo dir in di.GetDirectories())
+        {
+            dir.Delete(true); 
+        }
     }
 }

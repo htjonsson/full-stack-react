@@ -33,6 +33,47 @@ var config = new MorphCore.CodeGenerator.Config();
 config.Validate(logger);
 
 // ----------------------------------------------------------------------------------------------------------------
+//      PROFILING
+// ----------------------------------------------------------------------------------------------------------------
+
+try
+{
+    var containt = System.IO.File.ReadAllText("mongo.test.json");  
+
+    var profiler = new Profiler(logger);
+    profiler.Parse(containt);
+
+    foreach(var keyValue in profiler.Tokens)
+    {
+        System.Console.WriteLine($"Key : {keyValue.Key}, Value : {keyValue.Value.ToString()}");
+    }
+}
+catch (System.Exception exp)
+{
+    System.Console.WriteLine(exp.Message);
+}
+
+return;
+
+// ----------------------------------------------------------------------------------------------------------------
+//      MONGODB
+// ----------------------------------------------------------------------------------------------------------------
+
+var mongoConnectionString = "mongodb://localhost:27017/?readPreference=primary";
+var databaseName = "unite_spikeliving";
+
+try
+{
+  MongoUtils.GetMetadata(logger, mongoConnectionString, databaseName);  
+}
+catch (System.Exception exp)
+{
+    System.Console.WriteLine(exp.Message);
+}
+
+return;
+
+// ----------------------------------------------------------------------------------------------------------------
 //      SQLITE
 // ----------------------------------------------------------------------------------------------------------------
 
