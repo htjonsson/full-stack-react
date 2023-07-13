@@ -1,44 +1,74 @@
 namespace MorphCore.CodeGenerator;
 
-public class Node 
+public class SchemaBuilderNode 
 {
     public JTokenType Type { get; set; } = JTokenType.None;
     public string Path { get; set; } = string.Empty;
+    public string Parent { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
 
-    public Node(string path, JTokenType type)
+    public SchemaBuilderNode(string path, JTokenType type)
     {
         this.Type = type;
 
-        var parts = path.Split(".");
+        var parts = path.Replace("[]", "").Split(".");
         var size = parts.Count();
 
-        if (size == 0)
+        if (size == 1)
         {
-            this.Name = path;
+            this.Name = path.Replace("[]", "");;
+            this.Path = "#";
+            this.Path = string.Empty;
         }
         else 
         {
             this.Name = parts[size-1];
+            this.Path = Path.Replace($".{Name}", "");
+            
         }
-
-        this.Path = path.Replace("[]", "");
     }
 }
 
-public class Profiler
+public class SchemaBuilder
 {
     public ILogger logger { get; set; }
     public Dictionary<string, JTokenType> Tokens { get; set; } = new Dictionary<string, JTokenType>();
+    public List<SchemaBuilderNode> Nodes { get; set; } = new List<SchemaBuilderNode>();
 
-    public Profiler(ILogger logger)
+    public SchemaBuilder(ILogger logger)
     {
         this.logger = logger;
     }
 
     public void Compile()
     {
+        foreach(var keyValue in this.Tokens)
+        {
+            // System.Console.WriteLine($"Key : {keyValue.Key}, Value : {keyValue.Value.ToString()}");
 
+            if (string.IsNullOrWhiteSpace(keyValue.Key) == false)
+            {
+                 this.Nodes.Add(new SchemaBuilderNode(keyValue.Key, keyValue.Value));
+            }    
+        }
+
+        foreach(var node in this.Nodes)
+        {
+            System.Console.WriteLine($"{node.Path} : {node.Name} : {node.Type.ToString()}");
+        }
+
+        JObject root = new JObject();
+
+        var arrayNodes = this.Nodes.Where(x => x.Type.Equals(JTokenType.Array)).ToList();
+        var objectNodes = this.Nodes.Where(x => x.Type.Equals(JTokenType.Object)).ToList();
+
+        foreach(var node in this.Nodes.Where(w => w.Path.Equals(string.Empty)))
+        {
+            if (node.Type != JTokenType.Array)
+                root.Add(new JProperty(node.Name, node.Type.ToString()));
+        }
+
+        System.Console.WriteLine(root.ToString());
     }
 
     public void Parse(string containt)

@@ -33,20 +33,16 @@ var config = new MorphCore.CodeGenerator.Config();
 config.Validate(logger);
 
 // ----------------------------------------------------------------------------------------------------------------
-//      PROFILING
+//      SCHEMA BUILDER
 // ----------------------------------------------------------------------------------------------------------------
 
 try
 {
     var containt = System.IO.File.ReadAllText("mongo.test.json");  
 
-    var profiler = new Profiler(logger);
-    profiler.Parse(containt);
-
-    foreach(var keyValue in profiler.Tokens)
-    {
-        System.Console.WriteLine($"Key : {keyValue.Key}, Value : {keyValue.Value.ToString()}");
-    }
+    var schemaBuilder = new SchemaBuilder(logger);
+    schemaBuilder.Parse(containt);
+    schemaBuilder.Compile();
 }
 catch (System.Exception exp)
 {
