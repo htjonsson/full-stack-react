@@ -42,7 +42,9 @@ try
 
     var schemaBuilder = new SchemaBuilder(logger);
     schemaBuilder.Parse(containt);
-    schemaBuilder.Compile();
+
+    var schemaCompiler = new SchemaCompiler(logger);
+    schemaCompiler.Compile(schemaBuilder.Tokens);
 }
 catch (System.Exception exp)
 {
